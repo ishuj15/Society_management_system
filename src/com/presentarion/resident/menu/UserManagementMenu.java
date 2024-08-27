@@ -1,28 +1,26 @@
-package com.societyManagement.main;
+package com.presentarion.resident.menu;
 
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.Model.User;
 import com.controller.MasterController;
 
-public class ServicesMenu {
+public class UserManagementMenu {
 	 private final MasterController masterController;
 	    private final Scanner scanner;
-	    public ServicesMenu()
+	    static int userId=User.getIdUser();
+	    public UserManagementMenu()
 	    {
 	    	this.masterController = new MasterController();
 	    	this.scanner = new Scanner(System.in);
 	    }
-	    
 	    public void displayMenu() throws SQLException {
 	        while (true) {
 	           
-	            System.out.println("1) Add Services");
-	            System.out.println("2) List Services ");
-	            System.out.println("3) Delete Services");
-	            System.out.println("4) Update Services");
-	            System.out.println("5) Give feedback");
-	            System.out.println("6) Exit");
+	            System.out.println("1) Delete account");
+	            System.out.println("2) Update Account");
+	            System.out.println("3) Exit");
 	          
 	            int choice = scanner.nextInt();
 	            scanner.nextLine(); // Consume newline
@@ -30,19 +28,15 @@ public class ServicesMenu {
 	            switch (choice) {
 	                case 1:
 	                {
-	                    masterController.servicesController.addService();
+	                    masterController.userController.deleteUser(userId);
 	                    break;
 	                }
 	                case 2:
 	                {
-	                	masterController.userController.updateUser();
+	                	masterController.userController.updateUser(userId);
 	                	break;	
 	                }
 	                case 3:
-	                {
-	                	masterController.servicesController.addService();
-	                	break;
-	                }
 	                    return;
 	                default:
 	                    System.out.println("Invalid choice, please try again.");

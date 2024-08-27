@@ -1,25 +1,27 @@
-package com.societyManagement.main;
+package com.presentarion.resident.menu;
 
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.Model.User;
 import com.controller.MasterController;
 
-public class UserManagementMenu {
+public class NoticeMenu {
+
 	 private final MasterController masterController;
 	    private final Scanner scanner;
-	    public UserManagementMenu()
+	    static int userId=User.getIdUser();
+	    public NoticeMenu()
 	    {
 	    	this.masterController = new MasterController();
 	    	this.scanner = new Scanner(System.in);
 	    }
-	    
 	    public void displayMenu() throws SQLException {
 	        while (true) {
+	        	
+	        	System.out.println("1) View Notices");
+	            System.out.println("2) Exit");
 	           
-	            System.out.println("1) Delete account");
-	            System.out.println("2) Update Account");
-	            System.out.println("3) Exit");
 	          
 	            int choice = scanner.nextInt();
 	            scanner.nextLine(); // Consume newline
@@ -27,20 +29,18 @@ public class UserManagementMenu {
 	            switch (choice) {
 	                case 1:
 	                {
-	                    masterController.userController.deleteUser();
+	                	//masterController.noticesController.viewNotice(choice) ;
+	                   
 	                    break;
 	                }
 	                case 2:
 	                {
-	                	masterController.userController.updateUser();
-	                	break;	
+	                	return;
 	                }
-	                case 3:
-	                    return;
+	               
 	                default:
 	                    System.out.println("Invalid choice, please try again.");
 	            }
 	        }
 	    }
-
 }

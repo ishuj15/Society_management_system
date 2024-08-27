@@ -16,7 +16,7 @@ public class UserDAO extends GenericDAO<User> {
     @Override
     protected User mapResultSetToEntity(ResultSet rs) throws SQLException {
         User user = new User();
-        user.setIdUser(rs.getInt("idUser"));
+       user.setIdUser(rs.getInt("idUser"));
         user.setUserName(rs.getString("userName"));
         user.setUserRole(rs.getString("userRole"));
         user.setPassword(rs.getString("password"));

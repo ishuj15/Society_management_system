@@ -1,7 +1,7 @@
 package com.Model;
 
 	public class User {
-	    private int idUser;
+	    private static int idUser;
 	    private String userName;
 	    private String userRole;
 	    private String password;
@@ -10,12 +10,12 @@ package com.Model;
 	    private String address;
 
 	    // Getters and Setters
-	    public int getIdUser() {
+	    public static int getIdUser() {
 	        return idUser;
 	    }
 
 	    public void setIdUser(int idUser) {
-	        this.idUser = idUser;
+	        User.idUser = idUser;
 	    }
 
 	    public String getUserName() {

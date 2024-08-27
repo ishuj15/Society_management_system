@@ -27,6 +27,7 @@ public class Main {
 		}
 		case 2:
 		{
+			userController.login(scanner);
 			//login();
 			break;
 		}

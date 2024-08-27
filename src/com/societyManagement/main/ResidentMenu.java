@@ -3,10 +3,18 @@ package com.societyManagement.main;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.Model.User;
+import com.presentarion.resident.menu.*;
 public class ResidentMenu {
 	private final UserManagementMenu userManagementObj;
 	private final ServicesMenu servicesObj;
+	private final VisitorMenu visitorObj;
+	private final NoticeMenu noticesObj;
+	private final AlertMenu alertObj;
+	private final ComplaintMenu complaintObj;
+	//private final ServicesMenu servicesObj;
        private final Scanner scanner;
+       
 
     public ResidentMenu() {
         this.userManagementObj = new UserManagementMenu();
@@ -37,21 +45,26 @@ public class ResidentMenu {
                 case 2:
                 {
                 	servicesObj.displayMenu();
+                	break;
                 }
                 case 3:
                 {
+                	visitorObj.displayMenu();
                 	break;
                 }
                 case 4:
                 {
+                	noticesObj.displayMenu();
                 	break;
                 }
                 case 5:
                 {
+                	alertObj.displayMenu();
                 	break;
                 }
                 case 6:
                 {
+                	complaintObj.displayMenu() ;
                 	break;
                 }
                 case 7:

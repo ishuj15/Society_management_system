@@ -2,9 +2,12 @@ package com.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.Model.User;
 
 public abstract class GenericDAO<T> {
 	private static final Logger logger = Logger.getLogger(GenericDAO.class.getName());
@@ -12,9 +15,9 @@ public abstract class GenericDAO<T> {
     protected abstract T mapResultSetToEntity(ResultSet rs) throws SQLException;
     protected abstract void mapEntityToStatement(T entity, PreparedStatement stmt) throws SQLException;
 
-    private static final String URL = "jdbc:mysql://localhost:3306/test";
+    private static final String URL = "jdbc:mysql://localhost:33066/test";
     private static final String USER = "root";
-    private static final String PASSWORD = "Newlife15@";
+    private static final String PASSWORD = "root";
 
     protected Connection getConnection() throws SQLException {
     	try {
@@ -28,7 +31,9 @@ public abstract class GenericDAO<T> {
       
     }
     public void addEntity(T entity) throws SQLException {
-        String sql = "INSERT INTO " + getTableName() + " VALUES (?, ?, ...)"; // Dynamic SQL based on fields
+ 
+    	
+        String sql = "INSERT INTO " + getTableName() + " VALUES (?, ?, ?,?,?,?,?)"; // Dynamic SQL based on fields
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             mapEntityToStatement(entity, stmt);
             stmt.executeUpdate();
@@ -38,7 +43,6 @@ public abstract class GenericDAO<T> {
         	throw e;
         }
     }
-
     public T getEntityById(int id) throws SQLException {
         String sql = "SELECT * FROM " + getTableName() + " WHERE id = ?";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -57,6 +61,24 @@ public abstract class GenericDAO<T> {
         }
        
     }
+//    public T getEntityByUserName(String userName) throws SQLException {
+//        String sql = "SELECT * FROM " + getTableName() + " WHERE userName = ?";
+//        try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+//            stmt.setString(1, userName);
+//            ResultSet rs = stmt.executeQuery();
+//            if (rs.next()) {
+//            	 logger.info("Record retrived from the database");
+//                return mapResultSetToEntity(rs);
+//            } else {
+//            	logger.warning("No record found with the provided userName");
+//                return null;	
+//            }
+//        }catch(SQLException e) {
+//        	logger.log(Level.SEVERE, "Failed to retrieve record from the database", e);
+//            throw e;	
+//        }
+//       
+//    }
 
     public List<T> getAllEntities() throws SQLException {
         List<T> entities = new ArrayList<>();

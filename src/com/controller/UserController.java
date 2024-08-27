@@ -17,17 +17,17 @@ public class UserController {
         @SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
         System.out.print("Enter user name: ");
-        String userName = scanner.nextLine();
+        String userName = scanner.nextLine().trim();
         System.out.print("Enter user role: ");
-        String userRole = scanner.nextLine();
+        String userRole = scanner.nextLine().trim();
         System.out.print("Enter password: ");
-        String password = scanner.nextLine();
+        String password = scanner.nextLine().trim();
         System.out.print("Enter phone number: ");
-        String phoneNo = scanner.nextLine();
+        String phoneNo = scanner.nextLine().trim();
         System.out.print("Enter email: ");
-        String email = scanner.nextLine();
+        String email = scanner.nextLine().trim();
         System.out.print("Enter address: ");
-        String address = scanner.nextLine();
+        String address = scanner.nextLine().trim();
 
         User user = new User();
         user.setUserName(userName);
@@ -108,6 +108,7 @@ public void login(Scanner scanner) throws SQLException{
 	        User user = UserService.login(userName, password);
 
 	        if (user != null ) {
+	        	
 	            System.out.println("Login successful! Welcome, " + user.getUserName() + ".");
 	            logger.info("User logged in: " + user.getUserName());
 	            // Proceed to the user's main menu or dashboard

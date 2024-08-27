@@ -14,7 +14,7 @@ public class DbConnection {
                 if (connection == null || connection.isClosed()) {
                     try {
                         Class.forName("com.mysql.cj.jdbc.Driver");
-                        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/booking_management", "root", "Newlife15@");
+                        connection = DriverManager.getConnection("jdbc:mysql://localhost:33066/test", "root", "root");
                     } catch (SQLException e) {
                         // Log the exception with a meaningful message
                         System.err.println("Failed to create the database connection.");
