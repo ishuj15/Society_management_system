@@ -6,9 +6,10 @@ import com.controller.UserController;
  
 public class Main {
 	
-	private static final UserController userController=  new UserController();
+	//private static final UserController userController=  new UserController();
 		public static void main(String[] args) throws ClassNotFoundException, SQLException
 	{
+			
 		String str= """
 				1) Create Account
 				2) Login
@@ -16,25 +17,28 @@ public class Main {
 				""";
 		System.out.println("Welcome to the Society Management Application");
 		System.out.println(str);
+		System.out.println("enter your choice");
+//		while(true)
+//		{
 		Scanner scanner = new Scanner(System.in);
 		int choice = scanner.nextInt();
+		
 		switch(choice)
 		{
 		case 1:
 		{
-			userController.createUser();
+			UserController.createUser();
 			break;
 		}
 		case 2:
 		{
-			userController.login(scanner);
-			//login();
+			UserController.login();
 			break;
-		}
-				
+		}		
 		case 3:
 		{
 			scanner.close();
+			System.exit(0);
 			return;
 		}
 			
@@ -42,7 +46,8 @@ public class Main {
 			System.out.print("Wrong input");		
 		}
 		scanner.close();
-		
+			
+//			}
 	}
 }
 

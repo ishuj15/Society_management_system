@@ -8,14 +8,14 @@ import com.controller.MasterController;
 
 public class VisitorMenu {
 	 private final MasterController masterController;
-	    private final Scanner scanner;
-	    static int userId=User.getIdUser();
+	    private static Scanner scanner;
+	    
 	    public VisitorMenu()
 	    {
 	    	this.masterController = new MasterController();
 	    	this.scanner = new Scanner(System.in);
 	    }
-	    public void displayMenu() throws SQLException {
+	    public void displayMenu(User user) throws SQLException {
 	        while (true) {
 	           
 	            System.out.println("1) Add Visitor");
@@ -28,7 +28,7 @@ public class VisitorMenu {
 	            switch (choice) {
 	                case 1:
 	                {
-	                    masterController.visitorController.createVisitor() ;
+	                   // masterController.visitorController.createVisitor() ;
 	                    break;
 	                }
 	                case 2:

@@ -2,37 +2,76 @@ package com.controller;
 
 import com.Model.User;
 import com.service.UserService;
+import com.societyManagement.main.GuardMenu;
+import com.societyManagement.main.ResidentMenu;
+import com.util.Helper;
+
+import java.io.Console;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+
 public class UserController {
 	private static final Logger logger = Logger.getLogger(UserController.class.getName());
-    private UserService userService = new UserService();
+    private static UserService userService = new UserService();
 
-    public void createUser() throws SQLException {
-
+    public static void createUser() throws SQLException {
+    	String password,userRole,phoneNo;
         @SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
         System.out.print("Enter user name: ");
         String userName = scanner.nextLine().trim();
-        System.out.print("Enter user role: ");
-        String userRole = scanner.nextLine().trim();
+        
+       
+        while(true)
+        {
+        	 System.out.print("Enter user role: ");
+        	 userRole = scanner.nextLine().trim();
+        	if(Helper.isUserRoleValid(userRole.toLowerCase()))
+        		break;
+        	else
+        		System.out.println("Wrong role");
+        	
+        	
+        }
+        
+        while(true) {
         System.out.print("Enter password: ");
-        String password = scanner.nextLine().trim();
-        System.out.print("Enter phone number: ");
-        String phoneNo = scanner.nextLine().trim();
+         password = scanner.nextLine().trim();
+        if (Helper.isPasswordValid(password)) {
+            break;
+        } else {
+            System.out.println("Password does not meet the policy requirements. Please try again.");
+        }
+        }
+       
+       
+        while(true)
+        {
+        	 System.out.print("Enter phone number: ");
+        	phoneNo = scanner.nextLine().trim();
+        	if(Helper.isPhoneNumberValid(phoneNo))
+        		break;
+        	else
+        		System.out.println("Wrong phone number");
+        	
+        }
+         
         System.out.print("Enter email: ");
         String email = scanner.nextLine().trim();
         System.out.print("Enter address: ");
         String address = scanner.nextLine().trim();
-
+        
+        String hashedPassword=Helper.hashPassword(password);
         User user = new User();
         user.setUserName(userName);
         user.setUserRole(userRole);
-        user.setPassword(password);
+        user.setPassword(hashedPassword);
         user.setPhoneNo(phoneNo);
         user.setEmail(email);
         user.setAddress(address);
@@ -63,7 +102,8 @@ public class UserController {
     }
 
     public void updateUser(int idUser) throws SQLException {
-        try (Scanner scanner = new Scanner(System.in)) {
+    	Scanner scanner = new Scanner(System.in);
+       
 			User user = userService.getUserById(idUser);
       if (user != null) {
       System.out.print("Enter new user name: ");
@@ -90,7 +130,7 @@ public class UserController {
    } else {
       System.out.println("User not found!");
    }
-		}
+		
 }
 
 public void deleteUser(int idUser) throws SQLException {
@@ -98,23 +138,49 @@ public void deleteUser(int idUser) throws SQLException {
     userService.deleteUser(idUser);
     System.out.println("User deleted successfully!");
 }
-public void login(Scanner scanner) throws SQLException{
+public static  void login() throws SQLException{
+	
+	
 	try {
+		@SuppressWarnings("resource")
+		Scanner scanner=new Scanner(System.in);
 		 System.out.println("Enter your login details:");
 	        System.out.print("Username: ");
-	        String userName = scanner.nextLine();
-	        System.out.print("Password: ");
-	        String password = scanner.nextLine();
+	        String userName = scanner.nextLine().trim();
+	        System.out.print("Password: ");	 
+	        String password = scanner.nextLine().trim();
 	        User user = UserService.login(userName, password);
 
-	        if (user != null ) {
+	        if (user == null ) {
 	        	
-	            System.out.println("Login successful! Welcome, " + user.getUserName() + ".");
-	            logger.info("User logged in: " + user.getUserName());
-	            // Proceed to the user's main menu or dashboard
+	        	 System.out.println("Invalid username or password. Please try again.");
+		            logger.warning("Failed login attempt for username: " + userName);
+	            
+	           
 	        } else {
-	            System.out.println("Invalid username or password. Please try again.");
-	            logger.warning("Failed login attempt for username: " + userName);
+	        	System.out.println("Login successful! Welcome, " + user.getUserName() + ".");
+	            logger.info("User logged in: " + user.getUserName());
+	           
+	            
+	            if(user.getUserRole().toLowerCase().equals("resident"))
+	            {
+	            	ResidentMenu obj= new ResidentMenu();
+	            	
+	            	obj.displayMenu(user);	
+	            }
+	            else if(user.getUserRole().toLowerCase().equals("guard")) {
+	            	//GuardMenu.displayMenu();
+	            	System.out.println("Guard");
+	            	GuardMenu obj= new GuardMenu();
+	            	obj.displayMenu(user);
+	            	
+	            }
+	            else
+	            {
+	            	System.out.println("admin");
+	            	//AdminMenu.display(); 	
+	            }
+	           
 	        }
 	    } catch (SQLException e) {
 	        logger.log(Level.SEVERE, "Login failed due to a database error", e);
@@ -122,89 +188,18 @@ public void login(Scanner scanner) throws SQLException{
 	
 }
 }
-
-//public class UserController {
-//    private UserService userService;
-//
-//    public UserController(Connection connection) {
-//        this.userService = new UserService(connection);
-//    }
-//
-//    public void addUser(User user) {
-//        try {
-//            userService.addUser(user);
-//            System.out.println("User added successfully.");
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    public User getUserById(int idUser) {
-//        try {
-//            return userService.getUserById(idUser);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-//
-//    public List<User> getAllUsers() {
-//        try {
-//            return userService.getAllUsers();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-//
-//    public void updateUser(User user) {
-//        try {
-//            userService.updateUser(user);
-//            System.out.println("User updated successfully.");
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    public void deleteUser(int idUser) {
-//        try {
-//            userService.deleteUser(idUser);
-//            System.out.println("User deleted successfully.");
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    public static void main(String[] args) {
-//        // Example database connection
-//        String url = "jdbc:mysql://localhost:3306/test";
-//        String user = "root";
-//        String password = "password";
-//        try (Connection connection = DriverManager.getConnection(url, user, password)) {
-//            UserController controller = new UserController(connection);
-//
-//            // Example usage
-//            User newUser = new User();
-//            newUser.setUserName("JohnDoe");
-//            newUser.setUserRole("Admin");
-//            newUser.setPassword("password123");
-//            newUser.setPhoneNo("1234567890");
-//            newUser.setEmail("john.doe@example.com");
-//            newUser.setAddress("123 Main St");
-//            controller.addUser(newUser);
-//
-//            User fetchedUser = controller.getUserById(1);
-//            System.out.println("Fetched User: " + fetchedUser.getUserName());
-//
-//            List<User> users = controller.getAllUsers();
-//            users.forEach(user -> System.out.println("User: " + user.getUserName()));
-//
-//            fetchedUser.setUserRole("User");
-//            controller.updateUser(fetchedUser);
-//
-//            controller.deleteUser(1);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
+//Console console = System.console();
+//if (console == null) {
+//    System.out.println("No console available");
+//   // return null;
 //}
+//String userName = console.readLine("Enter your username: ");
+//char[] inputFromConsole = console.readPassword("Enter your");
+//String password = new String(inputFromConsole);
+// return result;
+
+//Swing
+//JPasswordField passwordField = new JPasswordField(20);
+//JOptionPane.showConfirmDialog(null, passwordField, "Enter your password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+//char[] passwordChars = passwordField.getPassword();
+//String password = new String(passwordChars);

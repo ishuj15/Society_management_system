@@ -9,13 +9,16 @@ import java.util.Scanner;
 
 public class ComplaintController {
     private ComplaintService complaintService = new ComplaintService();
+//	private Object masterController;
+    
 
-    public void createComplaint() throws SQLException {
+    public void createComplaint(Complaint complaint) throws SQLException {
+    	
         @SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter user ID: ");
-        int userId = scanner.nextInt();
-        scanner.nextLine(); // consume newline
+//        System.out.print("Enter user ID: ");
+//        int userId = scanner.nextInt();
+       // scanner.nextLine(); // consume newline
         System.out.print("Enter complaint description: ");
         String description = scanner.nextLine();
         System.out.print("Enter complaint date (yyyy-mm-dd): ");
@@ -23,8 +26,9 @@ public class ComplaintController {
         System.out.print("Enter complaint status: ");
         String status = scanner.nextLine();
 
-        Complaint complaint = new Complaint();
-        complaint.setUserId(userId);
+       // Complaint complaint = new Complaint();
+        //System.out.println(complaint.getUserId());
+        complaint.setUserId(complaint.getUserId());
         complaint.setDescription(description);
         complaint.setDate(java.sql.Date.valueOf(dateStr));
         complaint.setStatus(status);
@@ -33,17 +37,30 @@ public class ComplaintController {
         System.out.println("Complaint created successfully!");
     }
 
-    public void viewComplaint(int idComplaint) throws SQLException {
-        Complaint complaint = complaintService.getComplaintById(idComplaint);
-        if (complaint != null) {
-            System.out.println("Complaint ID: " + complaint.getIdComplaint());
-            System.out.println("User ID: " + complaint.getUserId());
-            System.out.println("Description: " + complaint.getDescription());
-            System.out.println("Date: " + complaint.getDate());
-            System.out.println("Status: " + complaint.getStatus());
-        } else {
-            System.out.println("Complaint not found!");
-        }
+    public void viewComplaint(int userId) throws SQLException {
+    	 List<Complaint> complaints = complaintService.getComplaintById(userId);
+         if (complaints.isEmpty()) {
+             System.out.println("No complaints found!");
+         } else {
+             for (Complaint complaint : complaints) {
+                 System.out.println("Complaint ID: " + complaint.getIdComplaint());
+                 System.out.println("Description: " + complaint.getDescription());
+                 System.out.println("Date: " + complaint.getDate());
+                 System.out.println("Status: " + complaint.getStatus());
+                 System.out.println("-----");
+             }
+         
+      }
+//        Complaint complaint = complaintService.getComplaintById(idComplaint);
+//        if (complaint != null) {
+//            System.out.println("Complaint ID: " + complaint.getIdComplaint());
+//            System.out.println("User ID: " + complaint.getUserId());
+//            System.out.println("Description: " + complaint.getDescription());
+//            System.out.println("Date: " + complaint.getDate());
+//            System.out.println("Status: " + complaint.getStatus());
+//        } else {
+//            System.out.println("Complaint not found!");
+//        }
     }
 
     public void listComplaints() throws SQLException {

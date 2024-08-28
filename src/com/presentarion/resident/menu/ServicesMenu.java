@@ -3,18 +3,21 @@ package com.presentarion.resident.menu;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.Model.Services;
+import com.Model.User;
 import com.controller.MasterController;
 
 public class ServicesMenu {
 	 private final MasterController masterController;
-	    private final Scanner scanner;
+	 private final Services service = new Services();
+	    private static Scanner scanner;
 	    public ServicesMenu()
 	    {
 	    	this.masterController = new MasterController();
 	    	this.scanner = new Scanner(System.in);
 	    }
 	    
-	    public void displayMenu() throws SQLException {
+	    public void displayMenu(User user) throws SQLException {
 	        while (true) {
 	           
 	            System.out.println("1) Add Services");
@@ -29,7 +32,7 @@ public class ServicesMenu {
 	            switch (choice) {
 	                case 1:
 	                {
-	                   masterController.servicesController.createService();
+	                   masterController.servicesController.createService(service);
 	                    break;
 	                }
 	                case 2:

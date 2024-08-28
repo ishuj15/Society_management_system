@@ -6,31 +6,45 @@ import java.util.Scanner;
 import com.Model.User;
 import com.presentarion.resident.menu.*;
 public class ResidentMenu {
-	private final UserManagementMenu userManagementObj;
-	private final ServicesMenu servicesObj;
-	private final VisitorMenu visitorObj;
-	private final NoticeMenu noticesObj;
-	private final AlertMenu alertObj;
-	private final ComplaintMenu complaintObj;
-	//private final ServicesMenu servicesObj;
-       private final Scanner scanner;
+private static Scanner scanner =new Scanner(System.in);
+//User user;
+private UserManagementMenu userManagementObj;
+private VisitorMenu visitorMenuObj;
+private ServicesMenu servicesMenuObj;
+private AlertMenu alertMenuObj;
+private NoticeMenu noticesMenuObj;
+private ComplaintMenu complaintMenuObj;
        
 
-    public ResidentMenu() {
-        this.userManagementObj = new UserManagementMenu();
+   public ResidentMenu() {
+       this.userManagementObj = new UserManagementMenu();
+       this.servicesMenuObj = new ServicesMenu();
+       this.visitorMenuObj = new VisitorMenu();
+       this.noticesMenuObj = new NoticeMenu();
+       this.alertMenuObj = new AlertMenu();
+       this.complaintMenuObj = new ComplaintMenu();
+       
         this.scanner = new Scanner(System.in);
+        //this.user= new User();
     }
 
-    public void displayMenu() throws SQLException {
+    public   void displayMenu(User user) throws SQLException {
+    	//this.user=user;
+    	//User user=user;
         while (true) {
-            System.out.println("Resident Options:");
-            System.out.println("1) User Management");
-            System.out.println("2) Services");
-            System.out.println("3) Visitor Management");
-            System.out.println("4) Notices");
-            System.out.println("5) Alert");
-            System.out.println("6) Complaints");
-            System.out.println("7) Exit");
+        	String str= """
+        			Resident Options:
+        			 1) User Management
+        			 2) Services
+        			 3) Visitor Management
+        			 4) Notices
+        			 5) Alert
+        			 6) Complaints
+        			 7) Exit
+    				 """;
+           
+            System.out.println(str);
+            System.out.println("Enter your choice");
             
 
             int choice = scanner.nextInt();
@@ -39,32 +53,32 @@ public class ResidentMenu {
             switch (choice) {
                 case 1:
                 {
-                    userManagementObj.displayMenu();
+                    userManagementObj.displayMenu(user);
                     break;
                 }
                 case 2:
                 {
-                	servicesObj.displayMenu();
+                	servicesMenuObj.displayMenu(user);
                 	break;
                 }
                 case 3:
                 {
-                	visitorObj.displayMenu();
+                	visitorMenuObj.displayMenu(user);
                 	break;
                 }
                 case 4:
                 {
-                	noticesObj.displayMenu();
+                	noticesMenuObj.displayMenu(user);
                 	break;
                 }
                 case 5:
                 {
-                	alertObj.displayMenu();
+                	alertMenuObj.displayMenu(user);
                 	break;
                 }
                 case 6:
                 {
-                	complaintObj.displayMenu() ;
+                	complaintMenuObj.displayMenu(user) ;
                 	break;
                 }
                 case 7:

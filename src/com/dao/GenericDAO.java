@@ -1,5 +1,6 @@
 package com.dao;
 
+import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.Model.User;
+//import com.mysql.cj.result.Field;
 
 public abstract class GenericDAO<T> {
 	private static final Logger logger = Logger.getLogger(GenericDAO.class.getName());
@@ -30,21 +32,48 @@ public abstract class GenericDAO<T> {
     	}
       
     }
+    
     public void addEntity(T entity) throws SQLException {
- 
-    	
-        String sql = "INSERT INTO " + getTableName() + " VALUES (?, ?, ?,?,?,?,?)"; // Dynamic SQL based on fields
-        try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+    	Class<?> clazz = entity.getClass();
+        Field[] fields = clazz.getDeclaredFields();
+        
+        // Build the SQL query dynamically
+        StringBuilder sql = new StringBuilder("INSERT INTO " + getTableName() + " (");
+        StringBuilder placeholders = new StringBuilder("VALUES (");
+        
+        for (Field field : fields) {
+            sql.append(field.getName()).append(", ");
+            placeholders.append("?, ");
+        }
+        
+        // Remove the last comma and space
+        sql.setLength(sql.length() - 2);
+        placeholders.setLength(placeholders.length() - 2);
+        
+        sql.append(") ").append(placeholders).append(")");
+        
+        try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
             mapEntityToStatement(entity, stmt);
             stmt.executeUpdate();
             logger.info("Record added to the database");
-        }catch(SQLException e) {
-        	logger.log(Level.SEVERE,"Failed to add record to the database",e);
-        	throw e;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Failed to add record to the database", e);
+            throw e;
         }
+ 
+    	
+//        String sql = "INSERT INTO " + getTableName() + " VALUES (?, ...)"; // Dynamic SQL based on fields
+//        try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+//            mapEntityToStatement(entity, stmt);
+//            stmt.executeUpdate();
+//            logger.info("Record added to the database");
+//        }catch(SQLException e) {
+//        	logger.log(Level.SEVERE,"Failed to add record to the database",e);
+//        	throw e;
+//        }
     }
     public T getEntityById(int id) throws SQLException {
-        String sql = "SELECT * FROM " + getTableName() + " WHERE id = ?";
+        String sql = "SELECT * FROM " + getTableName() + " WHERE idUser = ?";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -61,24 +90,24 @@ public abstract class GenericDAO<T> {
         }
        
     }
-//    public T getEntityByUserName(String userName) throws SQLException {
-//        String sql = "SELECT * FROM " + getTableName() + " WHERE userName = ?";
-//        try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-//            stmt.setString(1, userName);
-//            ResultSet rs = stmt.executeQuery();
-//            if (rs.next()) {
-//            	 logger.info("Record retrived from the database");
-//                return mapResultSetToEntity(rs);
-//            } else {
-//            	logger.warning("No record found with the provided userName");
-//                return null;	
-//            }
-//        }catch(SQLException e) {
-//        	logger.log(Level.SEVERE, "Failed to retrieve record from the database", e);
-//            throw e;	
-//        }
-//       
-//    }
+    public T getEntityByUserName(String userName) throws SQLException {
+        String sql = "SELECT * FROM " + getTableName() + " WHERE userName = ?";
+        try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, userName);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+            	 logger.info("Record retrived from the database");
+                return mapResultSetToEntity(rs);
+            } else {
+            	logger.warning("No record found with the provided userName");
+                return null;	
+            }
+        }catch(SQLException e) {
+        	logger.log(Level.SEVERE, "Failed to retrieve record from the database", e);
+            throw e;	
+        }
+       
+    }
 
     public List<T> getAllEntities() throws SQLException {
         List<T> entities = new ArrayList<>();
@@ -97,7 +126,7 @@ public abstract class GenericDAO<T> {
     }
 
     public void updateEntity(T entity, int id) throws SQLException {
-        String sql = "UPDATE " + getTableName() + " SET ... WHERE id = ?"; // Update based on fields
+        String sql = "UPDATE " + getTableName() + " SET ... WHERE idUser = ?"; // Update based on fields
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             mapEntityToStatement(entity, stmt);
             stmt.setInt( /* last parameter */1, id);
@@ -110,8 +139,9 @@ public abstract class GenericDAO<T> {
     }
 
     public void deleteEntity(int id) throws SQLException {
-        String sql = "DELETE FROM " + getTableName() + " WHERE id = ?";
+        String sql = "DELETE FROM " + getTableName() + " WHERE idUser = ?";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+        
             stmt.setInt(1, id);
             stmt.executeUpdate();
             logger.info("Record deleted from the database");

@@ -2,14 +2,14 @@ package com.Model;
 import java.sql.Date;
 
 public class Complaint {
-    private static int idComplaint;
+    private  int idComplaint;
     private int userId;
     private String description;
     private Date date;
     private String status;
 
     // Getters and Setters
-    public static int getIdComplaint() {
+    public  int getIdComplaint() {
         return idComplaint;
     }
 

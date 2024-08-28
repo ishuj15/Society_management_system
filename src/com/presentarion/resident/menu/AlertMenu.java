@@ -8,14 +8,14 @@ import com.controller.MasterController;
 
 public class AlertMenu {
 	 private final MasterController masterController;
-	    private final Scanner scanner;
-	    static int userId=User.getIdUser();
+	    private static Scanner scanner;
+	   
 	    public AlertMenu()
 	    {
 	    	this.masterController = new MasterController();
 	    	this.scanner = new Scanner(System.in);
 	    }
-	    public void displayMenu() throws SQLException {
+	    public void displayMenu(User user) throws SQLException {
 	        while (true) {
 	           
 	            System.out.println("1) View Alerts");

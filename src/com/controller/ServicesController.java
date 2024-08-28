@@ -3,6 +3,7 @@ package com.controller;
 import com.Model.Services;
 import com.service.ServicesService;
 
+import java.security.Provider.Service;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
@@ -11,19 +12,19 @@ public class ServicesController {
 
     private final ServicesService servicesService = new ServicesService();
 
-    public void createService() throws SQLException {
+    public void createService(Services service) throws SQLException {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter service name: ");
         String name = scanner.nextLine();
         System.out.print("Enter service description: ");
         String description = scanner.nextLine();
-        System.out.print("Enter service date (yyyy-mm-dd): ");
-        String dateStr = scanner.nextLine();
+//        System.out.print("Enter service date (yyyy-mm-dd): ");
+//        String dateStr = scanner.nextLine();
 
-        Services service = new Services();
+        //Services service = new Services();
         service.setServiceName(name);
         service.setDescription(description);
-    //    service.setDate(java.sql.Date.valueOf(dateStr));
+      //service.setDate(java.sql.Date.valueOf(dateStr));
 
         servicesService.addService(service);
         System.out.println("Service created successfully!");

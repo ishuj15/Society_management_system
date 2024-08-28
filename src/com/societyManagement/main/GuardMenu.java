@@ -3,17 +3,32 @@ package com.societyManagement.main;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class GuardMenu {
+import com.Model.User;
+import com.presentarion.resident.menu.AlertMenu;
+import com.presentarion.resident.menu.ComplaintMenu;
+import com.presentarion.resident.menu.NoticeMenu;
+import com.presentarion.resident.menu.UserManagementMenu;
+import com.presentation.guard.menu.AttendanceMenu;
+import com.presentation.guard.menu.VisitorMenu;
 
-    private final GuardController guardController;
+
+public class GuardMenu {
+	private VisitorMenu visitorMenuObj;
     private final Scanner scanner;
+    private NoticeMenu noticesMenuObj;
+    private UserManagementMenu userManagementObj;
+    private ComplaintMenu complaintMenuObj;
+    private AlertMenu alertMenuObj;
+    private AttendanceMenu attendanceMenuObj;
 
     public GuardMenu() {
-        this.guardController = new GuardController();
+    	 this.userManagementObj = new UserManagementMenu();
+    	 this.visitorMenuObj = new VisitorMenu();
+         this.noticesMenuObj = new NoticeMenu();
         this.scanner = new Scanner(System.in);
     }
 
-    public void displayMenu() throws SQLException {
+    public void displayMenu(User user) throws SQLException {
         while (true) {
             System.out.println("Guard Options:");
             System.out.println("1) Profile Management");
@@ -24,15 +39,41 @@ public class GuardMenu {
             System.out.println("6) Complaints");
             System.out.println("7) Exit");
             
-
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine(); 
 
             switch (choice) {
                 case 1:
-                    guardController.viewAttendance();
+                {
+                    userManagementObj.displayMenu(user);
                     break;
+                }
                 case 2:
+                {
+                	attendanceMenuObj.displayMenu(user);
+                	break;
+                }
+                case 3:
+                {
+                	alertMenuObj.displayMenu(user);
+                	break;
+                }
+                case 4:
+                {
+                	noticesMenuObj.displayMenu(user);
+                	break;
+                }
+                case 5:
+                {
+                	visitorMenuObj.displayMenu(user);
+                	break;
+                }
+                case 6:
+                {
+                	complaintMenuObj.displayMenu(user);
+                	break;
+                }
+                case 7:
                     return;
                 default:
                     System.out.println("Invalid choice, please try again.");

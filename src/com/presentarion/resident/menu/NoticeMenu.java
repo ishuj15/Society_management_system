@@ -9,14 +9,14 @@ import com.controller.MasterController;
 public class NoticeMenu {
 
 	 private final MasterController masterController;
-	    private final Scanner scanner;
-	    static int userId=User.getIdUser();
+	    private static Scanner scanner;
+	    
 	    public NoticeMenu()
 	    {
 	    	this.masterController = new MasterController();
 	    	this.scanner = new Scanner(System.in);
 	    }
-	    public void displayMenu() throws SQLException {
+	    public void displayMenu(User user) throws SQLException {
 	        while (true) {
 	        	
 	        	System.out.println("1) View Notices");
@@ -29,8 +29,7 @@ public class NoticeMenu {
 	            switch (choice) {
 	                case 1:
 	                {
-	                	//masterController.noticesController.viewNotice(choice) ;
-	                   
+	                	masterController.noticesController.listNotices() ; 
 	                    break;
 	                }
 	                case 2:
