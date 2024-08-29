@@ -28,12 +28,12 @@ public class VisitorMenu {
 	            switch (choice) {
 	                case 1:
 	                {
-	                   // masterController.visitorController.createVisitor() ;
+	                   masterController.visitorController.createVisitor() ;
 	                    break;
 	                }
 	                case 2:
 	                {
-	                	//masterController.visitorController.viewVisitor(choice) ;
+	                	masterController.visitorController.listVisitors() ;
 	                	break;	
 	                }
 	                case 3:

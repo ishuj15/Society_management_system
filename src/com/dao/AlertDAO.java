@@ -22,12 +22,17 @@ public class AlertDAO extends GenericDAO<Alert> {
         return alert;
     }
 
-    @Override
     protected void mapEntityToStatement(Alert alert, PreparedStatement stmt) throws SQLException {
         stmt.setInt(1, alert.getIdAlert());
         stmt.setString(2, alert.getMessage());
         stmt.setDate(3, alert.getDate());
     }
+
+	@Override
+	protected String getIdColumn() {
+		// TODO Auto-generated method stub
+		return "idAlert";
+	}
 }
 
 

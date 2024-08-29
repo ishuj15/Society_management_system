@@ -43,7 +43,7 @@ public class AccontManagementAdmin {
 	          }
 	          case 2:
 	          {
-	        	  masterController.userController.deleteUser(user.getIdUser());
+	        	  //masterController.userController.deleteUser(user.getIdUser());
 	        	  break;
 	          }
 	          case 3:

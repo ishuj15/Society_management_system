@@ -43,6 +43,8 @@ public class NoticesController {
 
     public void listNotices() throws SQLException {
         List<Notices> notices = noticesService.getAllNotices();
+        if(notices==null)
+        	System.out.println("No notices found");
         for (Notices notice : notices) {
             System.out.println("Notice ID: " + notice.getIdNotices() + ", Title: " + notice.getTitle() + ", Message: " + notice.getMessage() + ", Date: " + notice.getDate());
         }

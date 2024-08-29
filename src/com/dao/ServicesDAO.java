@@ -24,7 +24,6 @@ public class ServicesDAO extends GenericDAO<Services> {
         return service;
     }
 
-    @Override
     protected void mapEntityToStatement(Services service, PreparedStatement stmt) throws SQLException {
         stmt.setInt(1, service.getIdServices());
         stmt.setInt(2, service.getUserId());
@@ -32,4 +31,10 @@ public class ServicesDAO extends GenericDAO<Services> {
         stmt.setString(4, service.getDescription());
         stmt.setString(5, service.getStatus());
     }
+
+	@Override
+	protected String getIdColumn() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

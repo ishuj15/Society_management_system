@@ -39,7 +39,7 @@ public class ComplaintMenu {
 	                }
 	                case 2:
 	                {
-	                	masterController.complaintController.viewComplaint(complaint.getUserId(),complaint);
+	                	masterController.complaintController.listComplaints();
 	                	break;
 	                }
 	                case 3:

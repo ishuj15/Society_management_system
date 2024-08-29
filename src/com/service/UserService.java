@@ -15,7 +15,9 @@ public class UserService {
     private static UserDAO userDAO = new UserDAO();
    
     private static boolean verifyPassword(String enteredPassword, String storedHashedPassword) {
-        String hashedEnteredPassword = Helper.hashPassword(enteredPassword);
+//    	 byte[] salt = Helper.generateSalt();
+//        String hashedEnteredPassword = Helper.hashPassword(enteredPassword,salt);
+    	String hashedEnteredPassword = Helper.hashPassword(enteredPassword);
         System.out.println(hashedEnteredPassword);
         System.out.println(storedHashedPassword);
         System.out.println(hashedEnteredPassword.equals(storedHashedPassword));

@@ -1,7 +1,9 @@
 package com.controller;
 
 import com.Model.User;
+import com.dao.GenericDAO;
 import com.service.UserService;
+import com.societyManagement.main.AdminMenu;
 import com.societyManagement.main.GuardMenu;
 import com.societyManagement.main.ResidentMenu;
 import com.util.Helper;
@@ -21,11 +23,25 @@ public class UserController {
     private static UserService userService = new UserService();
 
     public static void createUser() throws SQLException {
-    	String password,userRole,phoneNo;
+    	String password,userRole,phoneNo,email,userName;
         @SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
+        while(true)
+        {
         System.out.print("Enter user name: ");
-        String userName = scanner.nextLine().trim();
+         userName = scanner.nextLine().trim();
+        if(Helper.isUsernameValid(userName) && !GenericDAO.isUsernameTaken(userName) )
+        {
+        	break;
+        }
+        	
+        else
+        {
+        	System.out.println("username already taken");
+        	System.out.println("Please try again");
+        }
+        	
+        }
         
        
         while(true)
@@ -61,13 +77,23 @@ public class UserController {
         		System.out.println("Wrong phone number");
         	
         }
-         
-        System.out.print("Enter email: ");
-        String email = scanner.nextLine().trim();
+         while(true)
+         {
+        	 System.out.print("Enter email: ");
+              email = scanner.nextLine().trim();
+              if(Helper.isEmailValid(email))
+            	  break;
+              else
+          		System.out.println("Wrong email format");
+              
+         }
+       
         System.out.print("Enter address: ");
         String address = scanner.nextLine().trim();
-        
-        String hashedPassword=Helper.hashPassword(password);
+//        byte[] salt = Helper.generateSalt();
+//        String hashedPassword=Helper.hashPassword(password,salt);
+       
+        String hashedPassword = Helper.hashPassword(password);
         User user = new User();
         user.setUserName(userName);
         user.setUserRole(userRole);
@@ -169,7 +195,8 @@ public static  void login() throws SQLException{
 	            	obj.displayMenu(user);	
 	            }
 	            else if(user.getUserRole().toLowerCase().equals("guard")) {
-	            	//GuardMenu.displayMenu();
+	            	GuardMenu guardMenu =new GuardMenu();
+	            	guardMenu.displayMenu(user);
 	            	System.out.println("Guard");
 	            	GuardMenu obj= new GuardMenu();
 	            	obj.displayMenu(user);
@@ -178,7 +205,9 @@ public static  void login() throws SQLException{
 	            else
 	            {
 	            	System.out.println("admin");
-	            	//AdminMenu.display(); 	
+	            	AdminMenu adminMenuObj= new AdminMenu();
+	            	
+	            	adminMenuObj.displayMenu(user); 	
 	            }
 	           
 	        }

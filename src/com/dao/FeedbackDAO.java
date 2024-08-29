@@ -24,7 +24,6 @@ public class FeedbackDAO extends GenericDAO<Feedback> {
         return feedback;
     }
 
-    @Override
     protected void mapEntityToStatement(Feedback feedback, PreparedStatement stmt) throws SQLException {
         stmt.setInt(1, feedback.getIdFeedback());
         stmt.setInt(2, feedback.getRating());
@@ -32,6 +31,12 @@ public class FeedbackDAO extends GenericDAO<Feedback> {
         stmt.setDate(4, feedback.getDate());
         stmt.setInt(5, feedback.getUserId());
     }
+
+	@Override
+	protected String getIdColumn() {
+		// TODO Auto-generated method stub
+		return "idFeedback";
+	}
 }
 
 //package com.dao;

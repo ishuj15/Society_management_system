@@ -26,8 +26,7 @@ public class UserDAO extends GenericDAO<User> {
         return user;
     }
 
-    @Override
-	public void mapEntityToStatement(User user, PreparedStatement stmt) throws SQLException {
+    public void mapEntityToStatement(User user, PreparedStatement stmt) throws SQLException {
         stmt.setInt(1,     user.getIdUser());
         stmt.setString(2, user.getUserName());
         stmt.setString(3, user.getUserRole());
@@ -36,5 +35,12 @@ public class UserDAO extends GenericDAO<User> {
         stmt.setString(6, user.getEmail());
         stmt.setString(7, user.getAddress());
     }
+
+	@Override
+	protected String getIdColumn() {
+		// TODO Auto-generated method stub
+		return "idUser";
+	}
+	
 
 }

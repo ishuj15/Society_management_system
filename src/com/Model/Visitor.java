@@ -1,6 +1,8 @@
 package com.Model;
 
+import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalTime;
 
 public class Visitor {
     private int idVisitor;
@@ -9,6 +11,7 @@ public class Visitor {
     private String purpose;
     private Time arrivalTime;
     private Time departureTime;
+    private Date date;
 
     // Getters and Setters
     public int getIdVisitor() {
@@ -43,20 +46,27 @@ public class Visitor {
         this.purpose = purpose;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    
     public Time getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(Time arrivalTime) {
-        this.arrivalTime = arrivalTime;
+    public void setArrivalTime(Time time) {
+        this.arrivalTime = time;
     }
 
     public Time getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Time departureTime) {
-        this.departureTime = departureTime;
-    }
+    public void setDepartureTime(Time time) {
+        this.departureTime = time;
+    } 
 }
-

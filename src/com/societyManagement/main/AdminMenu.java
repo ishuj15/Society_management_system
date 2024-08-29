@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.Model.User;
-import com.presentation.admin.NoticeManagementAdmin;
+import com.presentation.admin.menu.NoticeManagementAdmin;
 import com.presentation.admin.menu.AccontManagementAdmin;
 import com.presentation.admin.menu.AlertManagementAdmin;
 import com.presentation.admin.menu.AttendanceManagementAdmin;
@@ -30,6 +30,14 @@ public class AdminMenu {
     public AdminMenu() {
        // this.adminController = new AdminController();
         this.scanner = new Scanner(System.in);
+        this.accountManage= new AccontManagementAdmin();
+        this.noticeManage= new NoticeManagementAdmin();
+        this.alertManage= new AlertManagementAdmin();
+        this.visitorManage= new VisitorManagementAdmin();
+        this.servicesManage= new ServicesManagementAdmin();
+        this.complaintManage= new ComplaintManagementAdmin();
+        this.attendanceManage= new AttendanceManagementAdmin();
+        
     }
 
     public void displayMenu(User user) throws SQLException {

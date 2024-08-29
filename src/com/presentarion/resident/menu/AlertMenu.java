@@ -27,7 +27,7 @@ public class AlertMenu {
 	            switch (choice) {
 	                case 1:
 	                {
-	                    //masterController.alertController.viewAlert(choice) ;
+	                    masterController.alertController.listAlerts() ;
 	                    break;
 	                }
 	                

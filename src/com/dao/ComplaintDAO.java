@@ -27,7 +27,6 @@ public class ComplaintDAO extends GenericDAO<Complaint> {
         return complaint;
     }
 
-    @Override
     protected void mapEntityToStatement(Complaint complaint, PreparedStatement stmt) throws SQLException {
         stmt.setInt(1, complaint.getIdComplaint());
         stmt.setInt(2, complaint.getUserId());
@@ -35,16 +34,22 @@ public class ComplaintDAO extends GenericDAO<Complaint> {
         stmt.setDate(4, new java.sql.Date(complaint.getDate().getTime()));
         stmt.setString(5, complaint.getStatus());
     }
-    public List<Complaint> getComplaintsByUserId(int userId) throws SQLException {
-        List<Complaint> complaints = new ArrayList<>();
-        String sql = "SELECT * FROM " + getTableName() + " WHERE userId = ?";
-        try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                complaints.add(mapResultSetToEntity(rs));
-            }
-        }
-        return complaints;
-    }
+//    public List<Complaint> getComplaintsByUserId(int userId) throws SQLException {
+//        List<Complaint> complaints = new ArrayList<>();
+//        String sql = "SELECT * FROM " + getTableName() + " WHERE userId = ?";
+//        try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+//            stmt.setInt(1, userId);
+//            ResultSet rs = stmt.executeQuery();
+//            while (rs.next()) {
+//                complaints.add(mapResultSetToEntity(rs));
+//            }
+//        }
+//        return complaints;
+//    }
+
+	@Override
+	protected String getIdColumn() {
+		// TODO Auto-generated method stub
+		return "idComplaint";
+	}
 }

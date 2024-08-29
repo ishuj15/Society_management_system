@@ -23,13 +23,18 @@ public  class AttendanceDAO extends GenericDAO<Attendance> {
         return attendance;
     }
 
-    @Override
     protected void mapEntityToStatement(Attendance attendance, PreparedStatement stmt) throws SQLException {
         stmt.setInt(1, attendance.getIdAttendance());
         stmt.setInt(2, attendance.getUserId());
         stmt.setString(3, attendance.getStatus());
         stmt.setDate(4, attendance.getDate());
     }
+
+	@Override
+	protected String getIdColumn() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
 

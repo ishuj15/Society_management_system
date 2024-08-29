@@ -3,10 +3,33 @@ package com.util;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Base64;
+import java.util.regex.Matcher;
 //import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Helper {
+	private static final int SALT_LENGTH = 16;
+
 	public static String hashPassword(String password) {
+//		 try {
+//	            // Combine salt and password
+//	            String saltedPassword = Base64.getEncoder().encodeToString(salt) + password;
+//
+//	            // Hash the combined salt and password
+//	            MessageDigest md = MessageDigest.getInstance("SHA-256");
+//	            byte[] hashBytes = md.digest(saltedPassword.getBytes(StandardCharsets.UTF_8));
+//	            StringBuilder sb = new StringBuilder();
+//	            for (byte b : hashBytes) {
+//	                sb.append(String.format("%02x", b));
+//	            }
+//
+//	            // Encode the hash to a string
+//	            return sb.toString();
+//	        } catch (NoSuchAlgorithmException e) {
+//	            throw new RuntimeException(e);
+//	        }
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] hashBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
@@ -19,6 +42,12 @@ public class Helper {
             throw new RuntimeException(e);
         }
     }
+//	public static byte[] generateSalt() {
+//        SecureRandom sr = new SecureRandom();
+//        byte[] salt = new byte[SALT_LENGTH];
+//        sr.nextBytes(salt);
+//        return salt;
+//    }
 	 public static  boolean isPasswordValid(String password) {
 	        // Implement password policy validation here
 	        if (password.length() < 8) {
@@ -50,9 +79,79 @@ public class Helper {
 
 	    public static  boolean isUserRoleValid(String userRole) {
 	        // The role should be one of the predefined roles
-	        return userRole.equals("resident") || userRole.equals("guard") || userRole.equals("admin");
+	        return userRole.equals("resident") || userRole.equals("guard") ;
 	    }
-//	    public  static String readPassword(Scanner scanner) {
+	    public static boolean isEmailValid(String email) {
+	        // Check if the email is null or empty
+	        if (email == null || email.trim().isEmpty()) {
+	            System.out.println("Email cannot be null or empty.");
+	            return false;
+	        }
+
+	        // Check for the presence of the '@' symbol
+	        int atIndex = email.indexOf('@');
+	        if (atIndex == -1) {
+	            System.out.println("Email must contain '@' symbol.");
+	            return false;
+	        }
+
+	        // Split the email into local part and domain part
+	        String localPart = email.substring(0, atIndex);
+	        String domainPart = email.substring(atIndex + 1);
+
+	        // Check if both local part and domain part are non-empty
+	        if (localPart.isEmpty() || domainPart.isEmpty()) {
+	            System.out.println("Email must contain both local and domain parts.");
+	            return false;
+	        }
+
+	        // Check for the presence of a period in the domain part
+	        int dotIndex = domainPart.indexOf('.');
+	        if (dotIndex == -1 || dotIndex == domainPart.length() - 1) {
+	            System.out.println("Domain part must contain a period and a valid top-level domain.");
+	            return false;
+	        }
+
+	        // Optional: Check for invalid characters
+	        for (char ch : email.toCharArray()) {
+	            if (!Character.isLetterOrDigit(ch) && ch != '@' && ch != '.' && ch != '_' && ch != '-') {
+	                System.out.println("Email contains invalid characters.");
+	                return false;
+	            }
+	        }
+
+	        return true;
+	    }
+	    public static boolean isUsernameValid(String username) {
+	        // Check if the username is null or empty
+	        if (username == null || username.trim().isEmpty()) {
+	            System.out.println("Username cannot be null or empty.");
+	            return false;
+	        }
+
+	        // Check the length of the username
+	        if (username.length() < 3 || username.length() > 15) {
+	            System.out.println("Username must be between 3 and 15 characters long.");
+	            return false;
+	        }
+
+	        // Check for invalid characters
+	        for (char ch : username.toCharArray()) {
+	            if (!Character.isLetterOrDigit(ch) && ch != '_' && ch != '-') {
+	                System.out.println("Username can only contain letters, digits, underscores, and hyphens.");
+	                return false;
+	            }
+	        }
+
+	        // Check if the username starts with a letter
+	        if (!Character.isLetter(username.charAt(0))) {
+	            System.out.println("Username must start with a letter.");
+	            return false;
+	        }
+
+	        return true;
+	    }
+	    //	    public  static String readPassword(Scanner scanner) {
 //	        StringBuilder password = new StringBuilder();
 //	        while (true) {
 //	            char input = scanner.next().charAt(0);
