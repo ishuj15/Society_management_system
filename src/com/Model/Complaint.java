@@ -2,27 +2,27 @@ package com.Model;
 import java.sql.Date;
 
 public class Complaint {
-    private  int idComplaint;
-    private int userId;
+    private  String idComplaint;
+    private String userId;
     private String description;
     private Date date;
     private String status;
 
     // Getters and Setters
-    public  int getIdComplaint() {
+    public  String getIdComplaint() {
         return idComplaint;
     }
 
-    public void setIdComplaint(int idComplaint) {
+    public void setIdComplaint(String idComplaint) {
         this.idComplaint = idComplaint;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserId(String userId2) {
+        this.userId = userId2;
     }
 
     public String getDescription() {

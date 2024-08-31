@@ -2,32 +2,16 @@ package com.societyManagement.main;
 
 import java.sql.SQLException;
 import java.util.Scanner;
-
 import com.Model.User;
-import com.presentarion.resident.menu.AlertMenu;
-import com.presentarion.resident.menu.ComplaintMenu;
-import com.presentarion.resident.menu.NoticeMenu;
-import com.presentarion.resident.menu.UserManagementMenu;
-import com.presentation.guard.menu.AttendanceMenu;
-import com.presentation.guard.menu.VisitorMenu;
-
+import com.presentation.guard.menu.GuardController;
 
 public class GuardMenu {
-	private VisitorMenu visitorMenuObj;
-    private final Scanner scanner;
-    private NoticeMenu noticesMenuObj;
-    private UserManagementMenu userManagementObj;
-    private ComplaintMenu complaintMenuObj;
-    private AlertMenu alertMenuObj;
-    private AttendanceMenu attendanceMenuObj;
-
+	private Scanner scanner;
+	private GuardController guardController;
     public GuardMenu() {
-    	 this.userManagementObj = new UserManagementMenu();
-    	 this.visitorMenuObj = new VisitorMenu();
-         this.noticesMenuObj = new NoticeMenu();
+    	
         this.scanner = new Scanner(System.in);
     }
-
     public void displayMenu(User user) throws SQLException {
         while (true) {
             System.out.println("Guard Options:");
@@ -45,32 +29,32 @@ public class GuardMenu {
             switch (choice) {
                 case 1:
                 {
-                    userManagementObj.displayMenu(user);
+                    guardController.userManagementObj.displayMenu(user);
                     break;
                 }
                 case 2:
                 {
-                	attendanceMenuObj.displayMenu(user);
+                	guardController.attendanceMenuObj.displayMenu(user);
                 	break;
                 }
                 case 3:
                 {
-                	alertMenuObj.displayMenu(user);
+                	guardController.alertMenuObj.displayMenu(user);
                 	break;
                 }
                 case 4:
                 {
-                	noticesMenuObj.displayMenu(user);
+                	guardController.noticesMenuObj.displayMenu(user);
                 	break;
                 }
                 case 5:
                 {
-                	visitorMenuObj.displayMenu(user);
+                	guardController.visitorMenuObj.displayMenu(user);
                 	break;
                 }
                 case 6:
                 {
-                	complaintMenuObj.displayMenu(user);
+                	guardController.complaintMenuObj.displayMenu(user);
                 	break;
                 }
                 case 7:

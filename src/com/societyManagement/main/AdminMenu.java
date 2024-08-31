@@ -2,42 +2,18 @@ package com.societyManagement.main;
 
 import java.sql.SQLException;
 import java.util.Scanner;
-
 import com.Model.User;
-import com.presentation.admin.menu.NoticeManagementAdmin;
-import com.presentation.admin.menu.AccontManagementAdmin;
-import com.presentation.admin.menu.AlertManagementAdmin;
-import com.presentation.admin.menu.AttendanceManagementAdmin;
-import com.presentation.admin.menu.ComplaintManagementAdmin;
-import com.presentation.admin.menu.ServicesManagementAdmin;
-import com.presentation.admin.menu.VisitorManagementAdmin;
+import com.presentation.admin.menu.AdminController;
 
 public class AdminMenu {
 
-   // private final AdminController adminController;
+    private final AdminController adminController;
     private final Scanner scanner;
     
-    private AccontManagementAdmin accountManage;
-    private NoticeManagementAdmin noticeManage;
-    private AlertManagementAdmin alertManage;
-    private VisitorManagementAdmin visitorManage;
-    private ServicesManagementAdmin servicesManage;
-    private ComplaintManagementAdmin complaintManage;
-    private AttendanceManagementAdmin attendanceManage;
-    
-    
-
     public AdminMenu() {
        // this.adminController = new AdminController();
         this.scanner = new Scanner(System.in);
-        this.accountManage= new AccontManagementAdmin();
-        this.noticeManage= new NoticeManagementAdmin();
-        this.alertManage= new AlertManagementAdmin();
-        this.visitorManage= new VisitorManagementAdmin();
-        this.servicesManage= new ServicesManagementAdmin();
-        this.complaintManage= new ComplaintManagementAdmin();
-        this.attendanceManage= new AttendanceManagementAdmin();
-        
+        this.adminController= new AdminController();   
     }
 
     public void displayMenu(User user) throws SQLException {
@@ -59,35 +35,35 @@ public class AdminMenu {
             switch (choice) {
                 case 1:
                    
-                	accountManage.displayMenu(user);
+                	adminController.accountManage.displayMenu(user);
                     break;
                 case 2:{
-                	noticeManage.displayMenu(user);
+                	adminController.noticeManage.displayMenu(user);
                 	break;
                 }
                 case 3:
                 {
-                	alertManage.displayMenu(user);
+                	adminController.alertManage.displayMenu(user);
                 	break;
                 }
                 case 4:
                 {
-                	visitorManage.displayMenu(user);
+                	adminController.visitorManage.displayMenu(user);
                 	break;
                 }
                 case 5:
                 {
-                	servicesManage.displayMenu(user);
+                	adminController.servicesManage.displayMenu(user);
                 	break;
                 }
                 case 6:
                 {
-                	complaintManage.displayMenu(user);
+                	adminController.complaintManage.displayMenu(user);
                 	break;
                 }
                 case 7:
                 {
-                	attendanceManage.displayMenu(user);
+                	adminController.attendanceManage.displayMenu(user);
                 	break;
                 }
                 case 8:

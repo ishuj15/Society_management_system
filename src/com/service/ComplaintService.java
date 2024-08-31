@@ -9,24 +9,24 @@ import java.util.List;
 public class ComplaintService {
     private ComplaintDAO complaintDAO = new ComplaintDAO();
 
-    public void addComplaint(Complaint complaint) throws SQLException {
-        complaintDAO.addEntity(complaint);
+    public void addComplaint(Complaint complaint) throws SQLException, ClassNotFoundException {
+        complaintDAO.addComplaint(complaint);
     }
 
-    public Complaint getComplaintById(int idComplaint) throws SQLException {
-        return complaintDAO.getEntityById(idComplaint);
+    public Complaint getComplaintById(String idComplaint) throws SQLException, ClassNotFoundException {
+        return complaintDAO.getComplaintById(idComplaint);
     }
 
-    public List<Complaint> getAllComplaints() throws SQLException {
-        return complaintDAO.getAllEntities();
+    public List<Complaint> getAllComplaints() throws SQLException, ClassNotFoundException {
+        return complaintDAO.getAllComplaints();
     }
 
-    public void updateComplaint(Complaint complaint) throws SQLException {
-        complaintDAO.updateEntity(complaint,complaint.getIdComplaint());
-    }
+//    public void updateComplaint(Complaint complaint) throws SQLException {
+//        complaintDAO.updateEntity(complaint,complaint.getIdComplaint());
+    //}
 
-    public void deleteComplaint(int idComplaint) throws SQLException {
-        complaintDAO.deleteEntity(idComplaint);
+    public void deleteComplaint(String idComplaint) throws SQLException, ClassNotFoundException {
+        complaintDAO.deleteComplaint(idComplaint);
     }
 }
 

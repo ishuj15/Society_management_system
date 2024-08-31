@@ -1,26 +1,26 @@
 package com.Model;
 
 public class Services {
-    private int idServices;
-    private int userId;
+    private String idServices;
+    private String userId;
     private String serviceName;
     private String description;
     private String status;
 
     // Getters and Setters
-    public int getIdServices() {
+    public String getIdServices() {
         return idServices;
     }
 
-    public void setIdServices(int idServices) {
+    public void setIdServices(String idServices) {
         this.idServices = idServices;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

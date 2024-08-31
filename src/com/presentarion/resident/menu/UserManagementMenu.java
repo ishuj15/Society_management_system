@@ -36,13 +36,13 @@ public class UserManagementMenu {
 //								System.out.println("Admin account cannot be deleted");
 //								break;	
 //							}
-	                   masterController.userController.deleteUser(user.getIdUser());
+	                   //masterController.userController.deleteUser(user.getIdUser());
 	                    break;
 	                }
 	                case 2:
 	                {
 	                	
-	                	masterController.userController.updateUser(user.getIdUser());
+	                	//masterController.userController.updateUser(user.getIdUser());
 	                	break;	
 	                }
 	                case 3:

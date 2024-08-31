@@ -5,6 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
+import java.util.UUID;
 import java.util.regex.Matcher;
 //import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -24,12 +25,11 @@ public class Helper {
 //	            for (byte b : hashBytes) {
 //	                sb.append(String.format("%02x", b));
 //	            }
-//
-//	            // Encode the hash to a string
 //	            return sb.toString();
 //	        } catch (NoSuchAlgorithmException e) {
 //	            throw new RuntimeException(e);
 //	        }
+//	}
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] hashBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
@@ -42,12 +42,12 @@ public class Helper {
             throw new RuntimeException(e);
         }
     }
-//	public static byte[] generateSalt() {
-//        SecureRandom sr = new SecureRandom();
-//        byte[] salt = new byte[SALT_LENGTH];
-//        sr.nextBytes(salt);
-//        return salt;
-//    }
+	public static byte[] generateSalt() {
+        SecureRandom sr = new SecureRandom();
+        byte[] salt = new byte[SALT_LENGTH];
+        sr.nextBytes(salt);
+        return salt;
+    }
 	 public static  boolean isPasswordValid(String password) {
 	        // Implement password policy validation here
 	        if (password.length() < 8) {
@@ -79,7 +79,7 @@ public class Helper {
 
 	    public static  boolean isUserRoleValid(String userRole) {
 	        // The role should be one of the predefined roles
-	        return userRole.equals("resident") || userRole.equals("guard") ;
+	        return userRole.equals("resident") || userRole.equals("guard" )  ;
 	    }
 	    public static boolean isEmailValid(String email) {
 	        // Check if the email is null or empty
@@ -151,18 +151,9 @@ public class Helper {
 
 	        return true;
 	    }
-	    //	    public  static String readPassword(Scanner scanner) {
-//	        StringBuilder password = new StringBuilder();
-//	        while (true) {
-//	            char input = scanner.next().charAt(0);
-//	            if (input == '\r' || input == '\n') {
-//	                break;
-//	            } else {
-//	                System.out.print("*");
-//	                password.append(input);
-//	            }
-//	        }
-//	        return password.toString();
-//	    }
+	    public static String generateUniqueId() {
+	        UUID uuid = UUID.randomUUID();
+	        return uuid.toString().substring(24);
+	    }
 
 }

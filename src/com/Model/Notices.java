@@ -3,18 +3,18 @@ package com.Model;
 import java.sql.Date;
 
 public class Notices {
-    private int idNotices;
+    private String idNotices;
     private String title;
     private String message;
     private Date date;
 
     // Getters and Setters
-    public int getIdNotices() {
+    public String getIdNotices() {
         return idNotices;
     }
 
-    public void setIdNotices(int idNotices) {
-        this.idNotices = idNotices;
+    public void setIdNotices(String string) {
+        this.idNotices = string;
     }
 
     public String getTitle() {

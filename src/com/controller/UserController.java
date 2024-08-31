@@ -22,7 +22,7 @@ public class UserController {
 	private static final Logger logger = Logger.getLogger(UserController.class.getName());
     private static UserService userService = new UserService();
 
-    public static void createUser() throws SQLException {
+    public static void createUser() throws SQLException, ClassNotFoundException {
     	String password,userRole,phoneNo,email,userName;
         @SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
@@ -30,7 +30,7 @@ public class UserController {
         {
         System.out.print("Enter user name: ");
          userName = scanner.nextLine().trim();
-        if(Helper.isUsernameValid(userName) && !GenericDAO.isUsernameTaken(userName) )
+        if(Helper.isUsernameValid(userName) /*&& !userService.userDAO.isUsernameTaken(userName)*/ )
         {
         	break;
         }
@@ -42,8 +42,6 @@ public class UserController {
         }
         	
         }
-        
-       
         while(true)
         {
         	 System.out.print("Enter user role: ");
@@ -90,23 +88,26 @@ public class UserController {
        
         System.out.print("Enter address: ");
         String address = scanner.nextLine().trim();
-//        byte[] salt = Helper.generateSalt();
-//        String hashedPassword=Helper.hashPassword(password,salt);
+       // byte[] salt = Helper.generateSalt();
+        String hashedPassword=Helper.hashPassword(password);
        
-        String hashedPassword = Helper.hashPassword(password);
+       // String hashedPassword = Helper.hashPassword(password);
+        String userId= Helper.generateUniqueId();
         User user = new User();
+        user.setIdUser(userId);
         user.setUserName(userName);
         user.setUserRole(userRole);
         user.setPassword(hashedPassword);
         user.setPhoneNo(phoneNo);
         user.setEmail(email);
         user.setAddress(address);
+        //user.setSalt(salt.toString());
 
         userService.addUser(user);
         System.out.println("User created successfully!");
     }
 
-    public void viewUser(int idUser) throws SQLException {
+    public void viewUser(String idUser) throws SQLException, ClassNotFoundException {
         User user = userService.getUserById(idUser);
         if (user != null) {
             System.out.println("User ID: " + user.getIdUser());
@@ -120,51 +121,59 @@ public class UserController {
         }
     }
 
-    public void listUsers() throws SQLException {
+    public void listUsers() throws SQLException, ClassNotFoundException {
         List<User> users = userService.getAllUsers();
         for (User user : users) {
             System.out.println("User ID: " + user.getIdUser() + ", User Name: " + user.getUserName());
         }
     }
 
-    public void updateUser(int idUser) throws SQLException {
-    	Scanner scanner = new Scanner(System.in);
-       
-			User user = userService.getUserById(idUser);
-      if (user != null) {
-      System.out.print("Enter new user name: ");
-      String userName = scanner.nextLine();
-      System.out.print("Enter new user role: ");
-      String userRole = scanner.nextLine();
-      System.out.print("Enter new password: ");
-      String password = scanner.nextLine();
-      System.out.print("Enter new phone number: ");
-      String phoneNo = scanner.nextLine();
-      System.out.print("Enter new email: ");
-      String email = scanner.nextLine();
-      System.out.print("Enter new address: ");
-      String address = scanner.nextLine();
-      user.setUserName(userName);
-      user.setUserRole(userRole);
-      user.setPassword(password);
-      user.setPhoneNo(phoneNo);
-      user.setEmail(email);
-      user.setAddress(address);
+//    public void updateUser(String idUser) throws SQLException {
+//    	Scanner scanner = new Scanner(System.in);
+//       
+//			User user = userService.getUserById(idUser);
+//      if (user != null) {
+//      System.out.print("Enter new user name: ");
+//      String userName = scanner.nextLine();
+//      System.out.print("Enter new user role: ");
+//      String userRole = scanner.nextLine();
+//      System.out.print("Enter new password: ");
+//      String password = scanner.nextLine();
+//      System.out.print("Enter new phone number: ");
+//      String phoneNo = scanner.nextLine();
+//      System.out.print("Enter new email: ");
+//      String email = scanner.nextLine();
+//      System.out.print("Enter new address: ");
+//      String address = scanner.nextLine();
+//      user.setUserName(userName);
+//      user.setUserRole(userRole);
+//      user.setPassword(password);
+//      user.setPhoneNo(phoneNo);
+//      user.setEmail(email);
+//      user.setAddress(address);
+//
+//      userService.updateUser(user);
+//      System.out.println("User updated successfully!");
+//   } else {
+//      System.out.println("User not found!");
+//   }
+//		
+//}
 
-      userService.updateUser(user);
-      System.out.println("User updated successfully!");
-   } else {
-      System.out.println("User not found!");
-   }
+public void deleteUser(User user) throws SQLException, ClassNotFoundException {
+	if(user.getUserRole()=="admin")
+	{
+		 System.out.println("You can't delete admin");
+		 return;	
+	}
 		
-}
-
-public void deleteUser(int idUser) throws SQLException {
-
-    userService.deleteUser(idUser);
+	else
+	{
+    userService.deleteUser(user);
     System.out.println("User deleted successfully!");
+	}
 }
-public static  void login() throws SQLException{
+public static  void login() throws SQLException, ClassNotFoundException{
 	
 	
 	try {

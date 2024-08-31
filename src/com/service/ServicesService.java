@@ -13,23 +13,22 @@ public class ServicesService {
         this.servicesDAO = new ServicesDAO();
     }
 
-    public void addService(Services service) throws SQLException {
-        servicesDAO.addEntity(service);
+    public void addService(Services service) throws SQLException, ClassNotFoundException {
+        servicesDAO.addService(service);
     }
 
-    public Services getServiceById(int id) throws SQLException {
-        return servicesDAO.getEntityById(id);
+    public Services getServiceById(String id) throws SQLException, ClassNotFoundException {
+        return servicesDAO.getServiceById(id);
     }
 
-    public List<Services> getAllServices() throws SQLException {
-        return servicesDAO.getAllEntities();
+    public List<Services> getAllServices() throws SQLException, ClassNotFoundException {
+        return servicesDAO.getAllServices();
     }
+//    public void updateService(Services service, int id) throws SQLException {
+//        servicesDAO.updateService(service, id);
+//    }
 
-    public void updateService(Services service, int id) throws SQLException {
-        servicesDAO.updateEntity(service, id);
-    }
-
-    public void deleteService(int id) throws SQLException {
-        servicesDAO.deleteEntity(id);
+    public void deleteService(String id) throws SQLException, ClassNotFoundException {
+        servicesDAO.deleteService(id);
     }
 }

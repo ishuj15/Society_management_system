@@ -17,7 +17,7 @@ public class ComplaintMenu {
 			this.masterController = new MasterController();
 	    	this.scanner = new Scanner(System.in);
 		}
-		public void displayMenu(User user) throws SQLException {
+		public void displayMenu(User user) throws SQLException, ClassNotFoundException {
 	        while (true) {
 	        	complaint.setUserId(user.getIdUser());
 	        	System.out.println(complaint.getUserId());
@@ -34,12 +34,12 @@ public class ComplaintMenu {
 	            switch (choice) {
 	                case 1:
 	                {
-	                   masterController.complaintController.createComplaint(complaint);
+	                   masterController.complaintController.createComplaint(user.getIdUser());
 	                    break;
 	                }
 	                case 2:
 	                {
-	                	masterController.complaintController.listComplaints();
+	                	masterController.complaintController.viewComplaint(user.getIdUser());
 	                	break;
 	                }
 	                case 3:

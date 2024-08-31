@@ -2,6 +2,7 @@ package com.controller;
 
 import com.Model.Feedback;
 import com.service.FeedbackService;
+import com.util.Helper;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -10,18 +11,21 @@ import java.util.Scanner;
 public class FeedbackController {
     private FeedbackService feedbackService = new FeedbackService();
 
-    public void createFeedback() throws SQLException {
+    public void createFeedback(Feedback feedback) throws SQLException {
         @SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter user ID: ");
-        int userId = scanner.nextInt();
+//        System.out.print("Enter user ID: ");
+       // int userId = scanner.nextInt();
         scanner.nextLine(); // consume newline
-        System.out.print("Enter feedback message: ");
+        System.out.print("Enter comment ");
         String message = scanner.nextLine();
         System.out.print("Enter feedback date (yyyy-mm-dd): ");
         String dateStr = scanner.nextLine();
+        System.out.println("Give ratings");
+        int rating=scanner.nextInt();
+        String feedbackId= Helper.generateUniqueId();
 
-        Feedback feedback = new Feedback();
+        feedback.setIdFeedback(feedbackId);
         feedback.setUserId(userId);
         feedback.setComment(message);
         feedback.setDate(java.sql.Date.valueOf(dateStr));

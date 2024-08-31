@@ -9,23 +9,23 @@ import java.util.List;
 public class FeedbackService {
     private FeedbackDAO feedbackDAO = new FeedbackDAO();
 
-    public void addFeedback(Feedback feedback) throws SQLException {
-        feedbackDAO.addEntity(feedback);
+    public void addFeedback(Feedback feedback) throws SQLException, ClassNotFoundException {
+        feedbackDAO.addFeedback(feedback);
     }
-    public Feedback getFeedbackById(int idFeedback) throws SQLException {
-        return feedbackDAO.getEntityById(idFeedback);
-    }
-
-    public List<Feedback> getAllFeedbacks() throws SQLException {
-        return feedbackDAO.getAllEntities();
+    public Feedback getFeedbackById(String idFeedback) throws SQLException, ClassNotFoundException {
+        return feedbackDAO.getFeedbackById(idFeedback);
     }
 
-    public void updateFeedback(Feedback feedback) throws SQLException {
-        feedbackDAO.updateEntity(feedback,feedback.getIdFeedback());
+    public List<Feedback> getAllFeedbacks() throws SQLException, ClassNotFoundException {
+        return feedbackDAO.getAllFeedbacks();
     }
 
-    public void deleteFeedback(int idFeedback) throws SQLException {
-        feedbackDAO.deleteEntity(idFeedback);
+//    public void updateFeedback(Feedback feedback) throws SQLException {
+//        feedbackDAO.updateFeedback(feedback,feedback.getIdFeedback());
+//    }
+
+    public void deleteFeedback(String idFeedback) throws SQLException, ClassNotFoundException {
+        feedbackDAO.deleteFeedback(idFeedback);
     }
 }
 

@@ -3,26 +3,26 @@ package com.Model;
 import java.sql.Date;
 
 public class Feedback {
-    private int idFeedback;
-    private int userId;
+    private String idFeedback;
+    private String userId;
     private int rating;
     private String comment;
     private Date date;
 
     // Getters and Setters
-    public int getIdFeedback() {
+    public String getIdFeedback() {
         return idFeedback;
     }
 
-    public void setIdFeedback(int idFeedback) {
+    public void setIdFeedback(String idFeedback) {
         this.idFeedback = idFeedback;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

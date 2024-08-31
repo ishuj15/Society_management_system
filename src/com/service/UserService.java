@@ -12,42 +12,43 @@ import java.util.List;
 import java.util.logging.Level;
 
 public class UserService {
-    private static UserDAO userDAO = new UserDAO();
+    public static UserDAO userDAO = new UserDAO();
    
     private static boolean verifyPassword(String enteredPassword, String storedHashedPassword) {
-//    	 byte[] salt = Helper.generateSalt();
-//        String hashedEnteredPassword = Helper.hashPassword(enteredPassword,salt);
-    	String hashedEnteredPassword = Helper.hashPassword(enteredPassword);
+    	//System.out.println(salt2);
+//    	 byte[] salt = salt2.getBytes();
+        String hashedEnteredPassword = Helper.hashPassword(enteredPassword);
+    	//String hashedEnteredPassword = Helper.hashPassword(enteredPassword,salt);
         System.out.println(hashedEnteredPassword);
         System.out.println(storedHashedPassword);
         System.out.println(hashedEnteredPassword.equals(storedHashedPassword));
         return hashedEnteredPassword.equals(storedHashedPassword);
     }
-    public void addUser(User user) throws SQLException {
+    public void addUser(User user) throws SQLException, ClassNotFoundException {
 
-    	userDAO.addEntity(user);
+    	userDAO.addUser(user);
     }
 
-    public User getUserById(int idUser) throws SQLException {
-        return userDAO.getEntityById(idUser);
+    public User getUserById(String idUser) throws SQLException, ClassNotFoundException {
+        return userDAO.getUserById(idUser);
     }
 
-    public List<User> getAllUsers() throws SQLException {
-        return userDAO.getAllEntities();
+    public List<User> getAllUsers() throws SQLException, ClassNotFoundException {
+        return userDAO.getAllUsers();
     }
 
-    public void updateUser(User user) throws SQLException {
-        userDAO.updateEntity(user,user.getIdUser());
-    }
+//    public void updateUser(User user) throws SQLException {
+//        userDAO.updateEntity(user,user.getIdUser());
+//    }
 
-    public void deleteUser(int idUser) throws SQLException {
+    public void deleteUser(User user) throws SQLException, ClassNotFoundException {
     	
-        userDAO.deleteEntity(idUser);
+        userDAO.deleteUser(user.getIdUser());
     }
         
-    public static User login(String userName, String password) throws SQLException {
+    public static User login(String userName, String password) throws SQLException, ClassNotFoundException {
     	 
-         User user = userDAO.getEntityByUserName(userName);
+         User user = userDAO.getUserByUsername(userName);
 
          if (user==null) {
         	 return null;  

@@ -13,23 +13,23 @@ public class NoticesService {
         this.noticesDAO = new NoticesDAO();
     }
 
-    public void addNotice(Notices notice) throws SQLException {
-        noticesDAO.addEntity(notice);
+    public void addNotice(Notices notice) throws SQLException, ClassNotFoundException {
+        noticesDAO.addNotice(notice);
     }
 
-    public Notices getNoticeById(int id) throws SQLException {
-        return noticesDAO.getEntityById(id);
+    public Notices getNoticeById(String id) throws SQLException, ClassNotFoundException {
+        return noticesDAO.getNoticeById(id);
     }
 
-    public List<Notices> getAllNotices() throws SQLException {
-        return noticesDAO.getAllEntities();
+    public List<Notices> getAllNotices() throws SQLException, ClassNotFoundException {
+        return noticesDAO.getAllNotices();
     }
 
-    public void updateNotice(Notices notice, int id) throws SQLException {
-        noticesDAO.updateEntity(notice, id);
-    }
+//    public void updateNotice(Notices notice, int id) throws SQLException {
+//        noticesDAO.updateNotice(notice, id);
+//    }
 
-    public void deleteNotice(int id) throws SQLException {
-        noticesDAO.deleteEntity(id);
+    public void deleteNotice(String  id) throws SQLException, ClassNotFoundException {
+        noticesDAO.deleteNotice(id);
     }
 }

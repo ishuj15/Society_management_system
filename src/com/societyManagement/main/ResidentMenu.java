@@ -2,30 +2,16 @@ package com.societyManagement.main;
 
 import java.sql.SQLException;
 import java.util.Scanner;
-
 import com.Model.User;
 import com.presentarion.resident.menu.*;
+
 public class ResidentMenu {
 private static Scanner scanner =new Scanner(System.in);
-//User user;
-private UserManagementMenu userManagementObj;
-private VisitorMenu visitorMenuObj;
-private ServicesMenu servicesMenuObj;
-private AlertMenu alertMenuObj;
-private NoticeMenu noticesMenuObj;
-private ComplaintMenu complaintMenuObj;
-       
 
+private ResidentController residentController;
    public ResidentMenu() {
-       this.userManagementObj = new UserManagementMenu();
-       this.servicesMenuObj = new ServicesMenu();
-       this.visitorMenuObj = new VisitorMenu();
-       this.noticesMenuObj = new NoticeMenu();
-       this.alertMenuObj = new AlertMenu();
-       this.complaintMenuObj = new ComplaintMenu();
-       
+       this.residentController= new ResidentController();
         this.scanner = new Scanner(System.in);
-        //this.user= new User();
     }
 
     public   void displayMenu(User user) throws SQLException {
@@ -40,45 +26,44 @@ private ComplaintMenu complaintMenuObj;
         			 4) Notices
         			 5) Alert
         			 6) Complaints
-        			 7) Exit
+        			 7) Logout
     				 """;
            
             System.out.println(str);
             System.out.println("Enter your choice");
             
-
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine(); 
 
             switch (choice) {
                 case 1:
                 {
-                    userManagementObj.displayMenu(user);
+                    residentController.userManagementObj.displayMenu(user);
                     break;
                 }
                 case 2:
                 {
-                	servicesMenuObj.displayMenu(user);
+                	residentController.servicesMenuObj.displayMenu(user);
                 	break;
                 }
                 case 3:
                 {
-                	visitorMenuObj.displayMenu(user);
+                	residentController.visitorMenuObj.displayMenu(user);
                 	break;
                 }
                 case 4:
                 {
-                	noticesMenuObj.displayMenu(user);
+                	residentController.noticesMenuObj.displayMenu(user);
                 	break;
                 }
                 case 5:
                 {
-                	alertMenuObj.displayMenu(user);
+                	residentController.alertMenuObj.displayMenu(user);
                 	break;
                 }
                 case 6:
                 {
-                	complaintMenuObj.displayMenu(user) ;
+                	residentController.complaintMenuObj.displayMenu(user) ;
                 	break;
                 }
                 case 7:

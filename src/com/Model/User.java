@@ -1,20 +1,22 @@
-package com.Model;
+	package com.Model;
 
 	public class User {
-	    private  int idUser;
+	    private String idUser;
 	    private String userName;
 	    private String userRole;
 	    private String password;
 	    private String phoneNo;
 	    private String email;
 	    private String address;
+	   // private String salt;
+	    
 
 	    // Getters and Setters
-	    public  int getIdUser() {
+	    public  String getIdUser() {
 	        return idUser;
 	    }
 
-	    public void setIdUser(int idUser) {
+	    public void setIdUser(String idUser) {
 	        this.idUser = idUser;
 	    }
 
@@ -65,5 +67,13 @@ package com.Model;
 	    public void setAddress(String address) {
 	        this.address = address;
 	    }
+
+//		public String getSalt() {
+//			return salt;
+//		}
+//
+//		public void setSalt(String salt) {
+//			this.salt = salt;
+		//}
 	}
 
