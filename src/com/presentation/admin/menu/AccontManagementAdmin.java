@@ -48,10 +48,14 @@ public class AccontManagementAdmin {
 	          }
 	          case 3:
 	          {
+	        	  masterController.userController.listUsers();
 	        	  break;
 	          }
 	          case 4:
 	          {
+	        	  System.out.println("Enter user name");
+	        	  String userName= scanner.nextLine();
+	        	  masterController.userController.viewUser(userName);
 	        	 break; 
 	          }
 	          case 5:

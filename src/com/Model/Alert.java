@@ -3,16 +3,17 @@ package com.Model;
 import java.sql.Date;
 
 public class Alert {
-    private int idAlert;
+    private String idAlert;
     private String message;
     private Date date;
+    private String targetRole;
 
     // Getters and Setters
-    public int getIdAlert() {
+    public String getIdAlert() {
         return idAlert;
     }
 
-    public void setIdAlert(int idAlert) {
+    public void setIdAlert(String idAlert) {
         this.idAlert = idAlert;
     }
 
@@ -31,5 +32,13 @@ public class Alert {
     public void setDate(Date date) {
         this.date = date;
     }
+
+	public String getTargetRole() {
+		return targetRole;
+	}
+
+	public void setTargetRole(String targetRole) {
+		this.targetRole = targetRole;
+	}
 }
 

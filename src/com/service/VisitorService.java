@@ -13,23 +13,36 @@ public class VisitorService {
         this.visitorDAO = new VisitorDAO();
     }
 
-    public void addVisitor(Visitor visitor) throws SQLException {
-        visitorDAO.addEntity(visitor);
+    public void addVisitor(Visitor visitor) throws SQLException, ClassNotFoundException {
+        visitorDAO.addVisitor(visitor);
     }
 
-    public Visitor getVisitorById(int id) throws SQLException {
-        return visitorDAO.getEntityById(id);
+    public Visitor getVisitorById(String id) throws SQLException, ClassNotFoundException {
+        return visitorDAO.getVisitorById(id);
     }
 
-    public List<Visitor> getAllVisitors() throws SQLException {
-        return visitorDAO.getAllEntities();
+    public List<Visitor> getAllVisitors() throws SQLException, ClassNotFoundException {
+        return visitorDAO.getAllVisitors();
     }
 
     public void updateVisitor(Visitor visitor, int id) throws SQLException {
         visitorDAO.updateEntity(visitor, id);
     }
 
-    public void deleteVisitor(int id) throws SQLException {
-        visitorDAO.deleteEntity(id);
+    public void deleteVisitor(String id) throws SQLException, ClassNotFoundException {
+        visitorDAO.deleteVisitor(id);
+    }
+    public void verifyVisitor(String visitorId, boolean approved) throws SQLException, ClassNotFoundException {
+        visitorDAO.updateApprovalStatus(visitorId, approved);
+        if (approved) {
+            System.out.println("Visitor approved.");
+        } else {
+            System.out.println("Visitor rejected.");
+        }
+    }
+
+    public void requestApproval(String visitorId) throws SQLException {
+        // You can implement logic to notify the resident about the approval request
+        System.out.println("Approval request sent to resident.");
     }
 }

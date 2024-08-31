@@ -9,10 +9,8 @@ import com.controller.MasterController;
 public class UserManagementMenu {
 	private final MasterController masterController;
 	private Scanner scanner;
-
-	// static int userId=User.getIdUser();
 	public UserManagementMenu() {
-		// this.user= new User();
+
 		this.masterController = new MasterController();
 		this.scanner = new Scanner(System.in);
 	}

@@ -10,7 +10,7 @@ import com.controller.MasterController;
 public class ComplaintMenu {
 		private final Scanner scanner;
 		  private final MasterController masterController;
-		 Complaint complaint= new Complaint();
+		 
 		 // static int complaintId= Complaint.getIdComplaint();
 		public ComplaintMenu()
 		{
@@ -19,22 +19,21 @@ public class ComplaintMenu {
 		}
 		public void displayMenu(User user) throws SQLException, ClassNotFoundException {
 	        while (true) {
-	        	complaint.setUserId(user.getIdUser());
-	        	System.out.println(complaint.getUserId());
+	        	
+	        	//System.out.println(complaint.getUserId());
 	            System.out.println("Complaint Menu");
 	            System.out.println("1) Add Complaint");
 	            System.out.println("2) View Complaint");
 	            System.out.println("3) Delete Complaint");
 	            System.out.println("4) Exit");
-	            Complaint complaint = new Complaint();
-
 	            int choice = scanner.nextInt();
-	            scanner.nextLine(); // Consume newline
-
+	            scanner.nextLine(); 
 	            switch (choice) {
 	                case 1:
 	                {
-	                   masterController.complaintController.createComplaint(user.getIdUser(),complaint);
+	                	Complaint complaint= new Complaint();
+	                	complaint.setUserId(user.getIdUser());
+	                   masterController.complaintController.createComplaint(complaint);
 	                    break;
 	                }
 	                case 2:
@@ -44,7 +43,7 @@ public class ComplaintMenu {
 	                }
 	                case 3:
 	                {
-	                	masterController.complaintController.deleteComplaint(complaint.getUserId());
+	                	masterController.complaintController.deleteComplaint(user.getIdUser());
 	                	break;
 	                }
 	                case 4:
@@ -54,7 +53,4 @@ public class ComplaintMenu {
 	            }
 	        }
 	    }
-		
-	
-
 }

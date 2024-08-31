@@ -16,7 +16,7 @@ public class NoticeMenu {
 	    	this.masterController = new MasterController();
 	    	this.scanner = new Scanner(System.in);
 	    }
-	    public void displayMenu(User user) throws SQLException {
+	    public void displayMenu(User user) throws SQLException, ClassNotFoundException {
 	        while (true) {
 	        	
 	        	System.out.println("1) View Notices");
@@ -24,8 +24,7 @@ public class NoticeMenu {
 	           
 	          
 	            int choice = scanner.nextInt();
-	            scanner.nextLine(); // Consume newline
-
+	            scanner.nextLine(); 
 	            switch (choice) {
 	                case 1:
 	                {

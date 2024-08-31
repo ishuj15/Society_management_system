@@ -17,8 +17,8 @@ public class NoticesService {
         noticesDAO.addNotice(notice);
     }
 
-    public Notices getNoticeById(String id) throws SQLException, ClassNotFoundException {
-        return noticesDAO.getNoticeById(id);
+    public List<Notices> getNoticeByRole(String role) throws SQLException, ClassNotFoundException {
+        return noticesDAO.getNoticeByRole(role);
     }
 
     public List<Notices> getAllNotices() throws SQLException, ClassNotFoundException {

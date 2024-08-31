@@ -6,6 +6,7 @@ public class Notices {
     private String idNotices;
     private String title;
     private String message;
+    private String targetRole;
     private Date date;
 
     // Getters and Setters
@@ -40,5 +41,13 @@ public class Notices {
     public void setDate(Date date) {
         this.date = date;
     }
+
+	public String getTargetRole() {
+		return targetRole;
+	}
+
+	public void setTargetRole(String targetRole) {
+		this.targetRole = targetRole;
+	}
 }
 

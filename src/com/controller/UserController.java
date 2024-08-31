@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 public class UserController {
 	private static final Logger logger = Logger.getLogger(UserController.class.getName());
     private static UserService userService = new UserService();
+    private Scanner scanner = new Scanner(System.in);
 
     public static void createUser() throws SQLException, ClassNotFoundException {
     	String password,userRole,phoneNo,email,userName;
@@ -62,8 +63,6 @@ public class UserController {
             System.out.println("Password does not meet the policy requirements. Please try again.");
         }
         }
-       
-       
         while(true)
         {
         	 System.out.print("Enter phone number: ");
@@ -109,26 +108,47 @@ public class UserController {
     public void viewUser(String idUser) throws SQLException, ClassNotFoundException {
         User user = userService.getUserByUserName(idUser);
         if (user != null) {
-           // System.out.println("User ID: " + user.getIdUser());
-            System.out.println("User Name: " + user.getUserName());
-            System.out.println("User Role: " + user.getUserRole());
-            System.out.println("Phone No: " + user.getPhoneNo());
-            System.out.println("Email: " + user.getEmail());
-            System.out.println("Address: " + user.getAddress());
+            System.out.println("-------------------------------------------------------------");
+            System.out.printf("| %-15s | %-30s |\n", "Field", "Value");
+            System.out.println("-------------------------------------------------------------");
+
+            System.out.printf("| %-15s | %-30s |\n", "User Name", user.getUserName());
+            System.out.printf("| %-15s | %-30s |\n", "User Role", user.getUserRole());
+            System.out.printf("| %-15s | %-30s |\n", "Phone No", user.getPhoneNo());
+            System.out.printf("| %-15s | %-30s |\n", "Email", user.getEmail());
+            System.out.printf("| %-15s | %-30s |\n", "Address", user.getAddress());
+
+            System.out.println("-------------------------------------------------------------");
         } else {
             System.out.println("User not found!");
         }
     }
 
     public void listUsers() throws SQLException, ClassNotFoundException {
-        List<User> users = userService.getAllUsers();
-        for (User user : users) {
-            System.out.println("User ID: " + user.getIdUser() + ", User Name: " + user.getUserName());
+    	List<User> users = userService.getAllUsers();
+        
+        if (users == null || users.isEmpty()) {
+            System.out.println("No users found.");
+            return;
         }
-    }
 
+        // Print table headers
+        System.out.printf("+----+-----------------+------------------------------+-------------------+------------------------------+------------------------------+%n");
+        System.out.printf("| SN | User Name       | User Role                    | Phone No          | Email                        | Address                      |%n");
+        System.out.printf("+----+-----------------+------------------------------+-------------------+------------------------------+------------------------------+%n");
+
+        // Print each user's details with a serial number
+        int serialNumber = 1;
+        for (User user : users) {
+            System.out.printf("| %-2d | %-15s | %-30s | %-17s | %-28s | %-28s |%n",
+                    serialNumber++, user.getUserName(), user.getUserRole(), user.getPhoneNo(), user.getEmail(), user.getAddress());
+        }
+        
+        // Print table footer
+        System.out.printf("+----+-----------------+------------------------------+-------------------+------------------------------+------------------------------+%n");
+    }
     public void updateUser(User user) throws SQLException, ClassNotFoundException {
-    	try (Scanner scanner = new Scanner(System.in)) {
+    	
 			//User user = userService.getUserById(idUser);
 			  if (user != null) {
 				  String str="""
@@ -144,7 +164,7 @@ public class UserController {
 				  String columnToUpdate = null,newValue=null;
 				  System.out.println("Enter your choice to update ");
 				  int choice= scanner.nextInt();
-				  //scanner.nextLine(); 
+				  scanner.nextLine(); 
 				 
 				  switch(choice)
 			  	{
@@ -237,7 +257,6 @@ public class UserController {
    }
 		}
 		
-}
 
 public void deleteUser(User user) throws SQLException, ClassNotFoundException {
 	if(user.getUserRole()=="admin")

@@ -10,7 +10,8 @@ public class Main {
 		String str = """
 				1) Create Account
 				2) Login
-				3) Exit
+				3) Logout
+				4) Exit
 				""";
 
 		while (true) {
@@ -30,7 +31,9 @@ public class Main {
 				UserController.login();
 				break;
 			}
-			case 3: {
+			case 3:
+				break;
+			case 4: {
 				scanner.close();
 				System.exit(0);
 				return;

@@ -9,24 +9,26 @@ import java.util.List;
 public class AlertService {
     private AlertDAO alertDAO = new AlertDAO();
 
-    public void addAlert(Alert alert) throws SQLException {
-        alertDAO.addEntity(alert);
+    public void addAlert(Alert alert) throws SQLException, ClassNotFoundException {
+        alertDAO.addAlert(alert);
     }
 
-    public Alert getAlertById(int idAlert) throws SQLException {
-        return alertDAO.getEntityById(idAlert);
+    public Alert getAlertById(String idAlert) throws SQLException, ClassNotFoundException {
+        return alertDAO.getAlertById(idAlert);
+    }
+    public List<Alert> getAlertByRole(String idAlert) throws SQLException, ClassNotFoundException {
+        return alertDAO.getAlertByRole(idAlert);
+    }
+    
+    public List<Alert> getAllAlerts() throws SQLException, ClassNotFoundException {
+        return alertDAO.getAllAlerts();
     }
 
-    public List<Alert> getAllAlerts() throws SQLException {
-        return alertDAO.getAllEntities();
-    }
+//    public void updateAlert(Alert alert) throws SQLException {
+//        alertDAO.updateAlert(alert,alert.getIdAlert());
+//    }
 
-    public void updateAlert(Alert alert) throws SQLException {
-        alertDAO.updateEntity(alert,alert.getIdAlert());
-    }
-
-    public void deleteAlert(int idAlert) throws SQLException {
-        alertDAO.deleteEntity(idAlert);
+    public void deleteAlert(String idAlert) throws SQLException, ClassNotFoundException {
+        alertDAO.deleteAlert(idAlert);
     }
 }
-

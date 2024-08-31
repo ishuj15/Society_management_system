@@ -13,8 +13,8 @@ public class ComplaintService {
         complaintDAO.addComplaint(complaint);
     }
 
-    public Complaint getComplaintById(String idComplaint) throws SQLException, ClassNotFoundException {
-        return complaintDAO.getComplaintById(idComplaint);
+    public List<Complaint> getComplaintById(String userId) throws SQLException, ClassNotFoundException {
+        return complaintDAO.getComplaintById(userId);
     }
 
     public List<Complaint> getAllComplaints() throws SQLException, ClassNotFoundException {

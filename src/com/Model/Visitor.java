@@ -5,28 +5,29 @@ import java.sql.Time;
 import java.time.LocalTime;
 
 public class Visitor {
-    private int idVisitor;
-    private int userId;
+    private String idVisitor;
+    private String userId;
     private String name;
     private String purpose;
     private Time arrivalTime;
     private Time departureTime;
     private Date date;
+    private boolean approved;
 
     // Getters and Setters
-    public int getIdVisitor() {
+    public String getIdVisitor() {
         return idVisitor;
     }
 
-    public void setIdVisitor(int idVisitor) {
+    public void setIdVisitor(String idVisitor) {
         this.idVisitor = idVisitor;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -68,5 +69,13 @@ public class Visitor {
 
     public void setDepartureTime(Time time) {
         this.departureTime = time;
-    } 
+    }
+
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	} 
 }

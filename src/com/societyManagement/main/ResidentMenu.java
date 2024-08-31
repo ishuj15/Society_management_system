@@ -26,8 +26,7 @@ private ResidentController residentController;
         			 4) Notices
         			 5) Alert
         			 6) Complaints
-        			 7)	Feedback
-        			 8) Exit
+        			 7) Exit
     				 """;
            
             System.out.println(str);
@@ -67,7 +66,7 @@ private ResidentController residentController;
                 	residentController.complaintMenuObj.displayMenu(user) ;
                 	break;
                 }
-                case 8:
+                case 7:
                     return;
                 default:
                     System.out.println("Invalid choice, please try again.");

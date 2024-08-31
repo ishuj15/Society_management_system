@@ -10,44 +10,51 @@ import java.util.Scanner;
 
 public class ComplaintController {
     private ComplaintService complaintService = new ComplaintService();
+    Scanner scanner= new Scanner(System.in);
 
 
-    public Complaint createComplaint(String userID, Complaint complaint) throws SQLException, ClassNotFoundException {
+    public void createComplaint( Complaint complaint) throws SQLException, ClassNotFoundException {
     	
         @SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter complaint description: ");
-        String description = scanner.nextLine();
         System.out.print("Enter complaint date (yyyy-mm-dd): ");
         String dateStr = scanner.nextLine();
+        System.out.print("Enter complaint description: ");
+        String description = scanner.nextLine();
+     
         System.out.print("Enter complaint status: ");
         String status = scanner.nextLine();
-
-     
-        complaint.setUserId(complaint.getUserId());
+        String idComplaint= Helper.generateUniqueId();
+        complaint.setIdComplaint(idComplaint);
+       // complaint.setUserId(complaint.getUserId());
         complaint.setDescription(description);
         complaint.setDate(java.sql.Date.valueOf(dateStr));
         complaint.setStatus(status);
 
         complaintService.addComplaint(complaint);
         System.out.println("Complaint created successfully!");
-        return complaint;
+       
     }
 
     public void viewComplaint(String userId) throws SQLException, ClassNotFoundException {
-    	 Complaint complaint = complaintService.getComplaintById(userId);
-         if (complaint.equals(null)) {
-             System.out.println("No complaints found!");
-         } else {
-             
-                 System.out.println("Complaint ID: " + complaint.getIdComplaint());
-                 System.out.println("Description: " + complaint.getDescription());
-                 System.out.println("Date: " + complaint.getDate());
-                 System.out.println("Status: " + complaint.getStatus());
-                 System.out.println("-----");
-             
-         
-      }
+    	 List<Complaint> complaints = complaintService.getAllComplaints();
+    	 System.out.println("-------------------------------------------------------------");
+    	    System.out.printf("| %-5s | %-30s | %-15s | %-10s |\n", "S.No", "Description", "Status", "Date");
+    	    System.out.println("-------------------------------------------------------------");
+
+    	    int serialNumber = 1;
+
+    	    // Print each complaint in a row with a serial number
+    	    for (Complaint complaint : complaints) {
+    	        System.out.printf("| %-5d | %-30s | %-15s | %-10s |\n",
+    	                serialNumber++,
+    	                complaint.getDescription(),
+    	                complaint.getStatus(),
+    	                complaint.getDate());
+    	    }
+
+    	    // Print the table footer
+    	    System.out.println("-------------------------------------------------------------");
     }
 
     public void listComplaints() throws SQLException, ClassNotFoundException {
@@ -58,35 +65,46 @@ public class ComplaintController {
         }
     }
 
-    public void updateComplaint(String idComplaint) throws SQLException, ClassNotFoundException {
-        Scanner scanner = new Scanner(System.in);
-        Complaint complaint = complaintService.getComplaintById(idComplaint);
-        if (complaint != null) {
-//            System.out.print("Enter new user ID: ");
-//            int userId = scanner.nextInt();
-            scanner.nextLine(); // consume newline
-            System.out.print("Enter new complaint description: ");
-            String description = scanner.nextLine();
-            System.out.print("Enter new complaint date (yyyy-mm-dd): ");
-            String dateStr = scanner.nextLine();
-            System.out.print("Enter new complaint status: ");
-            String status = scanner.nextLine();
-            String complaintId= Helper.generateUniqueId();
-            complaint.setIdComplaint(complaintId);
-            complaint.setUserId(complaint.getUserId());
-            complaint.setDescription(description);
-            complaint.setDate(java.sql.Date.valueOf(dateStr));
-            complaint.setStatus(status);
+//    public void updateComplaint(String idComplaint) throws SQLException, ClassNotFoundException {
+//        @SuppressWarnings("resource")
+//		Scanner scanner = new Scanner(System.in);
+//        Complaint complaint = complaintService.getComplaintById(idComplaint);
+//        if (complaint != null) {
+////            System.out.print("Enter new user ID: ");
+////            int userId = scanner.nextInt();
+//            scanner.nextLine(); // consume newline
+//            System.out.print("Enter new complaint description: ");
+//            String description = scanner.nextLine();
+//            System.out.print("Enter new complaint date (yyyy-mm-dd): ");
+//            String dateStr = scanner.nextLine();
+//            System.out.print("Enter new complaint status: ");
+//            String status = scanner.nextLine();
+//            String complaintId= Helper.generateUniqueId();
+//            complaint.setIdComplaint(complaintId);
+//            complaint.setUserId(complaint.getUserId());
+//            complaint.setDescription(description);
+//            complaint.setDate(java.sql.Date.valueOf(dateStr));
+//            complaint.setStatus(status);
+//
+//           // complaintService.updateComplaint(complaint);
+//            System.out.println("Complaint updated successfully!");
+//        } else {
+//            System.out.println("Complaint not found!");
+//        }
+    
+//    }
 
-           // complaintService.updateComplaint(complaint);
-            System.out.println("Complaint updated successfully!");
-        } else {
-            System.out.println("Complaint not found!");
+    public void deleteComplaint(String userId) throws SQLException, ClassNotFoundException  {
+    	List<Complaint> complaints = complaintService.getComplaintById(userId);
+    	System.out.println("Enter complaint  number which you need to delete");
+    	viewComplaint(userId);
+    	int choice= scanner.nextInt();
+    	if (choice < 1 || choice > complaints.size()) {
+            System.out.println("Invalid choice, please try again.");
+            return;
         }
-    }
-
-    public void deleteComplaint(String idComplaint) throws SQLException, ClassNotFoundException  {
-    	
+    	Complaint selectedComplaint = complaints.get(choice - 1);
+        String idComplaint = selectedComplaint.getIdComplaint();
         complaintService.deleteComplaint(idComplaint);
         System.out.println("Complaint deleted successfully!");
     }

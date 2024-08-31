@@ -12,7 +12,7 @@ public class GuardMenu {
     	
         this.scanner = new Scanner(System.in);
     }
-    public void displayMenu(User user) throws SQLException {
+    public void displayMenu(User user) throws SQLException, ClassNotFoundException {
         while (true) {
             System.out.println("Guard Options:");
             System.out.println("1) Profile Management");

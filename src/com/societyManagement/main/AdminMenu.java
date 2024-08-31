@@ -6,12 +6,10 @@ import com.Model.User;
 import com.presentation.admin.menu.AdminController;
 
 public class AdminMenu {
-
     private final AdminController adminController;
     private final Scanner scanner;
     
     public AdminMenu() {
-       // this.adminController = new AdminController();
         this.scanner = new Scanner(System.in);
         this.adminController= new AdminController();   
     }
