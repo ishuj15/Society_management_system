@@ -29,17 +29,17 @@ public class UserService {
     	userDAO.addUser(user);
     }
 
-    public User getUserById(String idUser) throws SQLException, ClassNotFoundException {
-        return userDAO.getUserById(idUser);
+    public User getUserByUserName(String idUser) throws SQLException, ClassNotFoundException {
+        return userDAO.getUserByUsername(idUser);
     }
 
     public List<User> getAllUsers() throws SQLException, ClassNotFoundException {
         return userDAO.getAllUsers();
     }
 
-//    public void updateUser(User user) throws SQLException {
-//        userDAO.updateEntity(user,user.getIdUser());
-//    }
+    public void updateUser(User user, String columnToUpdate, String newValue) throws SQLException, ClassNotFoundException {
+        userDAO.updateUser(user.getIdUser(), columnToUpdate, newValue);
+    }
 
     public void deleteUser(User user) throws SQLException, ClassNotFoundException {
     	

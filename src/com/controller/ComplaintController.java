@@ -12,7 +12,7 @@ public class ComplaintController {
     private ComplaintService complaintService = new ComplaintService();
 
 
-    public void createComplaint(String userID) throws SQLException, ClassNotFoundException {
+    public Complaint createComplaint(String userID, Complaint complaint) throws SQLException, ClassNotFoundException {
     	
         @SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
@@ -31,6 +31,7 @@ public class ComplaintController {
 
         complaintService.addComplaint(complaint);
         System.out.println("Complaint created successfully!");
+        return complaint;
     }
 
     public void viewComplaint(String userId) throws SQLException, ClassNotFoundException {

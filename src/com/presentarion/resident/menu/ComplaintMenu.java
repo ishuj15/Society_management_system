@@ -26,7 +26,7 @@ public class ComplaintMenu {
 	            System.out.println("2) View Complaint");
 	            System.out.println("3) Delete Complaint");
 	            System.out.println("4) Exit");
-	            
+	            Complaint complaint = new Complaint();
 
 	            int choice = scanner.nextInt();
 	            scanner.nextLine(); // Consume newline
@@ -34,7 +34,7 @@ public class ComplaintMenu {
 	            switch (choice) {
 	                case 1:
 	                {
-	                   masterController.complaintController.createComplaint(user.getIdUser());
+	                   masterController.complaintController.createComplaint(user.getIdUser(),complaint);
 	                    break;
 	                }
 	                case 2:

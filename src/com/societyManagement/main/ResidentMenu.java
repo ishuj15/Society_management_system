@@ -6,7 +6,7 @@ import com.Model.User;
 import com.presentarion.resident.menu.*;
 
 public class ResidentMenu {
-private static Scanner scanner =new Scanner(System.in);
+private  Scanner scanner =new Scanner(System.in);
 
 private ResidentController residentController;
    public ResidentMenu() {
@@ -14,7 +14,7 @@ private ResidentController residentController;
         this.scanner = new Scanner(System.in);
     }
 
-    public   void displayMenu(User user) throws SQLException {
+    public   void displayMenu(User user) throws SQLException, ClassNotFoundException {
     	//this.user=user;
     	//User user=user;
         while (true) {
@@ -26,7 +26,8 @@ private ResidentController residentController;
         			 4) Notices
         			 5) Alert
         			 6) Complaints
-        			 7) Logout
+        			 7)	Feedback
+        			 8) Exit
     				 """;
            
             System.out.println(str);
@@ -66,7 +67,7 @@ private ResidentController residentController;
                 	residentController.complaintMenuObj.displayMenu(user) ;
                 	break;
                 }
-                case 7:
+                case 8:
                     return;
                 default:
                     System.out.println("Invalid choice, please try again.");

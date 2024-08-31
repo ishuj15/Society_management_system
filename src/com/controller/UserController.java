@@ -1,22 +1,21 @@
 package com.controller;
 
 import com.Model.User;
-import com.dao.GenericDAO;
 import com.service.UserService;
 import com.societyManagement.main.AdminMenu;
 import com.societyManagement.main.GuardMenu;
 import com.societyManagement.main.ResidentMenu;
 import com.util.Helper;
 
-import java.io.Console;
+//import java.io.Console;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
+//import javax.swing.JOptionPane;
+//import javax.swing.JPasswordField;
 
 public class UserController {
 	private static final Logger logger = Logger.getLogger(UserController.class.getName());
@@ -108,9 +107,9 @@ public class UserController {
     }
 
     public void viewUser(String idUser) throws SQLException, ClassNotFoundException {
-        User user = userService.getUserById(idUser);
+        User user = userService.getUserByUserName(idUser);
         if (user != null) {
-            System.out.println("User ID: " + user.getIdUser());
+           // System.out.println("User ID: " + user.getIdUser());
             System.out.println("User Name: " + user.getUserName());
             System.out.println("User Role: " + user.getUserRole());
             System.out.println("Phone No: " + user.getPhoneNo());
@@ -128,37 +127,117 @@ public class UserController {
         }
     }
 
-//    public void updateUser(String idUser) throws SQLException {
-//    	Scanner scanner = new Scanner(System.in);
-//       
-//			User user = userService.getUserById(idUser);
-//      if (user != null) {
-//      System.out.print("Enter new user name: ");
-//      String userName = scanner.nextLine();
-//      System.out.print("Enter new user role: ");
-//      String userRole = scanner.nextLine();
-//      System.out.print("Enter new password: ");
-//      String password = scanner.nextLine();
-//      System.out.print("Enter new phone number: ");
-//      String phoneNo = scanner.nextLine();
-//      System.out.print("Enter new email: ");
-//      String email = scanner.nextLine();
-//      System.out.print("Enter new address: ");
-//      String address = scanner.nextLine();
-//      user.setUserName(userName);
-//      user.setUserRole(userRole);
-//      user.setPassword(password);
-//      user.setPhoneNo(phoneNo);
-//      user.setEmail(email);
-//      user.setAddress(address);
-//
-//      userService.updateUser(user);
-//      System.out.println("User updated successfully!");
-//   } else {
-//      System.out.println("User not found!");
-//   }
-//		
-//}
+    public void updateUser(User user) throws SQLException, ClassNotFoundException {
+    	try (Scanner scanner = new Scanner(System.in)) {
+			//User user = userService.getUserById(idUser);
+			  if (user != null) {
+				  String str="""
+				  		1) UserName
+				  		2) Password
+				  		3) Phone Number
+				  		4) Email
+				  		5) Address
+				  		6) Exit
+				  		""";
+				  System.out.println(str);
+				 // System.out.println("Select which one to update");
+				  String columnToUpdate = null,newValue=null;
+				  System.out.println("Enter your choice to update ");
+				  int choice= scanner.nextInt();
+				  //scanner.nextLine(); 
+				 
+				  switch(choice)
+			  	{
+			  	case 1:
+			  	{
+			  		while(true)
+			  		{
+			  		columnToUpdate="userName";
+			  		 System.out.print("Enter new user name: ");
+			  	       newValue = scanner.nextLine();
+			  	       if(Helper.isUsernameValid(newValue))
+			  	    	   break;
+			  	       else
+			  	    	   System.out.println("incorrect userName, Please try again");
+			  	       
+			  	       }
+			  	     userService.updateUser(user, columnToUpdate,newValue);
+			  		break;
+			  	}
+			  	case 2:
+			  	{
+			  		while(true)
+			  		{
+			  		columnToUpdate="password";
+			  		System.out.print("Enter new password: ");
+			         newValue = scanner.nextLine();
+			         if(Helper.isPasswordValid(newValue))
+			        	 break;
+			         else
+			        	 System.out.println("incorrect password, Please try again");
+			        	 
+			        	 
+			  		}
+			         userService.updateUser(user, columnToUpdate,newValue);
+			  		break;
+			  	}
+			  	case 3:
+			  	{
+			  		while(true)
+			  		{
+			  		columnToUpdate="phoneNo";
+			  		System.out.print("Enter new phone number: ");
+			        newValue = scanner.nextLine();
+			        if(Helper.isPhoneNumberValid(newValue))
+			        {
+			        	 break;
+			        }
+			       	
+			        else
+			       	 System.out.println("incorrect phone Number, Please try again");
+			       	 
+			  		}
+			        userService.updateUser(user, columnToUpdate,newValue);
+			  		break;
+			  	}
+			  	case 4:
+			  	{
+			  		while(true)
+			  		{
+			  	
+			  		columnToUpdate="email";
+			  		System.out.print("Enter new email: ");
+			        newValue = scanner.nextLine();
+			        if(Helper.isEmailValid(newValue))
+			       	 break;
+			        else
+			       	 System.out.println("incorrect password, Please try again");
+			       	 
+			  	}
+			        userService.updateUser(user, columnToUpdate,newValue);
+			  		break;
+			  	}
+			  	case 5:
+			  	{
+			  		columnToUpdate="address";
+			  	   System.out.print("Enter new address: ");
+			  	   newValue = scanner.nextLine();        	 
+			  	 userService.updateUser(user, columnToUpdate,newValue);
+			  		break;
+			  	}
+			  	case 6:
+			  		return;
+			  	default:
+					  System.out.println("Invalid input");
+			  	}
+				  
+			  System.out.println("User updated successfully!");
+   } else {
+			  System.out.println("User not found!");
+   }
+		}
+		
+}
 
 public void deleteUser(User user) throws SQLException, ClassNotFoundException {
 	if(user.getUserRole()=="admin")

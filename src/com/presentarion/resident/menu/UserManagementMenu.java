@@ -8,52 +8,48 @@ import com.controller.MasterController;
 
 public class UserManagementMenu {
 	private final MasterController masterController;
-	    private static Scanner scanner;
-	   
-	    //static int userId=User.getIdUser();
-	    public UserManagementMenu()
-	    {
-	    	//this.user= new User();
-	    	this.masterController = new MasterController();
-	    	this.scanner = new Scanner(System.in);
-	    }
-	    public   void displayMenu(User user) throws SQLException {
-	        while (true) {
-	        	//System.out.println(user.getIdUser());
-	           
-	            System.out.println("1) Delete account");
-	            System.out.println("2) Update Account");
-	            System.out.println("3) Exit");
-	            System.out.println("Enter your choice");
-	            int choice = scanner.nextInt();
-	            scanner.nextLine(); 
+	private Scanner scanner;
 
-	            switch (choice) {
-	                case 1:
-	                {
-//							if(User.getUserRole().equals("admin"))
-//							{
-//								System.out.println("Admin account cannot be deleted");
-//								break;	
-//							}
-	                   //masterController.userController.deleteUser(user.getIdUser());
-	                    break;
-	                }
-	                case 2:
-	                {
-	                	
-	                	//masterController.userController.updateUser(user.getIdUser());
-	                	break;	
-	                }
-	                case 3:
-	                    return;
-	                default:
-	                    System.out.println("Invalid choice, please try again.");
-	            
-	        				}
-	        }
-	    
-	    }
+	// static int userId=User.getIdUser();
+	public UserManagementMenu() {
+		// this.user= new User();
+		this.masterController = new MasterController();
+		this.scanner = new Scanner(System.in);
+	}
 
-	    }
-	    
+	public void displayMenu(User user) throws SQLException, ClassNotFoundException {
+		while (true) {
+			// System.out.println(user.getIdUser());
+
+			System.out.println("1) Delete Profile");
+			System.out.println("2) Update Profile");
+			System.out.println("3) View Profile");
+			System.out.println("4) Exit");
+			System.out.println("Enter your choice");
+			int choice = scanner.nextInt();
+			scanner.nextLine();
+
+			switch (choice) {
+			case 1: {
+				masterController.userController.deleteUser(user);
+				break;
+			}
+			case 2: {
+				masterController.userController.updateUser(user);
+				break;
+			}
+			case 3: {
+				masterController.userController.viewUser(user.getUserName());
+				break;
+			}
+			case 4:
+				return;
+			default:
+				System.out.println("Invalid choice, please try again.");
+
+			}
+		}
+
+	}
+
+}
