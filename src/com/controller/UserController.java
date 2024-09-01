@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.Model.Complaint;
 import com.Model.User;
 import com.service.UserService;
 import com.societyManagement.main.AdminMenu;
@@ -322,6 +323,20 @@ public static  void login() throws SQLException, ClassNotFoundException{
 	        logger.log(Level.SEVERE, "Login failed due to a database error", e);
 	    }
 	
+}
+
+public User getUserByadmin() throws ClassNotFoundException, SQLException
+{
+	List<User> users = userService.getAllUsers();
+	listUsers();
+	System.out.println("Enter user  number which you need to delete");
+	int choice= scanner.nextInt();
+	if (choice < 1 || choice > users.size()) {
+        System.out.println("Invalid choice, please try again.");
+        return null;
+    }
+	User selectedUser = users.get(choice - 1);
+	return selectedUser;
 }
 }
 //Console console = System.console();

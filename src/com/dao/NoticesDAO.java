@@ -22,7 +22,7 @@ public class NoticesDAO extends GenericDAO<Notices> {
     }
     public boolean addNotice(Notices notice) throws SQLException, ClassNotFoundException {
         String sqlQuery = String.format(
-            "INSERT INTO notices (idNotices, title, description, datePosted, targetRole) VALUES ('%s','%s','%s','%s','%s')",
+            "INSERT INTO notices (idNotices, title, message, date, targetRole) VALUES ('%s','%s','%s','%s','%s')",
             notice.getIdNotices(), notice.getTitle(), notice.getMessage(), notice.getDate(), notice.getTargetRole());
         return executeQuery(sqlQuery);
     }
@@ -40,5 +40,9 @@ public class NoticesDAO extends GenericDAO<Notices> {
     public boolean deleteNotice(String noticeId) throws SQLException, ClassNotFoundException {
         String deleteSQL = "DELETE FROM notices WHERE idNotices = \"" + noticeId + "\"";
         return executeQuery(deleteSQL);
+    }
+    public boolean updateNotice(String userId, String columnToUpdate, String newValue) throws SQLException, ClassNotFoundException {
+        String sqlQuery = String.format("UPDATE notices SET %s = '%s' WHERE idNotices = '%s'", columnToUpdate, newValue, userId);
+        return executeQuery(sqlQuery);
     }
 }

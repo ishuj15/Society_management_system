@@ -24,7 +24,8 @@ public class NoticeManagementAdmin {
 					1) Add Notice
 					2) Delete Notice
 					3) View list of Notices
-					4) Exit
+					4) Update Notice
+					5) Exit
 					""";
 			System.out.println(str);
 			System.out.println("Enter your choice");
@@ -40,7 +41,7 @@ public class NoticeManagementAdmin {
 			}
 			case 2:
 			{
-				//masterController.noticesController.deleteNotice(choice);
+				masterController.noticesController.deleteNotice();
 				break;
 			}
 			case 3:
@@ -49,6 +50,11 @@ public class NoticeManagementAdmin {
 				break;
 			}
 			case 4:
+			{
+				masterController.noticesController.updateNotice();
+				break;
+			}
+			case 5:
 				return;
 				default:
 					System.out.println("Invalid Choice , Please try again");

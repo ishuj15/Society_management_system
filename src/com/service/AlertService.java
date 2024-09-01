@@ -24,9 +24,9 @@ public class AlertService {
         return alertDAO.getAllAlerts();
     }
 
-//    public void updateAlert(Alert alert) throws SQLException {
-//        alertDAO.updateAlert(alert,alert.getIdAlert());
-//    }
+    public void updateAlert(String idAlert, String ColumnToUpdate, String NewValue) throws SQLException, ClassNotFoundException {
+        alertDAO.updateAlert(idAlert, ColumnToUpdate,NewValue);
+    }
 
     public void deleteAlert(String idAlert) throws SQLException, ClassNotFoundException {
         alertDAO.deleteAlert(idAlert);

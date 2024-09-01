@@ -3,18 +3,18 @@ package com.presentation.admin.menu;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import com.Model.User;
+import com.controller.AlertController;
 import com.controller.MasterController;
 
 public class AlertManagementAdmin {
 	private  Scanner scanner;
-	private MasterController masterController;
+	private AlertController alertController;
 	public AlertManagementAdmin()
 	{
-		this.masterController = new MasterController();
+		this.alertController = new AlertController();
     	this.scanner = new Scanner(System.in);
 	}
-	public void displayMenu(User user) throws SQLException {
+	public void displayMenu() throws SQLException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		
 		while(true)
@@ -24,7 +24,8 @@ public class AlertManagementAdmin {
 					1) Add Alert
 					2) Delete Alert
 					3) View Alerts
-					4) Exit
+					4) Update Alert
+					5) Exit
 					""";
 			System.out.println(str);
 			System.out.println("Enter your choice");
@@ -35,20 +36,25 @@ public class AlertManagementAdmin {
 			{
 			case 1:
 			{
-				masterController.alertController.createAlert();
+				alertController.createAlert();
 				break;
 			}
 			case 2:
 			{
-				//masterController.noticesController.deleteNotice(choice);
+				alertController.deleteAlert();
 				break;
 			}
 			case 3:
 			{
-				masterController.alertController.listAlerts() ;
+				alertController.listAlerts() ;
 				break;
 			}
 			case 4:
+			{
+				alertController.updateAlert();
+				break;
+			}
+			case 5:
 				return;
 				default:
 					System.out.println("Invalid Choice , Please try again");

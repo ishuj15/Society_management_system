@@ -25,9 +25,9 @@ public class NoticesService {
         return noticesDAO.getAllNotices();
     }
 
-//    public void updateNotice(Notices notice, int id) throws SQLException {
-//        noticesDAO.updateNotice(notice, id);
-//    }
+    public void updateNotice(String noticeId, String ColumnToUpdate, String NewValue) throws SQLException, ClassNotFoundException {
+        noticesDAO.updateNotice(noticeId,ColumnToUpdate, NewValue);
+    }
 
     public void deleteNotice(String  id) throws SQLException, ClassNotFoundException {
         noticesDAO.deleteNotice(id);

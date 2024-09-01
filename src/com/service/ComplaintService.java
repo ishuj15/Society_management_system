@@ -21,12 +21,12 @@ public class ComplaintService {
         return complaintDAO.getAllComplaints();
     }
 
-//    public void updateComplaint(Complaint complaint) throws SQLException {
-//        complaintDAO.updateEntity(complaint,complaint.getIdComplaint());
-    //}
 
     public void deleteComplaint(String idComplaint) throws SQLException, ClassNotFoundException {
         complaintDAO.deleteComplaint(idComplaint);
+    }
+    public void updateComplaint(String idComplaint, String ColumnToUpdate, String NewValue) throws SQLException, ClassNotFoundException {
+        complaintDAO.updateComplaint(idComplaint,ColumnToUpdate, NewValue);
     }
 }
 

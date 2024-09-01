@@ -17,18 +17,18 @@ public class AdminMenu {
     public void displayMenu(User user) throws SQLException, ClassNotFoundException {
         while (true) {
             System.out.println("Admin Options:");
-            System.out.println("1) Account Management");
-            System.out.println("2) Notice Management");
-            System.out.println("3) Alert Management");
-            System.out.println("4) Visitor Management");
-            System.out.println("5) Services Management");
-            System.out.println("6) Complaint Management");
+            System.out.println("1) Account 	  Management");
+            System.out.println("2) Notice  	  Management");
+            System.out.println("3) Alert   	  Management");
+            System.out.println("4) Visitor 	  Management");
+            System.out.println("5) Services   Management");
+            System.out.println("6) Complaint  Management");
             System.out.println("7) Attendance Management");
             System.out.println("8)Exit");
             
             System.out.println("Enter your choice");
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine(); 
 
             switch (choice) {
                 case 1:
@@ -41,7 +41,7 @@ public class AdminMenu {
                 }
                 case 3:
                 {
-                	adminController.alertManage.displayMenu(user);
+                	adminController.alertManage.displayMenu();
                 	break;
                 }
                 case 4:

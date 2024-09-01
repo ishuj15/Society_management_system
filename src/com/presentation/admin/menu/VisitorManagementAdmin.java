@@ -16,15 +16,13 @@ public class VisitorManagementAdmin {
 	}
 
 	public void displayMenu(User user) throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
 		
 		while(true)
 		{
 			String str=
 					"""
-					1) View Visitor
-					2) Delete Visitor
-					3) Exit
+					1) View list of Visitor
+					2) Exit
 					""";
 			System.out.println(str);
 			System.out.println("Enter your choice");
@@ -38,13 +36,8 @@ public class VisitorManagementAdmin {
 				masterController.visitorController.listVisitors() ;
 				break;
 			}
-			case 2:
-			{
-				//masterController.visitorController.deleteVisitor(choice) ;
-				break;
-			}
 			
-			case 3:
+			case 2:
 				return;
 				default:
 					System.out.println("Invalid Choice , Please try again");

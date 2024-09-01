@@ -24,8 +24,7 @@ public class ComplaintMenu {
 	            System.out.println("Complaint Menu");
 	            System.out.println("1) Add Complaint");
 	            System.out.println("2) View Complaint");
-	            System.out.println("3) Delete Complaint");
-	            System.out.println("4) Exit");
+	            System.out.println("3) Exit");
 	            int choice = scanner.nextInt();
 	            scanner.nextLine(); 
 	            switch (choice) {
@@ -41,12 +40,8 @@ public class ComplaintMenu {
 	                	masterController.complaintController.viewComplaint(user.getIdUser());
 	                	break;
 	                }
+	                
 	                case 3:
-	                {
-	                	masterController.complaintController.deleteComplaint(user.getIdUser());
-	                	break;
-	                }
-	                case 4:
 	                    return;
 	                default:
 	                    System.out.println("Invalid choice, please try again.");

@@ -23,23 +23,27 @@ public class ComplaintDAO extends GenericDAO<Complaint> {
 
     public boolean addComplaint(Complaint complaint) throws SQLException, ClassNotFoundException {
         String sqlQuery = String.format(
-            "INSERT INTO Complaint (idcomplaint, idUser, description, date,status) VALUES ('%s','%s','%s','%s','%s')",
+            "INSERT INTO complaint (idcomplaint, idUser, description, date,status) VALUES ('%s','%s','%s','%s','%s')",
             complaint.getIdComplaint(), complaint.getUserId(), complaint.getDescription(), complaint.getDate(), complaint.getStatus());
         return executeQuery(sqlQuery);
     }
 
     public List<Complaint> getComplaintById(String userId) throws SQLException, ClassNotFoundException {
-        String selectSQL = "SELECT * FROM Complaint WHERE idUser = \"" + userId + "\"";
+        String selectSQL = "SELECT * FROM complaint WHERE idUser = \"" + userId + "\"";
         return executeGetAllQuery(selectSQL);
     }
 
     public List<Complaint> getAllComplaints() throws SQLException, ClassNotFoundException {
-        String selectSQL = "SELECT * FROM Complaint";
+        String selectSQL = "SELECT * FROM complaint";
         return executeGetAllQuery(selectSQL);
     }
 
     public boolean deleteComplaint(String complaintId) throws SQLException, ClassNotFoundException {
-        String deleteSQL = "DELETE FROM Complaint WHERE idcomplaint = \"" + complaintId + "\"";
+        String deleteSQL = "DELETE FROM complaint WHERE idcomplaint = \"" + complaintId + "\"";
         return executeQuery(deleteSQL);
+    }
+    public boolean updateComplaint(String idComplaint, String columnToUpdate, String newValue) throws SQLException, ClassNotFoundException {
+        String sqlQuery = String.format("UPDATE complaint SET %s = '%s' WHERE idcomplaint = '%s'", columnToUpdate, newValue, idComplaint);
+        return executeQuery(sqlQuery);
     }
 }

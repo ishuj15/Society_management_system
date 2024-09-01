@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.Model.Complaint;
 import com.Model.Notices;
 import com.service.NoticesService;
 import com.util.Helper;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 
 public class NoticesController {
 
+	 Scanner scanner = new Scanner(System.in);
     private final NoticesService noticesService = new NoticesService();
 
     public void createNotice() throws SQLException, ClassNotFoundException {
@@ -83,30 +85,85 @@ public class NoticesController {
         }
     }
 
-//    public void updateNotice(String idNotice) throws SQLException, ClassNotFoundException {
-//        Scanner scanner = new Scanner(System.in);
-//        List<Notices> notice = noticesService.getNoticeByRole(idNotice);
-//        if (notice != null) {
-//            System.out.print("Enter new title: ");
-//            String title = scanner.nextLine();
-//            System.out.print("Enter new message: ");
-//            String message = scanner.nextLine();
-//            System.out.print("Enter new date (yyyy-mm-dd): ");
-//            String dateStr = scanner.nextLine();
-//
-//            notice.setTitle(title);
-//            notice.setMessage(message);
-//            notice.setDate(java.sql.Date.valueOf(dateStr));
-//
-//         //   noticesService.updateNotice(notice, idNotice);
-//            System.out.println("Notice updated successfully!");
-//        } else {
-//            System.out.println("Notice not found!");
-//        }
-//    }
+    public void updateNotice() throws SQLException, ClassNotFoundException {
+       Notices notice=getNotice();
+      
+       if(notice==null)
+    	   System.out.println("Notice not found!");   
+       else
+       {
+    	   String idNotice= notice.getIdNotices();
+       String str="""
+       		1) Title
+       		2) Message
+       		3) Date
+       		4) TagerRole
+       		5) Exit
+       		""";
+       System.out.println(str);
+       System.out.println("Select that needs to be updated");
+       int choice=scanner.nextInt();
+       scanner.nextLine();
+       switch(choice)
+       {
+       case 1:
+       {
+    	   System.out.print("Enter new title: ");
+         String title = scanner.nextLine();
+         noticesService.updateNotice(idNotice, "title", title);
+         System.out.println("Notice updated successfully!");
+    	   break;
+       }
+       case 2:
+       {
+    	   System.out.print("Enter new message: ");
+        String message = scanner.nextLine();
+        noticesService.updateNotice(idNotice, "message", message);
+        System.out.println("Notice updated successfully!");
+    	   break;
+       }
+       case 3:
+       {
+    	   System.out.print("Enter new date (yyyy-mm-dd): ");
+       String dateStr = scanner.nextLine();
+       noticesService.updateNotice(idNotice, "date", dateStr);
+       System.out.println("Notice updated successfully!");
 
-    public void deleteNotice(String idNotice) throws SQLException, ClassNotFoundException {
-        noticesService.deleteNotice(idNotice);
+    	   break;
+       }
+       case 4:
+       {
+    	   System.out.print("Enter target role: ");
+           String role = scanner.nextLine();
+           noticesService.updateNotice(idNotice, "targetRole", role);
+           System.out.println("Notice updated successfully!");
+       	   break;
+    	   
+       }
+       case 5:
+    	   return;
+    	   default:
+    		   System.out.println("Invalid Input , Please try again");
+       }
+       }
+       
+ 
+    
+    }
+
+    public void deleteNotice() throws SQLException, ClassNotFoundException {
+    	Notices notice=getNotice();
+        noticesService.deleteNotice(notice.getIdNotices());
         System.out.println("Notice deleted successfully!");
     }
+    public Notices getNotice() throws ClassNotFoundException, SQLException {
+    	
+         List<Notices> notices = noticesService.getAllNotices();
+         listNotices();
+         System.out.println("Select  notice ");
+         int choice=scanner.nextInt();
+         scanner.nextLine();
+         return  notices.get(choice-1);
+    }
+    
 }

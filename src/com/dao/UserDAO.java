@@ -31,17 +31,17 @@ public class UserDAO extends GenericDAO<User> {
     }
 
     public User getUserById(String userId) throws SQLException, ClassNotFoundException {
-        String selectSQL = "SELECT * FROM User WHERE userId = \"" + userId + "\"";
+        String selectSQL = "SELECT * FROM User WHERE idUser = \"" + userId + "\"";
         return executeGetQuery(selectSQL);
     }
 
     public User getUserByUsername(String username) throws SQLException, ClassNotFoundException {
-        String selectSQL = "SELECT * FROM User WHERE username = \"" + username + "\"";
+        String selectSQL = "SELECT * FROM User WHERE userName = \"" + username + "\"";
         return executeGetQuery(selectSQL);
     }
 
     public boolean deleteUser(String userId) throws SQLException, ClassNotFoundException {
-        String deleteSQL = "DELETE FROM User WHERE userId = \"" + userId + "\"";
+        String deleteSQL = "DELETE FROM User WHERE idUser = \"" + userId + "\"";
         return executeQuery(deleteSQL);
     }
 
@@ -50,7 +50,7 @@ public class UserDAO extends GenericDAO<User> {
         return executeGetAllQuery(selectSQL);
     }
     public  boolean isUsernameTaken(String username) throws ClassNotFoundException, SQLException {
-            String sql = "SELECT COUNT(*) FROM user WHERE username = ?";
+            String sql = "SELECT COUNT(*) FROM user WHERE userName = ?";
            return executeQuery(sql);
     }
     public boolean updateUser(String userId, String columnToUpdate, String newValue) throws SQLException, ClassNotFoundException {

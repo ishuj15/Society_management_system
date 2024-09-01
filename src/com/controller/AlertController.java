@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class AlertController {
     private AlertService alertService = new AlertService();
+    Scanner scanner= new Scanner(System.in);
 
     public void createAlert() throws SQLException, ClassNotFoundException {
         @SuppressWarnings("resource")
@@ -80,32 +81,81 @@ public class AlertController {
                     serialNumber,
                     alert.getMessage());
                 serialNumber++;
+                System.out.println("--------------------------------------------------");
             }
         }   
     }
 
-//    public void updateAlert(int idAlert) throws SQLException {
-//        try (Scanner scanner = new Scanner(System.in)) {
-//			Alert alert = alertService.getAlertById(idAlert);
-//			if (alert != null) {
-//			    System.out.print("Enter new alert message: ");
-//			    String message = scanner.nextLine();
-//			    System.out.print("Enter new alert date (yyyy-mm-dd): ");
-//			    String dateStr = scanner.nextLine();
-//
-//			    alert.setMessage(message);
-//			    alert.setDate(java.sql.Date.valueOf(dateStr));
-//
-//			    alertService.updateAlert(alert);
-//			    System.out.println("Alert updated successfully!");
-//			} else {
-//			    System.out.println("Alert not found!");
-//			}
-//		}
-   // }
+    public void updateAlert() throws SQLException, ClassNotFoundException {
+        try (Scanner scanner = new Scanner(System.in)) {
+			Alert alert = getAlert();
+			if (alert == null) {
+				System.out.println("Alert not found!"); 
+			}
+			else
+			{ 
+				String idAlert= alert.getIdAlert();
+				String str="""
+       		1) Message
+       		2) Date
+       		3) TagerRole
+       		3) Exit
+       		""";
+       System.out.println(str);
+       System.out.println("Select that needs to be updated");
+       int choice=scanner.nextInt();
+       scanner.nextLine();
+       switch(choice)
+       {
+      
+       case 1:
+       {
+    	   System.out.print("Enter new message: ");
+        String message = scanner.nextLine();
+        alertService.updateAlert(idAlert, "message", message);
+        System.out.println("Alert updated successfully!");
+    	   break;
+       }
+       case 2:
+       {
+    	   System.out.print("Enter new date (yyyy-mm-dd): ");
+       String dateStr = scanner.nextLine();
+       alertService.updateAlert(idAlert, "date", dateStr);
+       System.out.println("Alert updated successfully!");
 
-    public void deleteAlert(String idAlert) throws SQLException, ClassNotFoundException {
-        alertService.deleteAlert(idAlert);
+    	   break;
+       }
+       case 3:
+       {
+    	   System.out.print("Enter target role: ");
+           String role = scanner.nextLine();
+           alertService.updateAlert(idAlert, "targetRole", role);
+           System.out.println("Alert updated successfully!");
+       	   break;
+    	   
+       }
+       case 4:
+    	   return;
+    	   default:
+    		   System.out.println("Invalid Input , Please try again");
+       }
+				
+			} 
+		}
+    }
+
+    public void deleteAlert() throws SQLException, ClassNotFoundException {
+    	Alert alert= getAlert();
+        alertService.deleteAlert(alert.getIdAlert());
         System.out.println("Alert deleted successfully!");
     }
+    public Alert getAlert() throws ClassNotFoundException, SQLException {
+    	
+        List<Alert> alerts = alertService.getAllAlerts();
+        listAlerts();
+        System.out.println("Select  alert ");
+        int choice=scanner.nextInt();
+        scanner.nextLine();
+        return  alerts.get(choice-1);
+   }
 }

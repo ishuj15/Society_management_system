@@ -10,12 +10,12 @@ import com.controller.UserController;
 public class AccontManagementAdmin {
 	private  Scanner scanner;
 	private MasterController masterController;
-	public void AccountManagementAdmin()
+	public  AccontManagementAdmin()
 	{
 		this.masterController = new MasterController();
     	this.scanner = new Scanner(System.in);
 	}
-	public void displayMenu(User user) throws SQLException {
+	public void displayMenu(User user) throws SQLException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		
 			String str=
@@ -32,7 +32,7 @@ public class AccontManagementAdmin {
 			System.out.println(str);
 			System.out.println("Enter your choice");
 			 int choice = scanner.nextInt();
-	            scanner.nextLine();
+			 scanner.nextLine();
 	            
 	          switch(choice)
 	          {
@@ -43,7 +43,8 @@ public class AccontManagementAdmin {
 	          }
 	          case 2:
 	          {
-	        	  //masterController.userController.deleteUser(user.getIdUser());
+	        	  User user2= masterController.userController.getUserByadmin();
+	        	  masterController.userController.deleteUser(user2);
 	        	  break;
 	          }
 	          case 3:
@@ -60,7 +61,8 @@ public class AccontManagementAdmin {
 	          }
 	          case 5:
 	          {
-	        	  masterController.userController.updateUser(user.getIdUser());
+	        	 User user2= masterController.userController.getUserByadmin();
+	        	 masterController.userController.deleteUser(user2);
 	        	  break;
 	          }
 	          case 6:
