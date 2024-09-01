@@ -17,7 +17,7 @@ public class VisitorService {
         visitorDAO.addVisitor(visitor);
     }
 
-    public Visitor getVisitorById(String id) throws SQLException, ClassNotFoundException {
+    public List<Visitor> getVisitorById(String id) throws SQLException, ClassNotFoundException {
         return visitorDAO.getVisitorById(id);
     }
 
@@ -25,24 +25,31 @@ public class VisitorService {
         return visitorDAO.getAllVisitors();
     }
 
-    public void updateVisitor(Visitor visitor, int id) throws SQLException {
-        visitorDAO.updateEntity(visitor, id);
+    public void updateVisitor(String visitorId, String ColumnToUpdate, String NewValue) throws SQLException, ClassNotFoundException {
+        visitorDAO.updateVisitor(visitorId, ColumnToUpdate,NewValue );
     }
 
     public void deleteVisitor(String id) throws SQLException, ClassNotFoundException {
         visitorDAO.deleteVisitor(id);
     }
-    public void verifyVisitor(String visitorId, boolean approved) throws SQLException, ClassNotFoundException {
-        visitorDAO.updateApprovalStatus(visitorId, approved);
-        if (approved) {
-            System.out.println("Visitor approved.");
+    public void verifyVisitor(String visitorId) throws SQLException, ClassNotFoundException {
+        Visitor visitor=visitorDAO.verifyVisitor(visitorId);
+        if (visitor.isApproved()=="true") {
+            System.out.println("Visitor verified.");
         } else {
             System.out.println("Visitor rejected.");
         }
+    }
+    public void updateApprovalStatus(String visitorId, String approved) throws SQLException, ClassNotFoundException {
+        visitorDAO.updateApprovalStatus(visitorId, approved);
     }
 
     public void requestApproval(String visitorId) throws SQLException {
         // You can implement logic to notify the resident about the approval request
         System.out.println("Approval request sent to resident.");
     }
+    public List<Visitor> getAllVisitorReq(String userId, String apr ) throws SQLException, ClassNotFoundException {
+        return visitorDAO.pendingRequests(userId,apr);
+    }
+    
 }

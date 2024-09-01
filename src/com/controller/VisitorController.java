@@ -1,7 +1,9 @@
 package com.controller;
 
+import com.Model.User;
 import com.Model.Visitor;
 import com.service.VisitorService;
+import com.util.Helper;
 
 import java.sql.SQLException;
 import java.sql.Time;
@@ -10,15 +12,25 @@ import java.util.List;
 import java.util.Scanner;
 
 public class VisitorController {
+	//private final MasterController masterController=new MasterController();
 
     private final VisitorService visitorService = new VisitorService();
-
-    public void createVisitor() throws SQLException {
-        Scanner scanner = new Scanner(System.in);
+    @SuppressWarnings("resource")
+	Scanner scanner = new Scanner(System.in);
+    public void createVisitor() throws SQLException, ClassNotFoundException {
+    	System.out.println("Enter resident userName");
+		String userName=scanner.nextLine();
+		User residentUser=UserController.userService.getUserByUserName(userName);
+		String apr;
+		if(residentUser.getUserRole()=="resident")
+			 apr="true";
+		else
+			apr="false";
+       
         System.out.print("Enter visitor name: ");
         String name = scanner.nextLine();
-//        System.out.print("Enter visitor contact: ");
-//        String contact = scanner.nextLine();
+        System.out.print("Enter visitor contact: ");
+        String contact = scanner.nextLine();
         System.out.print("Enter visit date (yyyy-mm-dd): ");
         String dateStr = scanner.nextLine();
         System.out.print("Enter visit purpose: ");
@@ -26,73 +38,268 @@ public class VisitorController {
         System.out.print("Enter visit arrival time: ");
         String time=scanner.nextLine();
         Time arrival_time= Time.valueOf(time) ;
+        System.out.print("Enter departure date (yyyy-mm-dd): ");
+        String dep_Date = scanner.nextLine();
         System.out.print("Enter visit departure time: ");
         String time2=scanner.nextLine();
         Time departure_time= Time.valueOf(time2);
-        //System.out.print("Enter visit purpose: ");
-        
-
-        Visitor visitor = new Visitor();
-        visitor.setName(name);
-      // visitor.setContact(contact);
        
+        
+        Visitor visitor = new Visitor();
+        visitor.setIdVisitor(Helper.generateUniqueId());
+        visitor.setUserId(residentUser.getIdUser());
+        visitor.setName(name);
+        visitor.setContactNo(contact);
         visitor.setPurpose(purpose);
         visitor.setDate(java.sql.Date.valueOf(dateStr));
         visitor.setArrivalTime(arrival_time);
         visitor.setDepartureTime(departure_time);
+        visitor.setApproved(apr);
+        visitor.setDep_date(java.sql.Date.valueOf(dep_Date));
 
         visitorService.addVisitor(visitor);
         System.out.println("Visitor created successfully!");
     }
 
-    public void viewVisitor(int idVisitor) throws SQLException {
-        Visitor visitor = visitorService.getVisitorById(idVisitor);
-        if (visitor != null) {
-            System.out.println("Visitor ID: " + visitor.getIdVisitor());
-            System.out.println("Name: " + visitor.getName());
-          //  System.out.println("Contact: " + visitor.getContact());
-            System.out.println("Date: " + visitor.getDate());
-            System.out.println("Purpose: " + visitor.getPurpose());
-        } else {
-            System.out.println("Visitor not found!");
-        }
+    public void viewVisitor(String userId) throws SQLException, ClassNotFoundException {
+    	 List<Visitor> visitors = visitorService.getAllVisitorReq(userId,"true");
+    	 if(visitors==null || visitors.isEmpty())
+    	 {
+    		 System.out.println("Visitor not found!");	 
+    	 }
+    	 else
+    	 {
+    		 System.out.printf("%-5s %-20s %-15s %-15s %-20s %-20s %-20s %-15s\n", 
+                     "S.No", "Name", "Contact", "Arrival Date", "Purpose", "Arrival Time", "Departure Time", "Departure Date");
+   System.out.println("---------------------------------------------------------------------------------------------------------------"
+                    + "---------------------------------------------");
+   int serialNumber = 1;
+   for (Visitor visitor : visitors) {
+       System.out.printf("%-5d %-20s %-15s %-15s %-20s %-20s %-20s %-15s\n", 
+                         serialNumber++, 
+                         visitor.getName(), 
+                         visitor.getContactNo(), 
+                         visitor.getDate(), // Assuming this is the arrival date
+                         visitor.getPurpose(), 
+                         visitor.getArrivalTime(), 
+                         visitor.getDepartureTime(), 
+                         visitor.getDep_date()); // Assuming you have a method to get the departure date
+   }
+   System.out.println("---------------------------------------------------------------------------------------------------------------"
+                    + "---------------------------------------------");
+    		 
+    	 }
     }
 
-    public void listVisitors() throws SQLException {
+    public void listVisitors() throws SQLException, ClassNotFoundException {
         List<Visitor> visitors = visitorService.getAllVisitors();
-        for (Visitor visitor : visitors) {
-          //  System.out.println("Visitor ID: " + visitor.getIdVisitor() + ", Name: " + visitor.getName() + ", Contact: " + visitor.getContact() + ", Date: " + visitor.getDate() + ", Purpose: " + visitor.getPurpose());
-        }
+        if(visitors==null || visitors.isEmpty())
+   	 {
+   		 System.out.println("Visitor not found!");	 
+   	 }
+   	 else
+   	 {
+   		 System.out.printf("%-5s %-20s %-15s %-15s %-20s %-20s %-20s %-15s\n", 
+                 "S.No", "Name", "Contact", "Arrival Date", "Purpose", "Arrival Time", "Departure Time", "Departure Date");
+System.out.println("---------------------------------------------------------------------------------------------------------------"
+                + "---------------------------------------------");
+int serialNumber = 1;
+for (Visitor visitor : visitors) {
+   System.out.printf("%-5d %-20s %-15s %-15s %-20s %-20s %-20s %-15s\n", 
+                     serialNumber++, 
+                     visitor.getName(), 
+                     visitor.getContactNo(), 
+                     visitor.getDate(), // Assuming this is the arrival date
+                     visitor.getPurpose(), 
+                     visitor.getArrivalTime(), 
+                     visitor.getDepartureTime(), 
+                     visitor.getDep_date()); // Assuming you have a method to get the departure date
+}
+System.out.println("---------------------------------------------------------------------------------------------------------------"
+                + "---------------------------------------------");
+   	 }
     }
 
-    public void updateVisitor(int idVisitor) throws SQLException {
-        Scanner scanner = new Scanner(System.in);
-        Visitor visitor = visitorService.getVisitorById(idVisitor);
-        if (visitor != null) {
-            System.out.print("Enter new name: ");
-            String name = scanner.nextLine();
-//            System.out.print("Enter new contact: ");
-//            String contact = scanner.nextLine();
-            System.out.print("Enter new date (yyyy-mm-dd): ");
-            String dateStr = scanner.nextLine();
-            System.out.print("Enter new purpose: ");
-            String purpose = scanner.nextLine();
-
-            visitor.setName(name);
-           // visitor.setContact(contact);
-            visitor.setDate(java.sql.Date.valueOf(dateStr));
-            visitor.setPurpose(purpose);
-
-            visitorService.updateVisitor(visitor, idVisitor);
-            System.out.println("Visitor updated successfully!");
-        } else {
-            System.out.println("Visitor not found!");
+    public void updateVisitor(String userId) throws SQLException, ClassNotFoundException {
+        @SuppressWarnings("resource")
+		Scanner scanner = new Scanner(System.in);
+        List<Visitor> visitors = visitorService.getVisitorById(userId);
+        System.out.println("Enter which visitor to update");
+        viewVisitor(userId);
+        int choice= scanner.nextInt();
+    	if (choice < 1 || choice > visitors.size()) {
+            System.out.println("Invalid choice, please try again.");
+            return;
+        }
+        Visitor selectedVisitor= visitors.get(choice-1);
+        String visitorId=selectedVisitor.getIdVisitor();
+        String str="""
+        		1) Name
+        		2) Contact Number
+        		3) Arrival Date
+        		4) Arrival Time
+        		5) Departure Date
+        		6) Departure time
+        		7) Exit
+        		""";
+        System.out.println(str);
+        System.out.println("Select which one to update");
+        int choice2= scanner.nextInt();
+        scanner.nextLine();
+        switch(choice2)
+        {
+        case 1:
+        {
+        	 System.out.print("Enter new name: ");
+             String name = scanner.nextLine();
+             visitorService.updateVisitor(visitorId, "name",name);
+             System.out.println("Vistor updated");
+             break;
+        }
+        	
+        case 2:
+        {
+        	 System.out.print("Enter new contact: ");
+          String contact = scanner.nextLine();
+          visitorService.updateVisitor(visitorId, "contact",contact);
+          System.out.println("Vistor updated");
+        	break;
+        }
+        case 3:
+        {
+        	 System.out.print("Enter new arrival date (yyyy-mm-dd): ");
+             String arrivalDate = scanner.nextLine();
+             visitorService.updateVisitor(visitorId, "date_of_arrival",arrivalDate);
+             System.out.println("Vistor updated");
+             break;
+        }
+        case 4:
+        {
+        	System.out.print("Enter arrival Time: ");
+        	 String time=scanner.nextLine();
+        	 
+             Time arrival_time= Time.valueOf(time) ;
+             visitorService.updateVisitor(visitorId, "arrivalTime",arrival_time.toString());
+             System.out.println("Vistor updated");
+             break;
+        }
+        case 5:
+        {
+        	System.out.print("Enter departure date: ");
+        	 String DepartureDate = scanner.nextLine();
+        	 visitorService.updateVisitor(visitorId, "departure_date",DepartureDate);
+        	 System.out.println("Vistor updated");
+        	 break;
+        }
+        case 6:
+        {
+        	System.out.print("Enter departure time: ");
+        	 String time=scanner.nextLine();
+             Time departure_time= Time.valueOf(time) ;
+             visitorService.updateVisitor(visitorId, "dapartureTime",departure_time.toString());
+             System.out.println("Vistor updated");
+             break;
+        }
+        case 7:
+        	return;
+        default:
+        {
+        		System.out.println("Invalid input");
         }
     }
-
-    public void deleteVisitor(int idVisitor) throws SQLException {
-        visitorService.deleteVisitor(idVisitor);
+       
+}
+    public void deleteVisitor(String userId) throws SQLException, ClassNotFoundException {
+    	@SuppressWarnings("resource")
+		Scanner scanner = new Scanner(System.in);
+        List<Visitor> visitors = visitorService.getVisitorById(userId);
+        System.out.println("Enter which visitor to update");
+        viewVisitor(userId);
+        int choice= scanner.nextInt();
+    	if (choice < 1 || choice > visitors.size()) {
+            System.out.println("Invalid choice, please try again.");
+            return;
+        }
+        Visitor selectedVisitor= visitors.get(choice-1);
+        String visitorId=selectedVisitor.getIdVisitor();
+    	visitorService.deleteVisitor(visitorId);
         System.out.println("Visitor deleted successfully!");
+    }
+    //public void 
+    public void verifyVisitor() throws SQLException, ClassNotFoundException {
+
+    	System.out.println("Enter resident userName");
+		String userName=scanner.nextLine();
+		User residentUser=UserController.userService.getUserByUserName(userName);
+		List<Visitor> visitors = visitorService.getVisitorById(residentUser.getIdUser());
+        System.out.println("Enter which visitor to update");
+        viewVisitor(residentUser.getIdUser());
+        int choice= scanner.nextInt();
+        scanner.nextLine();
+    	if (choice < 1 || choice > visitors.size()) {
+            System.out.println("Invalid choice, please try again.");
+            return;
+        }
+        Visitor selectedVisitor= visitors.get(choice-1);
+        String visitorId2=selectedVisitor.getIdVisitor();
+        visitorService.verifyVisitor(visitorId2);
+       // visitorDAO.updateApprovalStatus(visitorId, approved);
+       //System.out.println("Visitor rejected.");
+      }
+
+    public void pendingRequests(String userId)throws SQLException, ClassNotFoundException
+    {
+    	 List<Visitor> visitors = visitorService.getAllVisitorReq(userId,"false");
+    	 if(visitors==null || visitors.isEmpty())
+    	 {
+    		 System.out.println("Visitor not found!");	 
+    	 }
+    	 else
+    	 {
+    		 System.out.printf("%-5s %-20s %-15s %-15s %-20s %-20s %-20s %-15s\n", 
+                     "S.No", "Name", "Contact", "Arrival Date", "Purpose", "Arrival Time", "Departure Time", "Departure Date");
+   System.out.println("---------------------------------------------------------------------------------------------------------------"
+                    + "---------------------------------------------");
+   int serialNumber = 1;
+   for (Visitor visitor : visitors) {
+       System.out.printf("%-5d %-20s %-15s %-15s %-20s %-20s %-20s %-15s\n", 
+                         serialNumber++, 
+                         visitor.getName(), 
+                         visitor.getContactNo(), 
+                         visitor.getDate(), // Assuming this is the arrival date
+                         visitor.getPurpose(), 
+                         visitor.getArrivalTime(), 
+                         visitor.getDepartureTime(), 
+                         visitor.getDep_date()); // Assuming you have a method to get the departure date
+   }
+   System.out.println("---------------------------------------------------------------------------------------------------------------"
+                    + "---------------------------------------------");
+    		 
+    	 }
+    	 System.out.println("Select which visitor to approve or deny");
+    	 int choice= scanner.nextInt();
+    	 scanner.nextLine();
+    	 if (choice < 1 || choice > visitors.size()) {
+             System.out.println("Invalid choice, please try again.");
+             return;
+         }
+         Visitor selectedVisitor= visitors.get(choice-1);
+         String visitorId=selectedVisitor.getIdVisitor();
+         System.out.println("Select 1 to approve");
+         System.out.println("Select 2 to deny");
+         int choice2= scanner.nextInt();
+         
+         if(choice2==1)
+         {
+        	 visitorService.updateApprovalStatus(visitorId, "true");
+        	 System.out.println("Request approved");	 
+         }
+         else
+         {
+        	 visitorService.deleteVisitor(visitorId);
+        	 System.out.println("Request Denied");
+         }
+    	
     }
 }
 

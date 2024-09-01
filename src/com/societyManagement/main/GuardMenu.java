@@ -9,7 +9,7 @@ public class GuardMenu {
 	private Scanner scanner;
 	private GuardController guardController;
     public GuardMenu() {
-    	
+    	this.guardController=new GuardController();
         this.scanner = new Scanner(System.in);
     }
     public void displayMenu(User user) throws SQLException, ClassNotFoundException {

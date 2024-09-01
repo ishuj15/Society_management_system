@@ -1,5 +1,6 @@
 package com.presentation.admin.menu;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.Model.User;
@@ -13,7 +14,7 @@ public class ServicesManagementAdmin {
 		this.masterController = new MasterController();
     	this.scanner = new Scanner(System.in);
 	}
-	public void displayMenu(User user) {
+	public void displayMenu(User user) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 
 		while(true)

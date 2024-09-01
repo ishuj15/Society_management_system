@@ -10,7 +10,7 @@ public class AttendanceService {
     private AttendanceDAO attendanceDAO = new AttendanceDAO();
 
     public void addAttendance(Attendance attendance) throws SQLException {
-        attendanceDAO.addEntity(attendance);
+        attendanceDAO.addAttendance(attendance);
     }
 
     public Attendance getAttendanceById(int idAttendance) throws SQLException {

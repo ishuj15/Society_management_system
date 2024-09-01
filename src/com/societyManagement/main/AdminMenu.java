@@ -14,7 +14,7 @@ public class AdminMenu {
         this.adminController= new AdminController();   
     }
 
-    public void displayMenu(User user) throws SQLException {
+    public void displayMenu(User user) throws SQLException, ClassNotFoundException {
         while (true) {
             System.out.println("Admin Options:");
             System.out.println("1) Account Management");

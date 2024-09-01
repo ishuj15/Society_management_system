@@ -12,8 +12,9 @@ public class Visitor {
     private Time arrivalTime;
     private Time departureTime;
     private Date date;
-    private boolean approved;
-
+    private Date dep_date;
+    private String approved;
+    private String contactNo;
     // Getters and Setters
     public String getIdVisitor() {
         return idVisitor;
@@ -71,11 +72,28 @@ public class Visitor {
         this.departureTime = time;
     }
 
-	public boolean isApproved() {
+	public String isApproved() {
 		return approved;
 	}
 
-	public void setApproved(boolean approved) {
+	public void setApproved(String approved) {
 		this.approved = approved;
+	}
+	
+
+	public String getContactNo() {
+		return contactNo;
+	}
+
+	public void setContactNo(String contactNo) {
+		this.contactNo = contactNo;
+	}
+
+	public Date getDep_date() {
+		return dep_date;
+	}
+
+	public void setDep_date(Date dep_date) {
+		this.dep_date = dep_date;
 	} 
 }

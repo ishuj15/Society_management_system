@@ -15,7 +15,7 @@ public class NoticeManagementAdmin {
     	this.scanner = new Scanner(System.in);
 	}
 
-	public void displayMenu(User user) throws SQLException {
+	public void displayMenu(User user) throws SQLException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		while(true)
 		{
@@ -23,7 +23,7 @@ public class NoticeManagementAdmin {
 					"""
 					1) Add Notice
 					2) Delete Notice
-					3) View list Notices
+					3) View list of Notices
 					4) Exit
 					""";
 			System.out.println(str);

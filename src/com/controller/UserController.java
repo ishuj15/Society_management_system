@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 public class UserController {
 	private static final Logger logger = Logger.getLogger(UserController.class.getName());
-    private static UserService userService = new UserService();
+    public static UserService userService = new UserService();
     private Scanner scanner = new Scanner(System.in);
 
     public static void createUser() throws SQLException, ClassNotFoundException {
