@@ -4,11 +4,11 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Base64;
+
 import java.util.UUID;
-import java.util.regex.Matcher;
-//import java.util.Scanner;
-import java.util.regex.Pattern;
+
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 public class Helper {
 	private static final int SALT_LENGTH = 16;
@@ -155,5 +155,13 @@ public class Helper {
 	        UUID uuid = UUID.randomUUID();
 	        return uuid.toString().substring(24);
 	    }
+	    public static String maskedPassword()
+	    {
+	    	JPasswordField passwordField = new JPasswordField(20);
+            JOptionPane.showConfirmDialog(null, passwordField, "Enter your password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            char[] passwordChars = passwordField.getPassword();
+            String password = new String(passwordChars);
+            return password;
 
+	    }
 }

@@ -6,31 +6,22 @@ import java.util.Scanner;
 import com.Model.User;
 import com.controller.MasterController;
 import com.controller.UserController;
+import com.util.StringConstants;
 
 public class AccontManagementAdmin {
 	private  Scanner scanner;
-	private MasterController masterController;
+	private UserController userController;
 	public  AccontManagementAdmin()
 	{
-		this.masterController = new MasterController();
+		this.userController = new UserController();
     	this.scanner = new Scanner(System.in);
 	}
 	public void displayMenu(User user) throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
-		
-			String str=
-					"""
-					1) Add User
-					2) Delete User
-					3) View list of users
-					4) View list by userName
-					5) Update User
-					6) Exit
-					""";
+			
 			while(true)
 			{
-			System.out.println(str);
-			System.out.println("Enter your choice");
+			System.out.println(StringConstants.adminDisplayUser);
+			System.out.println(StringConstants.enterChoice);
 			 int choice = scanner.nextInt();
 			 scanner.nextLine();
 	            
@@ -43,26 +34,26 @@ public class AccontManagementAdmin {
 	          }
 	          case 2:
 	          {
-	        	  User user2= masterController.userController.getUserByadmin();
-	        	  masterController.userController.deleteUser(user2);
+	        	  User user2= userController.getUserByadmin();
+	        	  userController.deleteUser(user2);
 	        	  break;
 	          }
 	          case 3:
 	          {
-	        	  masterController.userController.listUsers();
+	        	  userController.listUsers();
 	        	  break;
 	          }
 	          case 4:
 	          {
 	        	  System.out.println("Enter user name");
 	        	  String userName= scanner.nextLine();
-	        	  masterController.userController.viewUser(userName);
+	        	  userController.viewUser(userName);
 	        	 break; 
 	          }
 	          case 5:
 	          {
-	        	 User user2= masterController.userController.getUserByadmin();
-	        	 masterController.userController.deleteUser(user2);
+	        	 User user2= userController.getUserByadmin();
+	        	 userController.updateUser(user2);
 	        	  break;
 	          }
 	          case 6:

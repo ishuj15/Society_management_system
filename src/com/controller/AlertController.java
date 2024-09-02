@@ -70,20 +70,22 @@ public class AlertController {
         if (alerts == null || alerts.isEmpty()) {
             System.out.println("No alerts found.");
         } else {
-            // Print table headers
-            System.out.printf("%-5s %-50s%n", "S.No", "Message");
-            System.out.println("--------------------------------------------------");
+        	 System.out.printf("%-5s | %-50s | %-15s%n", "S.No", "Message", "Role");
+        	    System.out.println("----------------------------------------------------------------------");
 
-            // Print each alert in a row with serial number
-            int serialNumber = 1;
-            for (Alert alert : alerts) {
-                System.out.printf("%-5d %-50s%n",
-                    serialNumber,
-                    alert.getMessage());
-                serialNumber++;
-                System.out.println("--------------------------------------------------");
-            }
-        }   
+        	    // Print each alert in a row with serial number
+        	    int serialNumber = 1;
+        	    for (Alert alert : alerts) {
+        	        System.out.printf("%-5d | %-50s | %-15s%n",
+        	            serialNumber,
+        	            alert.getMessage(),
+        	            alert.getTargetRole());  // Assuming there's a getRole() method in the Alert class
+        	        serialNumber++;
+        	    }
+        	    System.out.println("----------------------------------------------------------------------");
+
+        }
+        	 
     }
 
     public void updateAlert() throws SQLException, ClassNotFoundException {

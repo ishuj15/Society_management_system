@@ -4,14 +4,16 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.Model.User;
-import com.controller.MasterController;
+import com.controller.ComplaintController;
+
+import com.util.StringConstants;
 
 public class ComplaintManagementAdmin {
 	private  Scanner scanner;
-	private MasterController masterController;
+	private ComplaintController complaintController;
 	public ComplaintManagementAdmin()
 	{
-		this.masterController = new MasterController();
+		this.complaintController = new ComplaintController();
     	this.scanner = new Scanner(System.in);
 	}
 
@@ -19,15 +21,9 @@ public class ComplaintManagementAdmin {
 		// TODO Auto-generated method stub
 		while(true)
 		{
-			String str=
-					"""
-					1) Update Complaint
-					2) Delete Complaint
-					3) View list of Complaint
-					4) Exit
-					""";
-			System.out.println(str);
-			System.out.println("Enter your choice");
+			
+			System.out.println(StringConstants.adminComplaint);
+			System.out.println(StringConstants.enterChoice);
 			int choice = scanner.nextInt();
             scanner.nextLine(); 
 
@@ -35,17 +31,17 @@ public class ComplaintManagementAdmin {
 			{
 			case 1:
 			{
-				masterController.complaintController.updateComplaint();
+				complaintController.updateComplaint();
 				break;
 			}
 			case 2:
 			{
-				masterController.complaintController.deleteComplaintAdmin();
+				complaintController.deleteComplaintAdmin();
 				break;
 			}
 			case 3:
 			{
-				masterController.complaintController.listComplaints();
+				complaintController.listComplaints();
 				break;
 			}
 			

@@ -1,7 +1,7 @@
 package com.controller;
 
 import com.Model.Complaint;
-import com.Model.Notices;
+
 import com.service.ComplaintService;
 import com.util.Helper;
 
@@ -23,8 +23,8 @@ public class ComplaintController {
         System.out.print("Enter complaint description: ");
         String description = scanner.nextLine();
      
-        System.out.print("Enter complaint status: ");
-        String status = scanner.nextLine();
+      //  System.out.print("Enter complaint status: ");
+        String status = "nil";
         String idComplaint= Helper.generateUniqueId();
         complaint.setIdComplaint(idComplaint);
        // complaint.setUserId(complaint.getUserId());
@@ -44,27 +44,34 @@ public class ComplaintController {
     	    System.out.println("-------------------------------------------------------------");
 
     	    int serialNumber = 1;
-
-    	    // Print each complaint in a row with a serial number
     	    for (Complaint complaint : complaints) {
     	        System.out.printf("| %-5d | %-30s | %-15s | %-10s |\n",
     	                serialNumber++,
     	                complaint.getDescription(),
     	                complaint.getStatus(),
     	                complaint.getDate());
-    	    }
-
-    	    // Print the table footer
+    	    }  
     	    System.out.println("-------------------------------------------------------------");
     }
 
     public void listComplaints() throws SQLException, ClassNotFoundException {
         List<Complaint> complaints = complaintService.getAllComplaints();
-        for (Complaint complaint : complaints) {
-            System.out.println(" Description: " + complaint.getDescription()+
-            		" Complaint status"+ complaint.getStatus()+"Date"+complaint.getDate());
-        }
-    }
+        if (complaints.isEmpty()) {
+            System.out.println("No complaints found.");
+        } else {
+            System.out.printf("%-5s %-15s %-20s %-15s%n", "No.", "Description", "Status", "Date");
+            System.out.println("---------------------------------------------------------------");
+
+            int serialNumber = 1;
+            for (Complaint complaint : complaints) {
+                System.out.printf("%-5d %-15s %-20s %-15s%n",
+                        serialNumber++,
+                        complaint.getDescription(),
+                        complaint.getStatus(),
+                        complaint.getDate());
+                System.out.println("---------------------------------------------------------------");
+            }
+        }    }
 
     public void updateComplaint() throws SQLException, ClassNotFoundException {
         @SuppressWarnings("resource")

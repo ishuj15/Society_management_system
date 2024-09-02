@@ -3,25 +3,25 @@ package com.Model;
 import java.sql.Date;
 
 public class Attendance {
-    private int idAttendance;
-    private int userId;
+    private String idAttendance;
+    private String userId;
     private String status;
     private Date date;
 
     // Getters and Setters
-    public int getIdAttendance() {
+    public String getIdAttendance() {
         return idAttendance;
     }
 
-    public void setIdAttendance(int idAttendance) {
+    public void setIdAttendance(String idAttendance) {
         this.idAttendance = idAttendance;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

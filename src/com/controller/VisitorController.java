@@ -301,5 +301,18 @@ System.out.println("------------------------------------------------------------
          }
     	
     }
+    public String DeleteUserByadmin() throws ClassNotFoundException, SQLException
+    {
+    	List<Visitor> visitors =visitorService.getAllVisitors();
+    	
+    	System.out.println("Enter user  number which you need to delete");
+    	int choice= scanner.nextInt();
+    	if (choice < 1 || choice > visitors.size()) {
+            System.out.println("Invalid choice, please try again.");
+            return null;
+        }
+    	Visitor selectedVisitor= visitors.get(choice - 1);
+    	return selectedVisitor.getIdVisitor();
+    }
 }
 

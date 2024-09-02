@@ -4,30 +4,24 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.Model.User;
-import com.controller.MasterController;
+
+import com.controller.ServicesController;
+import com.util.StringConstants;
 
 public class ServicesManagementAdmin {
 	private  Scanner scanner;
-	private MasterController masterController;
+	private ServicesController servicesController;
 	public ServicesManagementAdmin()
 	{
-		this.masterController = new MasterController();
+		this.servicesController = new ServicesController();
     	this.scanner = new Scanner(System.in);
 	}
 	public void displayMenu(User user) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-
 		while(true)
 		{
-			String str=
-					"""
-					1) View Services
-					2) Delete Services
-					3) s
-					4) Exit
-					""";
-			System.out.println(str);
-			System.out.println("Enter your choice");
+			
+			System.out.println(StringConstants.adminService);
+			System.out.println(StringConstants.enterChoice);
 			int choice = scanner.nextInt();
             scanner.nextLine(); 
 
@@ -35,27 +29,20 @@ public class ServicesManagementAdmin {
 			{
 			case 1:
 			{
-				masterController.alertController.createAlert();
+				servicesController.listServices();
 				break;
 			}
 			case 2:
 			{
-				//masterController.noticesController.deleteNotice(choice);
+				servicesController.deleteServiceByAdmin() ;
 				break;
 			}
 			case 3:
-			{
-				masterController.alertController.listAlerts() ;
-				break;
-			}
-			case 4:
 				return;
 				default:
 					System.out.println("Invalid Choice , Please try again");
 			}
-		}
-		
-		
+		}	
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.controller.AlertController;
 import com.controller.MasterController;
+import com.util.StringConstants;
 
 public class AlertManagementAdmin {
 	private  Scanner scanner;
@@ -19,16 +20,9 @@ public class AlertManagementAdmin {
 		
 		while(true)
 		{
-			String str=
-					"""
-					1) Add Alert
-					2) Delete Alert
-					3) View Alerts
-					4) Update Alert
-					5) Exit
-					""";
-			System.out.println(str);
-			System.out.println("Enter your choice");
+			
+			System.out.println(StringConstants.adminAlert);
+			System.out.println(StringConstants.enterChoice);
 			int choice = scanner.nextInt();
             scanner.nextLine(); 
 

@@ -9,24 +9,18 @@ import java.util.List;
 public class AttendanceService {
     private AttendanceDAO attendanceDAO = new AttendanceDAO();
 
-    public void addAttendance(Attendance attendance) throws SQLException {
+    public void addAttendance(Attendance attendance) throws SQLException, ClassNotFoundException {
         attendanceDAO.addAttendance(attendance);
     }
-
-    public Attendance getAttendanceById(int idAttendance) throws SQLException {
-        return attendanceDAO.getEntityById(idAttendance);
+    public List<Attendance> getAttendanceById(String iduser) throws SQLException, ClassNotFoundException {
+        return attendanceDAO.getAttendanceById(iduser);
+    }
+    public List<Attendance> getAllAttendances() throws SQLException, ClassNotFoundException {
+        return attendanceDAO.getAllAttendances();
     }
 
-    public List<Attendance> getAllAttendances() throws SQLException {
-        return attendanceDAO.getAllEntities();
-    }
-
-    public void updateAttendance(Attendance attendance) throws SQLException {
-        attendanceDAO.updateEntity(attendance,attendance.getIdAttendance());
-    }
-
-    public void deleteAttendance(int idAttendance) throws SQLException {
-        attendanceDAO.deleteEntity(idAttendance);
-    }
+//    public void updateAttendance(Attendance attendance) throws SQLException {
+//        attendanceDAO.updateAttendance(attendance,attendance.getIdAttendance());
+//    }
 }
 

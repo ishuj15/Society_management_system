@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.Model.User;
 import com.controller.MasterController;
+import com.util.StringConstants;
 
 public class NoticeManagementAdmin {
 	private  Scanner scanner;
@@ -19,16 +20,9 @@ public class NoticeManagementAdmin {
 		// TODO Auto-generated method stub
 		while(true)
 		{
-			String str=
-					"""
-					1) Add Notice
-					2) Delete Notice
-					3) View list of Notices
-					4) Update Notice
-					5) Exit
-					""";
-			System.out.println(str);
-			System.out.println("Enter your choice");
+			
+			System.out.println(StringConstants.adminNotice);
+			System.out.println(StringConstants.enterChoice);
 			int choice = scanner.nextInt();
             scanner.nextLine(); 
 

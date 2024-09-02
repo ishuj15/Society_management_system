@@ -3,20 +3,16 @@ import com.dao.UserDAO;
 import com.util.*;
 import com.Model.User;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
+
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
+
 
 public class UserService {
     public static UserDAO userDAO = new UserDAO();
    
     private static boolean verifyPassword(String enteredPassword, String storedHashedPassword) {
-    	//System.out.println(salt2);
-//    	 byte[] salt = salt2.getBytes();
+  
         String hashedEnteredPassword = Helper.hashPassword(enteredPassword);
     	//String hashedEnteredPassword = Helper.hashPassword(enteredPassword,salt);
         System.out.println(hashedEnteredPassword);
@@ -30,11 +26,45 @@ public class UserService {
     }
 
     public User getUserByUserName(String idUser) throws SQLException, ClassNotFoundException {
-        return userDAO.getUserByUsername(idUser);
+    	 User user = userDAO.getUserByUsername(idUser);
+         if (user != null) {
+             System.out.println("-------------------------------------------------------------");
+             System.out.printf("| %-15s | %-30s |\n", "Field", "Value");
+             System.out.println("-------------------------------------------------------------");
+
+             System.out.printf("| %-15s | %-30s |\n", "User Name", user.getUserName());
+             System.out.printf("| %-15s | %-30s |\n", "User Role", user.getUserRole());
+             System.out.printf("| %-15s | %-30s |\n", "Phone No", user.getPhoneNo());
+             System.out.printf("| %-15s | %-30s |\n", "Email", user.getEmail());
+             System.out.printf("| %-15s | %-30s |\n", "Address", user.getAddress());
+
+             System.out.println("-------------------------------------------------------------");
+         } else {
+             System.out.println("User not found!");
+         }
+         return user;
+    	
     }
 
     public List<User> getAllUsers() throws SQLException, ClassNotFoundException {
-        return userDAO.getAllUsers();
+    	List<User> users = userDAO.getAllUsers();
+    	 if (users == null || users.isEmpty()) {
+             System.out.println("No users found.");
+             return null;
+         }
+         System.out.printf("+----+-----------------+------------------------------+-------------------+------------------------------+------------------------------+%n");
+         System.out.printf("| SN | User Name       | User Role                    | Phone No          | Email                        | Address                      |%n");
+         System.out.printf("+----+-----------------+------------------------------+-------------------+------------------------------+------------------------------+%n");
+
+        
+         int serialNumber = 1;
+         for (User user : users) {
+             System.out.printf("| %-2d | %-15s | %-30s | %-17s | %-28s | %-28s |%n",
+                     serialNumber++, user.getUserName(), user.getUserRole(), user.getPhoneNo(), user.getEmail(), user.getAddress());
+         }
+         
+         System.out.printf("+----+-----------------+------------------------------+-------------------+------------------------------+------------------------------+%n");
+   return users;
     }
 
     public void updateUser(User user, String columnToUpdate, String newValue) throws SQLException, ClassNotFoundException {

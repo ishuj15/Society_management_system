@@ -2,56 +2,60 @@ package com.presentarion.resident.menu;
 
 import java.sql.SQLException;
 import java.util.Scanner;
-
-import com.Model.Services;
 import com.Model.User;
-import com.controller.MasterController;
+import com.controller.ServicesController;
 
 public class ServicesMenu {
-	 private final MasterController masterController;
-	 private final Services service = new Services();
-	    private static Scanner scanner;
+	 private final ServicesController servicesController;
+	 //private final Services service = new Services();
+	    private  Scanner scanner;
 	    public ServicesMenu()
 	    {
-	    	this.masterController = new MasterController();
+	    	this.servicesController = new ServicesController();
 	    	this.scanner = new Scanner(System.in);
 	    }
 	    
-	    public void displayMenu(User user) throws SQLException {
+	    public void displayMenu(User user) throws SQLException, ClassNotFoundException {
 	        while (true) {
 	           
 	            System.out.println("1) Add Services");
-	            System.out.println("2) View Services");
+	            System.out.println("2) View Your Services");
 	            System.out.println("3) Update Services");
 	            System.out.println("4) Delete Services");
-	            System.out.println("5) Exit");
+	            System.out.println("5) List of services");
+	            System.out.println("6) Exit");
 	          
 	            int choice = scanner.nextInt();
-	            scanner.nextLine(); // Consume newline
+	            scanner.nextLine();
 
 	            switch (choice) {
 	                case 1:
 	                {
-	                   masterController.servicesController.createService(service);
+	                   servicesController.createService(user);
 	                    break;
 	                }
 	                case 2:
 	                {
-	                	//masterController.servicesController.viewService(choice);
+	                	servicesController.viewService(user.getIdUser());
 	                	break;
 	                }
 	                case 3:
 	                {
-	                	//masterController.servicesController.updateService(choice);
+	                	servicesController.updateService(user.getIdUser());
 	                	break;
 	                }
 	                case 4:
 	                {
-	                	//masterController.servicesController.deleteService(choice);
+	                	servicesController.deleteService(user.getIdUser());
 	                	break;
 	                	
 	                }
 	                case 5:
+	                {
+	                	servicesController.listServices();
+	                	break;
+	                }
+	                case 6:
 	                {
 	                	return;
 	                }

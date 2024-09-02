@@ -22,7 +22,7 @@ public class AlertMenu {
 	            System.out.println("2) Exit");
 	          
 	            int choice = scanner.nextInt();
-	            scanner.nextLine(); // Consume newline
+	            scanner.nextLine();
 
 	            switch (choice) {
 	                case 1:

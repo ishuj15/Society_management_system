@@ -31,22 +31,22 @@ public class UserDAO extends GenericDAO<User> {
     }
 
     public User getUserById(String userId) throws SQLException, ClassNotFoundException {
-        String selectSQL = "SELECT * FROM User WHERE idUser = \"" + userId + "\"";
+        String selectSQL = "SELECT * FROM user WHERE idUser = \"" + userId + "\"";
         return executeGetQuery(selectSQL);
     }
 
     public User getUserByUsername(String username) throws SQLException, ClassNotFoundException {
-        String selectSQL = "SELECT * FROM User WHERE userName = \"" + username + "\"";
+        String selectSQL = "SELECT * FROM user WHERE userName = \"" + username + "\"";
         return executeGetQuery(selectSQL);
     }
 
     public boolean deleteUser(String userId) throws SQLException, ClassNotFoundException {
-        String deleteSQL = "DELETE FROM User WHERE idUser = \"" + userId + "\"";
+        String deleteSQL = "DELETE FROM user WHERE idUser = \"" + userId + "\"";
         return executeQuery(deleteSQL);
     }
 
     public List<User> getAllUsers() throws SQLException, ClassNotFoundException {
-        String selectSQL = "SELECT * FROM User";
+        String selectSQL = "SELECT * FROM user";
         return executeGetAllQuery(selectSQL);
     }
     public  boolean isUsernameTaken(String username) throws ClassNotFoundException, SQLException {
@@ -54,54 +54,8 @@ public class UserDAO extends GenericDAO<User> {
            return executeQuery(sql);
     }
     public boolean updateUser(String userId, String columnToUpdate, String newValue) throws SQLException, ClassNotFoundException {
-        String sqlQuery = String.format("UPDATE User SET %s = '%s' WHERE idUser = '%s'", columnToUpdate, newValue, userId);
+        String sqlQuery = String.format("UPDATE user SET %s = '%s' WHERE idUser = '%s'", columnToUpdate, newValue, userId);
         return executeQuery(sqlQuery);
     }
 
 }
-
-//
-//import com.Model.User;
-//
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
-//
-//public class UserDAO extends GenericDAO<User> {
-//
-//    @Override
-//    protected String getTableName() {
-//        return "user";
-//    }
-//
-//    @Override
-//    protected User mapResultSetToEntity(ResultSet rs) throws SQLException {
-//        User user = new User();
-//       user.setIdUser(rs.getInt("idUser"));
-//        user.setUserName(rs.getString("userName"));
-//        user.setUserRole(rs.getString("userRole"));
-//        user.setPassword(rs.getString("password"));
-//        user.setPhoneNo(rs.getString("phoneNo"));
-//        user.setEmail(rs.getString("email"));
-//        user.setAddress(rs.getString("address"));
-//        return user;
-//    }
-//
-//    public void mapEntityToStatement(User user, PreparedStatement stmt) throws SQLException {
-//        stmt.setInt(1,     user.getIdUser());
-//        stmt.setString(2, user.getUserName());
-//        stmt.setString(3, user.getUserRole());
-//        stmt.setString(4, user.getPassword());
-//        stmt.setString(5, user.getPhoneNo());
-//        stmt.setString(6, user.getEmail());
-//        stmt.setString(7, user.getAddress());
-//    }
-//
-//	@Override
-//	protected String getIdColumn() {
-//		// TODO Auto-generated method stub
-//		return "idUser";
-//	}
-//	
-//
-//}

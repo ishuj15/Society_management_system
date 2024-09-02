@@ -1,6 +1,7 @@
 package com.societyManagement.main;
 
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import com.controller.UserController;
 
@@ -13,14 +14,19 @@ public class Main {
 				3) Logout
 				4) Exit
 				""";
-
+		 try (Scanner scanner = new Scanner(System.in)) {
 		while (true) {
 			System.out.println("Welcome to the Society Management Application");
 			System.out.println(str);
 			System.out.println("enter your choice");
-			@SuppressWarnings("resource")
-			Scanner scanner = new Scanner(System.in);
-			int choice = scanner.nextInt();
+			
+			int choice;
+			try {
+			choice= scanner.nextInt();
+			}catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine(); // clear the invalid input
+                continue; }
 
 			switch (choice) {
 			case 1: {
@@ -41,9 +47,15 @@ public class Main {
 
 			default:
 				System.out.print("Wrong input");
-			}
+						}	
+				
+		 	}
+	}catch(Exception e) {
+		 System.out.println("Incorrect input");
 
-		}
+	 }
+		 
+		 
+		 
 	}
-
 }

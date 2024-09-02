@@ -1,6 +1,4 @@
 package com.controller;
-
-import com.Model.Complaint;
 import com.Model.User;
 import com.service.UserService;
 import com.societyManagement.main.AdminMenu;
@@ -8,15 +6,12 @@ import com.societyManagement.main.GuardMenu;
 import com.societyManagement.main.ResidentMenu;
 import com.util.Helper;
 
-//import java.io.Console;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-//import javax.swing.JOptionPane;
-//import javax.swing.JPasswordField;
 
 public class UserController {
 	private static final Logger logger = Logger.getLogger(UserController.class.getName());
@@ -56,8 +51,9 @@ public class UserController {
         }
         
         while(true) {
-        System.out.print("Enter password: ");
-         password = scanner.nextLine().trim();
+        //System.out.print("Enter password: ");
+         //password = scanner.nextLine().trim();
+        password=Helper.maskedPassword();
         if (Helper.isPasswordValid(password)) {
             break;
         } else {
@@ -87,10 +83,10 @@ public class UserController {
        
         System.out.print("Enter address: ");
         String address = scanner.nextLine().trim();
-       // byte[] salt = Helper.generateSalt();
+     
         String hashedPassword=Helper.hashPassword(password);
        
-       // String hashedPassword = Helper.hashPassword(password);
+
         String userId= Helper.generateUniqueId();
         User user = new User();
         user.setIdUser(userId);
@@ -100,54 +96,20 @@ public class UserController {
         user.setPhoneNo(phoneNo);
         user.setEmail(email);
         user.setAddress(address);
-        //user.setSalt(salt.toString());
+
 
         userService.addUser(user);
         System.out.println("User created successfully!");
     }
 
     public void viewUser(String idUser) throws SQLException, ClassNotFoundException {
-        User user = userService.getUserByUserName(idUser);
-        if (user != null) {
-            System.out.println("-------------------------------------------------------------");
-            System.out.printf("| %-15s | %-30s |\n", "Field", "Value");
-            System.out.println("-------------------------------------------------------------");
-
-            System.out.printf("| %-15s | %-30s |\n", "User Name", user.getUserName());
-            System.out.printf("| %-15s | %-30s |\n", "User Role", user.getUserRole());
-            System.out.printf("| %-15s | %-30s |\n", "Phone No", user.getPhoneNo());
-            System.out.printf("| %-15s | %-30s |\n", "Email", user.getEmail());
-            System.out.printf("| %-15s | %-30s |\n", "Address", user.getAddress());
-
-            System.out.println("-------------------------------------------------------------");
-        } else {
-            System.out.println("User not found!");
-        }
+        userService.getUserByUserName(idUser);
+        
     }
 
     public void listUsers() throws SQLException, ClassNotFoundException {
-    	List<User> users = userService.getAllUsers();
-        
-        if (users == null || users.isEmpty()) {
-            System.out.println("No users found.");
-            return;
-        }
-
-        // Print table headers
-        System.out.printf("+----+-----------------+------------------------------+-------------------+------------------------------+------------------------------+%n");
-        System.out.printf("| SN | User Name       | User Role                    | Phone No          | Email                        | Address                      |%n");
-        System.out.printf("+----+-----------------+------------------------------+-------------------+------------------------------+------------------------------+%n");
-
-        // Print each user's details with a serial number
-        int serialNumber = 1;
-        for (User user : users) {
-            System.out.printf("| %-2d | %-15s | %-30s | %-17s | %-28s | %-28s |%n",
-                    serialNumber++, user.getUserName(), user.getUserRole(), user.getPhoneNo(), user.getEmail(), user.getAddress());
-        }
-        
-        // Print table footer
-        System.out.printf("+----+-----------------+------------------------------+-------------------+------------------------------+------------------------------+%n");
-    }
+    	 userService.getAllUsers();
+         }
     public void updateUser(User user) throws SQLException, ClassNotFoundException {
     	
 			//User user = userService.getUserById(idUser);
@@ -281,8 +243,8 @@ public static  void login() throws SQLException, ClassNotFoundException{
 		 System.out.println("Enter your login details:");
 	        System.out.print("Username: ");
 	        String userName = scanner.nextLine().trim();
-	        System.out.print("Password: ");	 
-	        String password = scanner.nextLine().trim();
+	        String password=Helper.maskedPassword();
+
 	        User user = UserService.login(userName, password);
 
 	        if (user == null ) {
@@ -327,8 +289,8 @@ public static  void login() throws SQLException, ClassNotFoundException{
 
 public User getUserByadmin() throws ClassNotFoundException, SQLException
 {
-	List<User> users = userService.getAllUsers();
-	listUsers();
+	List<User> users =userService.getAllUsers();
+	
 	System.out.println("Enter user  number which you need to delete");
 	int choice= scanner.nextInt();
 	if (choice < 1 || choice > users.size()) {
@@ -339,18 +301,3 @@ public User getUserByadmin() throws ClassNotFoundException, SQLException
 	return selectedUser;
 }
 }
-//Console console = System.console();
-//if (console == null) {
-//    System.out.println("No console available");
-//   // return null;
-//}
-//String userName = console.readLine("Enter your username: ");
-//char[] inputFromConsole = console.readPassword("Enter your");
-//String password = new String(inputFromConsole);
-// return result;
-
-//Swing
-//JPasswordField passwordField = new JPasswordField(20);
-//JOptionPane.showConfirmDialog(null, passwordField, "Enter your password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-//char[] passwordChars = passwordField.getPassword();
-//String password = new String(passwordChars);

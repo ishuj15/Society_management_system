@@ -17,16 +17,17 @@ public class ServicesService {
         servicesDAO.addService(service);
     }
 
-    public Services getServiceById(String id) throws SQLException, ClassNotFoundException {
-        return servicesDAO.getServiceById(id);
+    public List<Services> getServiceById(String idUser) throws SQLException, ClassNotFoundException {
+        return servicesDAO.getServiceById(idUser);
     }
 
     public List<Services> getAllServices() throws SQLException, ClassNotFoundException {
         return servicesDAO.getAllServices();
     }
-//    public void updateService(Services service, int id) throws SQLException {
-//        servicesDAO.updateService(service, id);
-//    }
+    public void updateService(String serviceId, String ColumnToUpdate, String NewValue) throws SQLException, ClassNotFoundException {
+        servicesDAO.updateService(serviceId,ColumnToUpdate, NewValue);
+    }
+
 
     public void deleteService(String id) throws SQLException, ClassNotFoundException {
         servicesDAO.deleteService(id);

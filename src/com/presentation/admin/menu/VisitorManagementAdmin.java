@@ -5,13 +5,15 @@ import java.util.Scanner;
 
 import com.Model.User;
 import com.controller.MasterController;
+import com.controller.VisitorController;
+import com.util.StringConstants;
 
 public class VisitorManagementAdmin {
 	private  Scanner scanner;
-	private MasterController masterController;
+	private VisitorController visitorController;
 	public VisitorManagementAdmin()
 	{
-		this.masterController = new MasterController();
+		this.visitorController = new VisitorController();
     	this.scanner = new Scanner(System.in);
 	}
 
@@ -19,13 +21,9 @@ public class VisitorManagementAdmin {
 		
 		while(true)
 		{
-			String str=
-					"""
-					1) View list of Visitor
-					2) Exit
-					""";
-			System.out.println(str);
-			System.out.println("Enter your choice");
+			
+			System.out.println(StringConstants.adminVisitor);
+			System.out.println(StringConstants.enterChoice);
 			int choice = scanner.nextInt();
             scanner.nextLine(); 
 
@@ -33,11 +31,15 @@ public class VisitorManagementAdmin {
 			{
 			case 1:
 			{
-				masterController.visitorController.listVisitors() ;
+				visitorController.listVisitors() ;
 				break;
 			}
-			
 			case 2:
+			{
+				
+				visitorController.deleteVisitor(visitorController.DeleteUserByadmin());
+			}
+			case 3:
 				return;
 				default:
 					System.out.println("Invalid Choice , Please try again");
