@@ -9,6 +9,7 @@ import com.util.Helper;
 import com.util.StringConstants;
 
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -272,9 +273,9 @@ public static  void login() throws SQLException, ClassNotFoundException{
 	            else if(user.getUserRole().toLowerCase().equals("guard")) {
 	            	GuardMenu guardMenu =new GuardMenu();
 	            	guardMenu.displayMenu(user);
-	            	System.out.println("Guard");
-	            	GuardMenu obj= new GuardMenu();
-	            	obj.displayMenu(user);
+	            	//System.out.println("Guard");
+//	            	GuardMenu obj= new GuardMenu();
+//	            	obj.displayMenu(user);
 	            	
 	            }
 	            else
@@ -295,8 +296,14 @@ public User getUsernameList() throws ClassNotFoundException, SQLException
 {
 	List<User> users = userService.getUsername();
         System.out.println(StringConstants.enterChoice);
-    int choice=scanner.nextInt();
-    scanner.nextLine();
+    int choice=0;
+    try {
+		choice= scanner.nextInt();
+		}catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.nextLine();
+            //continue;
+            }
     if (choice < 1 || choice > users.size()) {
         System.out.println("Invalid choice, please try again.");
         return null;

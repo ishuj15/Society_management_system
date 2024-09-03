@@ -4,7 +4,10 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.UUID;
 
 import javax.swing.JOptionPane;
@@ -163,5 +166,25 @@ public class Helper {
             String password = new String(passwordChars);
             return password;
 
+	    }
+	    public static boolean isValidDate(String date) {
+	     
+	        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	        try {
+	           
+	            LocalDate.parse(date, dateFormatter);
+	            return true; 
+	        } catch (DateTimeParseException e) {
+	            return false; 
+	        }
+	    }
+	    public static boolean isValidTime(String time) {
+	        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	        try {
+	            LocalTime.parse(time, timeFormatter);
+	            return true;
+	        } catch (DateTimeParseException e) {
+	            return false;
+	        }
 	    }
 }

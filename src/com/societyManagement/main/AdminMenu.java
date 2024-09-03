@@ -84,7 +84,7 @@ public class AdminMenu {
                 {
                 	scanner.close();
                 	System.exit(0);
-                	return false;
+                	return ;
                 }
                 default:
                     System.out.println("Invalid choice, please try again.");

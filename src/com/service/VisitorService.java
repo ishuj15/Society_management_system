@@ -14,6 +14,7 @@ public class VisitorService {
     }
 
     public void addVisitor(Visitor visitor) throws SQLException, ClassNotFoundException {
+    	//System.out.println("Hi");
         visitorDAO.addVisitor(visitor);
     }
 

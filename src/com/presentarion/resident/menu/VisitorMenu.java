@@ -29,9 +29,7 @@ public class VisitorMenu {
 	            System.out.println("6) "+StringConstants.previousmenu);
 	            System.out.println("7) "+StringConstants.logout);
 	            System.out.println(StringConstants.enterChoice);
-	          
-	           // System.out.println("6) Exit");
-	          
+	        
 	            int choice;
 	            try {
 	    			choice= scanner.nextInt();
@@ -43,7 +41,7 @@ public class VisitorMenu {
 	            switch (choice) {
 	                case 1:
 	                {                	
-	                   masterController.visitorController.createVisitor(user) ;
+	                   masterController.visitorController.createVisitor(user,"Aprroved") ;
 	                    break;
 	                }
 	                case 2:

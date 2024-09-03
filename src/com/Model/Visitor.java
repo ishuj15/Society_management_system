@@ -9,10 +9,10 @@ public class Visitor {
     private String userId;
     private String name;
     private String purpose;
-    private Time arrivalTime;
-    private Time departureTime;
-    private Date date;
-    private Date dep_date;
+    private String arrivalTime;
+    private String departureTime;
+    private String date;
+    private String dep_date;
     private String approved;
     private String contactNo;
     // Getters and Setters
@@ -48,27 +48,27 @@ public class Visitor {
         this.purpose = purpose;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
     
-    public Time getArrivalTime() {
+    public String getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(Time time) {
+    public void setArrivalTime(String time) {
         this.arrivalTime = time;
     }
 
-    public Time getDepartureTime() {
+    public String getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Time time) {
+    public void setDepartureTime(String time) {
         this.departureTime = time;
     }
 
@@ -89,11 +89,11 @@ public class Visitor {
 		this.contactNo = contactNo;
 	}
 
-	public Date getDep_date() {
+	public String getDep_date() {
 		return dep_date;
 	}
 
-	public void setDep_date(Date dep_date) {
+	public void setDep_date(String dep_date) {
 		this.dep_date = dep_date;
 	} 
 }

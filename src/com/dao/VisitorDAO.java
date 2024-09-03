@@ -14,20 +14,27 @@ public class VisitorDAO extends GenericDAO<Visitor> {
         visitor.setIdVisitor(resultSet.getString("idvisitor"));
         visitor.setUserId(resultSet.getString("userId"));
         visitor.setName(resultSet.getString("name"));
-        visitor.setDate(resultSet.getDate("date_of_arrival"));
+        visitor.setDate(resultSet.getString("date_of_arrival"));
         visitor.setPurpose(resultSet.getString("purpose"));
         visitor.setApproved(resultSet.getString("approvalReq"));
-       visitor.setArrivalTime(resultSet.getTime("arrivalTime"));
-       visitor.setDepartureTime(resultSet.getTime("departureTime"));
+       visitor.setArrivalTime(resultSet.getString("arrivalTime"));
+       visitor.setDepartureTime(resultSet.getString("departureTime"));
        visitor.setContactNo(resultSet.getString("contact"));
-       visitor.setDep_date(resultSet.getDate("departure_date"));
+       visitor.setDep_date(resultSet.getString("departure_date"));
         return visitor;
     }
 
     public boolean addVisitor(Visitor visitor) throws SQLException, ClassNotFoundException {
+    	//System.out.println("Hi");
         String sqlQuery = String.format(
-            "INSERT INTO visitor (idvisitor, userId, name,contact, purpose, date_of_arrival,arrivalTime,departure_date,departureTime, approvalReq) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
-            visitor.getIdVisitor(),visitor.getUserId(), visitor.getName(), visitor.getContactNo() ,visitor.getPurpose(), visitor.getDate().toString(), visitor.getArrivalTime() , visitor.getDep_date().toString(),visitor.getDepartureTime(), visitor.isApproved());
+            "INSERT INTO visitor (idvisitor, userId, name,contact, purpose, date_of_arrival,"
+            + "arrivalTime,departure_date,departureTime, approvalReq) "
+            + "VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
+            visitor.getIdVisitor(),visitor.getUserId(), visitor.getName(), visitor.getContactNo() ,visitor.getPurpose(),
+            visitor.getDate().toString(), visitor.getArrivalTime() , visitor.getDep_date().toString(),
+            visitor.getDepartureTime(),
+            visitor.isApproved());
+        
         return executeQuery(sqlQuery);
     }
 

@@ -17,7 +17,7 @@ public class GuardMenu {
     public void displayMenu(User user) throws SQLException, ClassNotFoundException {
     	boolean loggedIn=true;
         while (true) {
-            System.out.println("Guard Options:");
+           // System.out.println("Guard Options:");
             System.out.println("1) "+StringConstants.account);
             System.out.println("2) "+StringConstants.alert);
             System.out.println("3) "+StringConstants.notice);

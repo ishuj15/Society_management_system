@@ -18,13 +18,10 @@ public class VisitorMenu {
 	}
 
 	public boolean displayMenu(User user) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-		while(true)
+				while(true)
 		{
-			
 			System.out.println("1) Add Visitor");
 			System.out.println("2) Verify Visitor");
-
 			System.out.println("3) "+StringConstants.previousmenu);
 			System.out.println("4) "+StringConstants.logout);
 			System.out.println("5) Exit");
@@ -36,14 +33,16 @@ public class VisitorMenu {
 				choice= scanner.nextInt();
 				}catch (InputMismatchException e) {
 	                System.out.println("Invalid input. Please enter a number.");
-	                scanner.nextLine(); // clear the invalid input
+	                scanner.nextLine(); 
 	                continue; }
 			switch(choice)
 			{
 			case 1:
 			{
 				User user2=masterController.userController.getUsernameList();
-				masterController.visitorController.createVisitor(user2);
+			//	System.out.println(user2.getIdUser());
+
+				masterController.visitorController.createVisitor(user2,"Pending");
 				break;
 			}
 			case 2:
@@ -64,11 +63,7 @@ public class VisitorMenu {
 			}
 			default:
 				System.out.println("Invalid choice, please try again.");
-			}
-			
-		}
-		
-		
+			}		
+		}	
 	}
-
 }

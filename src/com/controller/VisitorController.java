@@ -4,12 +4,11 @@ import com.Model.User;
 import com.Model.Visitor;
 import com.service.VisitorService;
 import com.util.Helper;
-import com.util.StringConstants;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,17 +18,16 @@ public class VisitorController {
     private final VisitorService visitorService = new VisitorService();
     @SuppressWarnings("resource")
 	Scanner scanner = new Scanner(System.in);
-    public void createVisitor(User user) throws SQLException, ClassNotFoundException {
-    	String contact,arrivalDate,depDate,time2;
+    public void createVisitor(User user,String apr) throws SQLException, ClassNotFoundException {
+    	String contact,arrivalDate,depDate,time2,time;
     	Time depTime;
+    	Date arrivalDate2,depDate2;
+    	
 
-		LocalDate date= LocalDate.now();
+		Date date= new Date(System.currentTimeMillis());;
 		
-		String apr;
-		if(user.getUserRole()=="resident")
-			 apr="Verified";
-		else
-			apr="Pending";
+		//String apr;
+		
        
         System.out.print("Enter visitor name: ");
         String name = scanner.nextLine();
@@ -46,8 +44,11 @@ public class VisitorController {
          while(true)
          {
         	 System.out.print("Enter visit date (yyyy-mm-dd): ");
+        	 
         	 arrivalDate = scanner.nextLine();
-        	 if(!LocalDate.parse(arrivalDate).isAfter(date)|| arrivalDate.equals(date))
+        	 arrivalDate2 = Date.valueOf(arrivalDate);
+        	 
+        	 if(Helper.isValidDate(arrivalDate) && (arrivalDate2.after(date)|| arrivalDate.equals(date)))
         	 {
         		 break;
         	 }
@@ -57,14 +58,22 @@ public class VisitorController {
          }
         System.out.print("Enter visit purpose: ");
         String purpose = scanner.nextLine();
-        System.out.print("Enter visit arrival time: ");
-        String time=scanner.nextLine();
+        while(true)
+        {
+        	  System.out.print("Enter visit arrival time: ");
+        	   time=scanner.nextLine();
+        	   if(Helper.isValidTime(time))
+        		   break;
+        	   else
+        		   System.out.println("Incoorect time format, PLease try again");
+        }
         Time arrival_time= Time.valueOf(time) ;
         while(true)
         {
         	 System.out.print("Enter departure date (yyyy-mm-dd): ");
         	 depDate = scanner.nextLine();
-       	 if(LocalDate.parse(depDate).isAfter(LocalDate.parse(arrivalDate)) || arrivalDate.equals(depDate))
+        	 depDate2=Date.valueOf(depDate);
+       	 if(  Helper.isValidDate(depDate)  && (depDate2.after(arrivalDate2) || arrivalDate.equals(depDate)))
        	 {
        		 break;
        	 }
@@ -77,14 +86,14 @@ public class VisitorController {
     	   System.out.print("Enter visit departure time: ");
     	   time2=scanner.nextLine();
            depTime= Time.valueOf(time2);
-          
-        	   if ( arrivalDate.equals(depDate) && (depTime.after(arrival_time))||LocalDate.parse(depDate).isAfter(LocalDate.parse(arrivalDate))) {
-        		   break;
-               } 
-        	   
-        	   else {
-                   System.out.println("Invalid time, departure time must be after arrival time, please try again");
-               }   
+           if ( Helper.isValidTime(time2)  &&arrivalDate.equals(depDate)  && depTime.after(arrival_time)) {
+               break;
+           } else if (   Helper.isValidTime(time2) && depDate2.after(arrivalDate2)) {
+               break; // Valid case, so exit the loop
+           } else {
+               System.out.println("Invalid date, departure date must be after arrival date, please try again");
+           }
+          	  
        }   
         Visitor visitor = new Visitor();
         visitor.setIdVisitor(Helper.generateUniqueId());
@@ -92,11 +101,12 @@ public class VisitorController {
         visitor.setName(name);
         visitor.setContactNo(contact);
         visitor.setPurpose(purpose);
-        visitor.setDate(java.sql.Date.valueOf(arrivalDate));
-        visitor.setArrivalTime(arrival_time);
-        visitor.setDepartureTime(depTime);
+        visitor.setDate(arrivalDate);
+        visitor.setArrivalTime(time);
+        visitor.setDepartureTime(time2);
         visitor.setApproved(apr);
-        visitor.setDep_date(java.sql.Date.valueOf(depDate));
+        visitor.setDep_date(depDate);
+     
 
         visitorService.addVisitor(visitor);
         System.out.println("Visitor created successfully!");
