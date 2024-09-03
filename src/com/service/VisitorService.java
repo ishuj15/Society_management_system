@@ -34,7 +34,7 @@ public class VisitorService {
     }
     public void verifyVisitor(String visitorId) throws SQLException, ClassNotFoundException {
         Visitor visitor=visitorDAO.verifyVisitor(visitorId);
-        if (visitor.isApproved()=="true") {
+        if (visitor.isApproved()=="Aprroved") {
             System.out.println("Visitor verified.");
         } else {
             System.out.println("Visitor rejected.");

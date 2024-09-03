@@ -1,9 +1,11 @@
 package com.societyManagement.main;
 
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import com.Model.User;
 import com.presentarion.resident.menu.*;
+import com.util.StringConstants;
 
 public class ResidentMenu {
 private  Scanner scanner =new Scanner(System.in);
@@ -15,55 +17,61 @@ private ResidentController residentController;
     }
 
     public   void displayMenu(User user) throws SQLException, ClassNotFoundException {
-    	//this.user=user;
+    	boolean loggedIn=true;
+		//this.user=user;
     	//User user=user;
-        while (true) {
-        	String str= """
-        			Resident Options:
-        			 1) User Management
-        			 2) Services
-        			 3) Visitor Management
-        			 4) Notices
-        			 5) Alert
-        			 6) Complaints
-        			 7) Exit
-    				 """;
+        while (true ) {
+        	
+        	 System.out.println("1) "+ StringConstants.account);
+             System.out.println("2) "+StringConstants.notice);
+             System.out.println("3) "+StringConstants.alert);
+             System.out.println("4) "+StringConstants.visitor);
+             System.out.println("5) "+StringConstants.service);
+             System.out.println("6) "+StringConstants.complaint);
+             System.out.println("7) "+StringConstants.logout);
+             System.out.println(StringConstants.enterChoice);            
+            int choice ;
+
+            try {
+    			choice= scanner.nextInt();
+    			}catch (InputMismatchException e) {
+                    System.out.println("Invalid input. Please enter a number.");
+                    scanner.nextLine(); // clear the invalid input
+                    continue; }
            
-            System.out.println(str);
-            System.out.println("Enter your choice");
-            
-            int choice = scanner.nextInt();
-            scanner.nextLine(); 
 
             switch (choice) {
                 case 1:
                 {
-                    residentController.userManagementObj.displayMenu(user);
+                    loggedIn=residentController.userManagementObj.displayMenu(user);
                     break;
                 }
                 case 2:
                 {
-                	residentController.servicesMenuObj.displayMenu(user);
+                	loggedIn= residentController.noticesMenuObj.displayMenu(user);
+                	
                 	break;
                 }
                 case 3:
                 {
-                	residentController.visitorMenuObj.displayMenu(user);
+                	loggedIn=residentController.alertMenuObj.displayMenu(user);
+                	
                 	break;
                 }
                 case 4:
                 {
-                	residentController.noticesMenuObj.displayMenu(user);
+                	loggedIn=residentController.visitorMenuObj.displayMenu(user);
                 	break;
                 }
                 case 5:
                 {
-                	residentController.alertMenuObj.displayMenu(user);
+                	loggedIn=residentController.servicesMenuObj.displayMenu(user);
+                	
                 	break;
                 }
                 case 6:
                 {
-                	residentController.complaintMenuObj.displayMenu(user) ;
+                	loggedIn=residentController.complaintMenuObj.displayMenu(user) ;
                 	break;
                 }
                 case 7:
@@ -71,6 +79,8 @@ private ResidentController residentController;
                 default:
                     System.out.println("Invalid choice, please try again.");
             }
+            if(loggedIn==false)
+            	return;
         }
     }
 }

@@ -1,9 +1,11 @@
 package com.societyManagement.main;
 
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import com.Model.User;
 import com.presentation.guard.menu.GuardController;
+import com.util.StringConstants;
 
 public class GuardMenu {
 	private Scanner scanner;
@@ -13,55 +15,68 @@ public class GuardMenu {
         this.scanner = new Scanner(System.in);
     }
     public void displayMenu(User user) throws SQLException, ClassNotFoundException {
+    	boolean loggedIn=true;
         while (true) {
             System.out.println("Guard Options:");
-            System.out.println("1) Profile Management");
-            System.out.println("2) Attendance");
-            System.out.println("3) Alerts");
-            System.out.println("4) Notices");
-            System.out.println("5) Visitor");
-            System.out.println("6) Complaints");
-            System.out.println("7) Exit");
-            
-            int choice = scanner.nextInt();
-            scanner.nextLine(); 
+            System.out.println("1) "+StringConstants.account);
+            System.out.println("2) "+StringConstants.alert);
+            System.out.println("3) "+StringConstants.notice);
+            System.out.println("4) "+StringConstants.visitor);
+            System.out.println("5) "+StringConstants.complaint);
+            System.out.println("6) "+StringConstants.previousmenu);
+            System.out.println("7) "+StringConstants.logout);
+            System.out.println("8) Exit");
+            System.out.println(StringConstants.enterChoice);
+
+            int choice;
+            try {
+    			choice= scanner.nextInt();
+    			}catch (InputMismatchException e) {
+                    System.out.println("Invalid input. Please enter a number.");
+                    scanner.nextLine(); // clear the invalid input
+                    continue; } 
 
             switch (choice) {
                 case 1:
                 {
-                    guardController.userManagementObj.displayMenu(user);
+                  loggedIn=  guardController.userManagementObj.displayMenu(user);
                     break;
                 }
                 case 2:
                 {
-                	guardController.attendanceMenuObj.displayMenu(user);
+                	loggedIn= guardController.alertMenuObj.displayMenu(user);
                 	break;
                 }
                 case 3:
                 {
-                	guardController.alertMenuObj.displayMenu(user);
+                	loggedIn=guardController.noticesMenuObj.displayMenu(user);
                 	break;
                 }
                 case 4:
                 {
-                	guardController.noticesMenuObj.displayMenu(user);
+                	loggedIn =guardController.visitorMenuObj.displayMenu(user);
                 	break;
                 }
                 case 5:
                 {
-                	guardController.visitorMenuObj.displayMenu(user);
+                	loggedIn=guardController.complaintMenuObj.displayMenu(user);
                 	break;
                 }
                 case 6:
-                {
-                	guardController.complaintMenuObj.displayMenu(user);
-                	break;
-                }
-                case 7:
                     return;
+                case 7:
+                	return ;
+                case 8:
+                {
+                	scanner.close();
+    				System.exit(0);
+    				return;
+                }
                 default:
                     System.out.println("Invalid choice, please try again.");
             }
+            if(loggedIn==false)
+            	return;
         }
     }
 }

@@ -1,10 +1,12 @@
 package com.controller;
 import com.Model.User;
+import com.Model.Visitor;
 import com.service.UserService;
 import com.societyManagement.main.AdminMenu;
 import com.societyManagement.main.GuardMenu;
 import com.societyManagement.main.ResidentMenu;
 import com.util.Helper;
+import com.util.StringConstants;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -120,12 +122,15 @@ public class UserController {
 				  		3) Phone Number
 				  		4) Email
 				  		5) Address
-				  		6) Exit
 				  		""";
 				  System.out.println(str);
-				 // System.out.println("Select which one to update");
+				  System.out.println("6) "+StringConstants.previousmenu);
+
+				 // System.out.println(StringConstants.enterChoice);
+				  System.out.println("Select that you need to update");
+
 				  String columnToUpdate = null,newValue=null;
-				  System.out.println("Enter your choice to update ");
+				 
 				  int choice= scanner.nextInt();
 				  scanner.nextLine(); 
 				 
@@ -222,7 +227,7 @@ public class UserController {
 		
 
 public void deleteUser(User user) throws SQLException, ClassNotFoundException {
-	if(user.getUserRole()=="admin")
+	if(user.getUserRole().toLowerCase().equals("admin"))
 	{
 		 System.out.println("You can't delete admin");
 		 return;	
@@ -250,12 +255,12 @@ public static  void login() throws SQLException, ClassNotFoundException{
 	        if (user == null ) {
 	        	
 	        	 System.out.println("Invalid username or password. Please try again.");
-		            logger.warning("Failed login attempt for username: " + userName);
+		            //logger.warning("Failed login attempt for username: " + userName);
 	            
 	           
 	        } else {
 	        	System.out.println("Login successful! Welcome, " + user.getUserName() + ".");
-	            logger.info("User logged in: " + user.getUserName());
+	           // logger.info("User logged in: " + user.getUserName());
 	           
 	            
 	            if(user.getUserRole().toLowerCase().equals("resident"))
@@ -282,9 +287,24 @@ public static  void login() throws SQLException, ClassNotFoundException{
 	           
 	        }
 	    } catch (SQLException e) {
-	        logger.log(Level.SEVERE, "Login failed due to a database error", e);
+	       // logger.log(Level.SEVERE, "Login failed due to a database error", e);
 	    }
 	
+}
+public User getUsernameList() throws ClassNotFoundException, SQLException
+{
+	List<User> users = userService.getUsername();
+        System.out.println(StringConstants.enterChoice);
+    int choice=scanner.nextInt();
+    scanner.nextLine();
+    if (choice < 1 || choice > users.size()) {
+        System.out.println("Invalid choice, please try again.");
+        return null;
+    }
+
+    User selectedUser=users.get(choice-1);
+    return selectedUser;
+    
 }
 
 public User getUserByadmin() throws ClassNotFoundException, SQLException
@@ -300,4 +320,6 @@ public User getUserByadmin() throws ClassNotFoundException, SQLException
 	User selectedUser = users.get(choice - 1);
 	return selectedUser;
 }
+
+
 }

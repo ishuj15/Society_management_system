@@ -16,13 +16,13 @@ public class ComplaintManagementAdmin {
 		this.complaintController = new ComplaintController();
     	this.scanner = new Scanner(System.in);
 	}
-
-	public void displayMenu(User user) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
+	public boolean displayMenu(User user) throws ClassNotFoundException, SQLException {
 		while(true)
 		{
-			
 			System.out.println(StringConstants.adminComplaint);
+			System.out.println("4) "+StringConstants.previousmenu);
+	        System.out.println("5) "+StringConstants.logout);
+	        System.out.println("6) Exit");
 			System.out.println(StringConstants.enterChoice);
 			int choice = scanner.nextInt();
             scanner.nextLine(); 
@@ -44,9 +44,18 @@ public class ComplaintManagementAdmin {
 				complaintController.listComplaints();
 				break;
 			}
-			
 			case 4:
-				return;
+                return true;
+            case 5:
+            {
+            	break;
+            }
+            case 6:
+            {
+            	scanner.close();
+            	System.exit(0);
+            	return false;
+            }
 				default:
 					System.out.println("Invalid Choice , Please try again");
 			}

@@ -1,10 +1,12 @@
 package com.presentation.guard.menu;
 
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.Model.User;
 import com.controller.MasterController;
+import com.util.StringConstants;
 
 public class VisitorMenu {
 	private final MasterController masterController;
@@ -15,33 +17,51 @@ public class VisitorMenu {
 		this.scanner = new Scanner(System.in);
 	}
 
-	public void displayMenu(User user) throws ClassNotFoundException, SQLException {
+	public boolean displayMenu(User user) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		while(true)
 		{
-			String str= """
-					1) Add Visitor
-					2) Verify Visitor
-					3) Exit
-					""";
-			System.out.println(str);
-			int choice = scanner.nextInt();
-			scanner.nextLine();
+			
+			System.out.println("1) Add Visitor");
+			System.out.println("2) Verify Visitor");
+
+			System.out.println("3) "+StringConstants.previousmenu);
+			System.out.println("4) "+StringConstants.logout);
+			System.out.println("5) Exit");
+
+			System.out.println(StringConstants.enterChoice);
+
+			int choice;
+			try {
+				choice= scanner.nextInt();
+				}catch (InputMismatchException e) {
+	                System.out.println("Invalid input. Please enter a number.");
+	                scanner.nextLine(); // clear the invalid input
+	                continue; }
 			switch(choice)
 			{
 			case 1:
 			{
-				masterController.visitorController.createVisitor();
+				User user2=masterController.userController.getUsernameList();
+				masterController.visitorController.createVisitor(user2);
 				break;
 			}
 			case 2:
 			{
-				
-				masterController.visitorController.verifyVisitor();
+				User user2=masterController.userController.getUsernameList();
+				masterController.visitorController.verifyVisitor(user2);
 				break;
 			}
 			case 3:
-				return ;
+				return true ;
+			case 4:
+				return false;
+			case 5:
+			{
+				scanner.close();
+				System.exit(0);
+				return false;
+			}
 			default:
 				System.out.println("Invalid choice, please try again.");
 			}

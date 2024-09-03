@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.Model.User;
-import com.controller.MasterController;
 import com.controller.UserController;
 import com.util.StringConstants;
 
@@ -16,11 +15,17 @@ public class AccontManagementAdmin {
 		this.userController = new UserController();
     	this.scanner = new Scanner(System.in);
 	}
-	public void displayMenu(User user) throws SQLException, ClassNotFoundException {
+	public boolean displayMenu(User user) throws SQLException, ClassNotFoundException {
 			
 			while(true)
 			{
 			System.out.println(StringConstants.adminDisplayUser);
+			System.out.println("6) "+StringConstants.previousmenu);
+			System.out.println("7) "+StringConstants.logout);
+			System.out.println("8) Exit");
+
+
+
 			System.out.println(StringConstants.enterChoice);
 			 int choice = scanner.nextInt();
 			 scanner.nextLine();
@@ -57,7 +62,18 @@ public class AccontManagementAdmin {
 	        	  break;
 	          }
 	          case 6:
-	        	  return;
+	        	  return true;
+	          case 7:
+	        	  return false;
+	          case 8:{
+	        	  scanner.close();
+	        	  System.exit(0);
+	        	  return false;
+	          }
+	        	  default:
+	        		  System.out.println("Invalid input");
+
+	        		  
 	          
 	          }
 			

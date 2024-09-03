@@ -26,18 +26,18 @@ public class VisitorDAO extends GenericDAO<Visitor> {
 
     public boolean addVisitor(Visitor visitor) throws SQLException, ClassNotFoundException {
         String sqlQuery = String.format(
-            "INSERT INTO Visitor (idvisitor, userId, name,contact, purpose, date_of_arrival,arrivalTime,departure_date,departureTime, approvalReq) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
+            "INSERT INTO visitor (idvisitor, userId, name,contact, purpose, date_of_arrival,arrivalTime,departure_date,departureTime, approvalReq) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
             visitor.getIdVisitor(),visitor.getUserId(), visitor.getName(), visitor.getContactNo() ,visitor.getPurpose(), visitor.getDate().toString(), visitor.getArrivalTime() , visitor.getDep_date().toString(),visitor.getDepartureTime(), visitor.isApproved());
         return executeQuery(sqlQuery);
     }
 
     public List<Visitor> getVisitorById(String userId) throws SQLException, ClassNotFoundException {
-        String selectSQL = "SELECT * FROM Visitor WHERE userId = \"" + userId+ "\"";
+        String selectSQL = "SELECT * FROM visitor WHERE userId = \"" + userId+ "\"";
         return executeGetAllQuery(selectSQL);
     }
 
     public List<Visitor> getAllVisitors() throws SQLException, ClassNotFoundException {
-        String selectSQL = "SELECT * FROM Visitor";
+        String selectSQL = "SELECT * FROM visitor";
         return executeGetAllQuery(selectSQL);
     }
 
@@ -47,22 +47,24 @@ public class VisitorDAO extends GenericDAO<Visitor> {
     }
     public boolean updateApprovalStatus(String visitorId, String approved) throws SQLException, ClassNotFoundException {
         String sqlQuery = String.format(
-            "UPDATE Visitor SET approvalreq = %s WHERE idvisitor = %s",
+            "UPDATE visitor SET approvalReq = %s WHERE idvisitor = %s",
             approved, visitorId);
         return executeQuery(sqlQuery);
 }
     public boolean updateVisitor(String visitorId, String columnToUpdate, String newValue) throws SQLException, ClassNotFoundException {
-        String sqlQuery = String.format("UPDATE Visitor SET %s = '%s' WHERE idvisitor = '%s'", columnToUpdate, newValue, visitorId);
+        String sqlQuery = String.format("UPDATE visitor SET %s = '%s' WHERE idvisitor = '%s'", columnToUpdate, newValue, visitorId);
         return executeQuery(sqlQuery);
     }
     public Visitor verifyVisitor(String visitorId) throws ClassNotFoundException, SQLException
     {
-    	String sql ="SELECT * FROM Visitor WHERE idvisitor=\""+ visitorId+"\"";
+    	String sql ="SELECT * FROM visitor WHERE idvisitor=\""+ visitorId+"\"";
     return executeGetQuery(sql);
     }
     public List<Visitor> pendingRequests(String userId, String apr) throws ClassNotFoundException, SQLException
     {
-    	String sql ="SELECT * FROM Visitor WHERE userId=\""+ userId+"\" AND approvalreq = \""+apr+"\"";			
+    	String sql = String.format("SELECT * FROM visitor WHERE userId='%s' AND approvalReq='%s'", userId, apr);
+
+    				
     	return executeGetAllQuery(sql);
     }
 

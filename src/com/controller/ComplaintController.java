@@ -6,6 +6,7 @@ import com.service.ComplaintService;
 import com.util.Helper;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,18 +19,18 @@ public class ComplaintController {
     	
         @SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter complaint date (yyyy-mm-dd): ");
-        String dateStr = scanner.nextLine();
+     
+        LocalDate currentDate = LocalDate.now() ;
         System.out.print("Enter complaint description: ");
         String description = scanner.nextLine();
      
-      //  System.out.print("Enter complaint status: ");
+    
         String status = "nil";
         String idComplaint= Helper.generateUniqueId();
         complaint.setIdComplaint(idComplaint);
-       // complaint.setUserId(complaint.getUserId());
+       
         complaint.setDescription(description);
-        complaint.setDate(java.sql.Date.valueOf(dateStr));
+        complaint.setDate(java.sql.Date.valueOf(currentDate));
         complaint.setStatus(status);
 
         complaintService.addComplaint(complaint);

@@ -1,11 +1,11 @@
 package com.controller;
 
-import com.Model.Complaint;
 import com.Model.Notices;
 import com.service.NoticesService;
 import com.util.Helper;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,8 +21,8 @@ public class NoticesController {
         String title = scanner.nextLine();
         System.out.print("Enter message: ");
         String message = scanner.nextLine();
-        System.out.print("Enter notice date (yyyy-mm-dd): ");
-        String dateStr = scanner.nextLine();
+       // System.out.print("Enter notice date (yyyy-mm-dd): ");
+        LocalDate currentDate = LocalDate.now();
         System.out.print("Enter target role (guard, resident, all): ");
         String targetRole = scanner.nextLine().toLowerCase(); 
         String noticeId= Helper.generateUniqueId();
@@ -31,7 +31,7 @@ public class NoticesController {
         notice.setIdNotices(noticeId);
         notice.setTitle(title);
         notice.setMessage(message);
-        notice.setDate(java.sql.Date.valueOf(dateStr));
+        notice.setDate(java.sql.Date.valueOf(currentDate));
         notice.setTargetRole(targetRole);
 
         noticesService.addNotice(notice);
@@ -45,19 +45,22 @@ public class NoticesController {
             System.out.println("No notices found for role: " + role);
         } else {
             
-            System.out.printf("%-5s %-30s %-50s %-15s%n", "S.No", "Title", "Message", "Date");
-            System.out.println("---------------------------------------------------------------------------------------------");
+        	System.out.printf("| %-5s | %-30s | %-50s | %-15s |%n", "S.No", "Title", "Message", "Date");
+        	System.out.println("---------------------------------------------------------------------------------------------"
+        	                 + "-----------------------------------------------");
 
-            // Print each notice in a row with serial number
-            int serialNumber = 1;
-            for (Notices notice : notices) {
-                System.out.printf("%-5d %-30s %-50s %-15s%n",
-                    serialNumber,
-                    notice.getTitle(),
-                    notice.getMessage(),
-                    notice.getDate().toString());
-                serialNumber++;
-            }
+        	int serialNumber = 1;
+        	for (Notices notice : notices) {
+        	    System.out.printf("| %-5d | %-30s | %-50s | %-15s |%n",
+        	        serialNumber,
+        	        notice.getTitle(),
+        	        notice.getMessage(),
+        	        notice.getDate().toString());
+        	    serialNumber++;
+        	}
+        	System.out.println("---------------------------------------------------------------------------------------------"
+        	                 + "-----------------------------------------------");
+        	
         }
 
     }
@@ -68,20 +71,21 @@ public class NoticesController {
         if (notices == null || notices.isEmpty()) {
             System.out.println("No notices found.");
         } else {
-            // Print table headers
-            System.out.printf("%-5s %-30s %-50s %-15s%n", "S.No", "Title", "Message", "Date");
-            System.out.println("---------------------------------------------------------------------------------------------");
+        	System.out.printf("| %-5s | %-30s | %-50s | %-15s |%n", "S.No", "Title", "Message", "Date");
+        	System.out.println("---------------------------------------------------------------------------------------------"
+        	                 + "-----------------------------------------------");
 
-            // Print each notice in a row with serial number
-            int serialNumber = 1;
-            for (Notices notice : notices) {
-                System.out.printf("%-5d %-30s %-50s %-15s%n",
-                    serialNumber,
-                    notice.getTitle(),
-                    notice.getMessage(),
-                    notice.getDate().toString());
-                serialNumber++;
-            }
+        	int serialNumber = 1;
+        	for (Notices notice : notices) {
+        	    System.out.printf("| %-5d | %-30s | %-50s | %-15s |%n",
+        	        serialNumber,
+        	        notice.getTitle(),
+        	        notice.getMessage(),
+        	        notice.getDate().toString());
+        	    serialNumber++;
+        	}
+        	System.out.println("---------------------------------------------------------------------------------------------"
+        	                 + "-----------------------------------------------");
         }
     }
 

@@ -1,6 +1,7 @@
 package com.societyManagement.main;
 
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import com.Model.User;
 import com.presentation.admin.menu.AdminController;
@@ -16,29 +17,46 @@ public class AdminMenu {
     }
 
     public void displayMenu(User user) throws SQLException, ClassNotFoundException {
+    	boolean loggedIn=true;
         while (true) {
-            System.out.println(StringConstants.adminMenu);
+        	
+            System.out.println("1) "+ StringConstants.user);
+            System.out.println("2) "+StringConstants.notice);
+            System.out.println("3) "+StringConstants.alert);
+            System.out.println("4) "+StringConstants.visitor);
+            System.out.println("5) "+StringConstants.service);
+            System.out.println("6) "+StringConstants.complaint);
+           // System.out.println("7) "+StringConstants.attendance);
+            System.out.println("7) "+StringConstants.previousmenu);
+            System.out.println("8) "+StringConstants.logout);
+            System.out.println("9) Exit");
+
             System.out.println(StringConstants.enterChoice);
-            int choice = scanner.nextInt();
-            scanner.nextLine(); 
+            int choice;
+            try {
+    			choice= scanner.nextInt();
+    			}catch (InputMismatchException e) {
+                    System.out.println("Invalid input. Please enter a number.");
+                    scanner.nextLine(); // clear the invalid input
+                    continue; } 
 
             switch (choice) {
                 case 1:
                    
-                	adminController.accountManage.displayMenu(user);
+                	loggedIn=adminController.accountManage.displayMenu(user);
                     break;
                 case 2:{
-                	adminController.noticeManage.displayMenu(user);
+                	loggedIn=adminController.noticeManage.displayMenu(user);
                 	break;
                 }
                 case 3:
                 {
-                	adminController.alertManage.displayMenu();
+                	loggedIn= adminController.alertManage.displayMenu();
                 	break;
                 }
                 case 4:
                 {
-                	adminController.visitorManage.displayMenu(user);
+                	loggedIn= adminController.visitorManage.displayMenu(user);
                 	break;
                 }
                 case 5:
@@ -51,16 +69,28 @@ public class AdminMenu {
                 	adminController.complaintManage.displayMenu(user);
                 	break;
                 }
+//                case 7:
+//                {
+//                	adminController.attendanceManage.displayMenu(user);
+//                	break;
+//                }
                 case 7:
+                    return;
+                case 8:
                 {
-                	adminController.attendanceManage.displayMenu(user);
                 	break;
                 }
-                case 8:
-                    return;
+                case 9:
+                {
+                	scanner.close();
+                	System.exit(0);
+                	return false;
+                }
                 default:
                     System.out.println("Invalid choice, please try again.");
             }
+            if(loggedIn==false)
+            	return;
         }
     }
 }

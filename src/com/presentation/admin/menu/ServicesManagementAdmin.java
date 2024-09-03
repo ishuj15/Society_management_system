@@ -16,11 +16,14 @@ public class ServicesManagementAdmin {
 		this.servicesController = new ServicesController();
     	this.scanner = new Scanner(System.in);
 	}
-	public void displayMenu(User user) throws ClassNotFoundException, SQLException {
+	public boolean displayMenu(User user) throws ClassNotFoundException, SQLException {
 		while(true)
 		{
 			
 			System.out.println(StringConstants.adminService);
+			System.out.println("3) "+StringConstants.previousmenu);
+	        System.out.println("4) "+StringConstants.logout);
+	        System.out.println("5) Exit");
 			System.out.println(StringConstants.enterChoice);
 			int choice = scanner.nextInt();
             scanner.nextLine(); 
@@ -38,7 +41,17 @@ public class ServicesManagementAdmin {
 				break;
 			}
 			case 3:
-				return;
+                return true;
+            case 4:
+            {
+            	break;
+            }
+            case 5:
+            {
+            	scanner.close();
+            	System.exit(0);
+            	return false;
+            }
 				default:
 					System.out.println("Invalid Choice , Please try again");
 			}

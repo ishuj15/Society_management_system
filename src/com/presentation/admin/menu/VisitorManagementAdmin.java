@@ -17,12 +17,15 @@ public class VisitorManagementAdmin {
     	this.scanner = new Scanner(System.in);
 	}
 
-	public void displayMenu(User user) throws SQLException, ClassNotFoundException {
+	public boolean displayMenu(User user) throws SQLException, ClassNotFoundException {
 		
 		while(true)
 		{
 			
 			System.out.println(StringConstants.adminVisitor);
+			System.out.println("3) "+StringConstants.previousmenu);
+	        System.out.println("4) "+StringConstants.logout);
+	        System.out.println("5) Exit");
 			System.out.println(StringConstants.enterChoice);
 			int choice = scanner.nextInt();
             scanner.nextLine(); 
@@ -40,7 +43,17 @@ public class VisitorManagementAdmin {
 				visitorController.deleteVisitor(visitorController.DeleteUserByadmin());
 			}
 			case 3:
-				return;
+                return true;
+            case 4:
+            {
+            	break;
+            }
+            case 5:
+            {
+            	scanner.close();
+            	System.exit(0);
+            	return false;
+            }
 				default:
 					System.out.println("Invalid Choice , Please try again");
 			}

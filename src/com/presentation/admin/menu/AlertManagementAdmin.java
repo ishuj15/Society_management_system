@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.controller.AlertController;
-import com.controller.MasterController;
+
 import com.util.StringConstants;
 
 public class AlertManagementAdmin {
@@ -15,13 +15,16 @@ public class AlertManagementAdmin {
 		this.alertController = new AlertController();
     	this.scanner = new Scanner(System.in);
 	}
-	public void displayMenu() throws SQLException, ClassNotFoundException {
+	public boolean displayMenu() throws SQLException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		
 		while(true)
 		{
 			
 			System.out.println(StringConstants.adminAlert);
+			System.out.println("5) "+StringConstants.previousmenu);
+	        System.out.println("6) "+StringConstants.logout);
+	        System.out.println("7) Exit");
 			System.out.println(StringConstants.enterChoice);
 			int choice = scanner.nextInt();
             scanner.nextLine(); 
@@ -49,7 +52,17 @@ public class AlertManagementAdmin {
 				break;
 			}
 			case 5:
-				return;
+                return true;
+            case 6:
+            {
+            	break;
+            }
+            case 7:
+            {
+            	scanner.close();
+            	System.exit(0);
+            	return false;
+            }
 				default:
 					System.out.println("Invalid Choice , Please try again");
 			}

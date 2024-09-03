@@ -16,12 +16,15 @@ public class NoticeManagementAdmin {
     	this.scanner = new Scanner(System.in);
 	}
 
-	public void displayMenu(User user) throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
+	public boolean displayMenu(User user) throws SQLException, ClassNotFoundException {
+		
 		while(true)
 		{
 			
 			System.out.println(StringConstants.adminNotice);
+			System.out.println("5) "+StringConstants.previousmenu);
+	        System.out.println("6) "+StringConstants.logout);
+	        System.out.println("7) Exit");
 			System.out.println(StringConstants.enterChoice);
 			int choice = scanner.nextInt();
             scanner.nextLine(); 
@@ -49,7 +52,17 @@ public class NoticeManagementAdmin {
 				break;
 			}
 			case 5:
-				return;
+                return true;
+            case 6:
+            {
+            	break;
+            }
+            case 7:
+            {
+            	scanner.close();
+            	System.exit(0);
+            	return false;
+            }
 				default:
 					System.out.println("Invalid Choice , Please try again");
 			}

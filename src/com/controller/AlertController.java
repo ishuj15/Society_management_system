@@ -4,6 +4,7 @@ import com.service.AlertService;
 import com.util.Helper;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,8 +17,8 @@ public class AlertController {
 		Scanner scanner = new Scanner(System.in);
         System.out.print("Enter alert message: ");
         String message = scanner.nextLine();
-        System.out.print("Enter alert date (yyyy-mm-dd): ");
-        String dateStr = scanner.nextLine();
+       // System.out.print("Enter alert date (yyyy-mm-dd): ");
+        LocalDate dateStr = LocalDate.now();
         System.out.print("Enter target role (guard, resident, all): ");
         String targetRole = scanner.nextLine().toLowerCase(); 
         String alertId= Helper.generateUniqueId();
@@ -44,25 +45,28 @@ public class AlertController {
     }
     public void viewAlertByRole(String role) throws SQLException, ClassNotFoundException {
     	List<Alert> alerts = alertService.getAlertByRole(role);
-        
+    	
         if (alerts == null || alerts.isEmpty()) {
             System.out.println("No alerts found for the specified role.");
         } else {
-            // Print table headers
-            System.out.printf("%-5s %-50s %-10s%n", "S.No", "Message", "Date");
-            System.out.println("--------------------------------------------------");
-
-            // Print each alert in a row with serial number
-            int serialNumber = 1;
-            for (Alert alert : alerts) {
-                System.out.printf("%-5d %-50s %-10s%n",
-                    serialNumber,
-                    alert.getMessage(),
-                    alert.getDate());
-                serialNumber++;
-            }
+        	System.out.println("---------------------------------------------------------------"
+	                 + "-----------");
+        	System.out.printf("| %-5s | %-50s | %-10s |%n", "S.No", "Message", "Date");
+        	System.out.println("---------------------------------------------------------------"
+        	                 + "-----------");
+        	int serialNumber = 1;
+        	for (Alert alert : alerts) {
+        	    System.out.printf("| %-5d | %-50s | %-10s |%n",
+        	        serialNumber,
+        	        alert.getMessage(),
+        	        alert.getDate().toString());
+        	    serialNumber++;
+        	}
+        	System.out.println("---------------------------------------------------------------"
+        	                 + "-----------");  
+        	
         }
-        }
+    }
 
     public void listAlerts() throws SQLException, ClassNotFoundException {
     	List<Alert> alerts = alertService.getAllAlerts();
@@ -70,20 +74,20 @@ public class AlertController {
         if (alerts == null || alerts.isEmpty()) {
             System.out.println("No alerts found.");
         } else {
-        	 System.out.printf("%-5s | %-50s | %-15s%n", "S.No", "Message", "Role");
-        	    System.out.println("----------------------------------------------------------------------");
-
-        	    // Print each alert in a row with serial number
-        	    int serialNumber = 1;
-        	    for (Alert alert : alerts) {
-        	        System.out.printf("%-5d | %-50s | %-15s%n",
-        	            serialNumber,
-        	            alert.getMessage(),
-        	            alert.getTargetRole());  // Assuming there's a getRole() method in the Alert class
-        	        serialNumber++;
-        	    }
-        	    System.out.println("----------------------------------------------------------------------");
-
+        	System.out.printf("| %-5s | %-50s | %-10s |%n", "S.No", "Message", "Date");
+        	System.out.println("---------------------------------------------------------------"
+        	                 + "------------------------");
+        	int serialNumber = 1;
+        	for (Alert alert : alerts) {
+        	    System.out.printf("| %-5d | %-50s | %-10s |%n",
+        	        serialNumber,
+        	        alert.getMessage(),
+        	        alert.getDate().toString());
+        	    serialNumber++;
+        	}
+        	System.out.println("---------------------------------------------------------------"
+        	                 + "------------------------"); 
+        	
         }
         	 
     }

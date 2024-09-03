@@ -31,7 +31,9 @@ public class AlertDAO extends GenericDAO<Alert> {
         return executeGetQuery(selectSQL);
     }
     public List<Alert> getAlertByRole(String role) throws SQLException, ClassNotFoundException {
-        String selectSQL = "SELECT * FROM alert WHERE targetRole = \"" + role + "\"";
+    	String selectSQL = "SELECT * FROM alert WHERE targetRole = '" + role + "' OR targetRole = 'all'";
+
+//        String selectSQL = "SELECT * FROM alert WHERE targetRole = \"" + role + "\"";
         return executeGetAllQuery(selectSQL);
     }
 

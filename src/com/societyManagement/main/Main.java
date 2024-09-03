@@ -9,10 +9,9 @@ public class Main {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
 		String str = """
-				1) Create Account
+				1) Register new  Account
 				2) Login
-				3) Logout
-				4) Exit
+				3)  Exit
 				""";
 		 try (Scanner scanner = new Scanner(System.in)) {
 		while (true) {
@@ -25,7 +24,7 @@ public class Main {
 			choice= scanner.nextInt();
 			}catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter a number.");
-                scanner.nextLine(); // clear the invalid input
+                scanner.nextLine();
                 continue; }
 
 			switch (choice) {
@@ -37,9 +36,7 @@ public class Main {
 				UserController.login();
 				break;
 			}
-			case 3:
-				break;
-			case 4: {
+			case 3: {
 				scanner.close();
 				System.exit(0);
 				return;

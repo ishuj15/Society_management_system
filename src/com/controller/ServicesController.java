@@ -6,7 +6,7 @@ import com.Model.Services;
 import com.Model.User;
 import com.service.ServicesService;
 import com.util.Helper;
-
+import java.math.*;
 import java.security.Provider.Service;
 import java.sql.SQLException;
 import java.util.List;
@@ -44,39 +44,86 @@ public class ServicesController {
         if(service.isEmpty())
         	 System.out.println("Service not found!");
         else {
-        System.out.printf("%-5s %-20s %-30s %-10s%n", "No.", "Service Name", "Description", "Status");
-        System.out.println("-------------------------------------------------------------");
+        	 System.out.println("---------------------------------------------------------------"
+	                  + "---------------------------------------------");
+   	 System.out.printf("| %-5s | %-20s | %-30s | %-10s |%n", "No.", "Service Name", "Description", "Status");
+   	 System.out.println("---------------------------------------------------------------"
+   	                  + "---------------------------------------------");
 
-        // Print each service with a serial number
-        int serialNumber = 1;
-        for (Services services : service) {
-            System.out.printf("%-5d %-20s %-30s %-10s%n", 
-                              serialNumber++, 
-                              services.getServiceName(), 
-                              services.getDescription(), 
-                              services.getStatus());
-            System.out.println("-------------------------------------------------------------");
-        }
-        }
+   	 // Print each service with a serial number and vertical lines
+   	 int serialNumber = 1;
+   	 for (Services services : service) {
+   	     System.out.printf("| %-5d | %-20s | %-30s | %-10s |%n", 
+   	                       serialNumber++, 
+   	                       services.getServiceName(), 
+   	                       services.getDescription(), 
+   	                       services.getStatus());
+   	 }
+   	 System.out.println("---------------------------------------------------------------"
+   	                  + "---------------------------------------------");
+   	 }
     }
 
     public void listServices() throws SQLException, ClassNotFoundException {
     	 List<Services> services = servicesService.getAllServices();
+    	 if(services.equals(null))
+    		 System.out.println("No service found");
+    	 else
+    	 {
+    		 System.out.println("---------------------------------------------------------------"
+	                  + "---------------------------------------------");
+    	 System.out.printf("| %-5s | %-20s | %-30s | %-10s |%n", "No.", "Service Name", "Description", "Status");
+    	 System.out.println("---------------------------------------------------------------"
+    	                  + "---------------------------------------------");
 
-    	    // Print the table header
-    	    System.out.printf("%-5s %-20s %-30s %-10s%n", "No.", "Service Name", "Description", "Status");
-    	    System.out.println("-------------------------------------------------------------");
-
-    	    // Print each service with a serial number
-    	    int serialNumber = 1;
-    	    for (Services service : services) {
-    	        System.out.printf("%-5d %-20s %-30s %-10s%n", 
-    	                          serialNumber++, 
-    	                          service.getServiceName(), 
-    	                          service.getDescription(), 
-    	                          service.getStatus());
-    	    }
+    	 // Print each service with a serial number and vertical lines
+    	 int serialNumber = 1;
+    	 for (Services service : services) {
+    	     System.out.printf("| %-5d | %-20s | %-30s | %-10s |%n", 
+    	                       serialNumber++, 
+    	                       service.getServiceName(), 
+    	                       service.getDescription(), 
+    	                       service.getStatus());
+    	 }
+    	 System.out.println("---------------------------------------------------------------"
+    	                  + "---------------------------------------------");
+    	 }
     }
+//    	 int maxServiceNameLength = "Service Name".length();
+//    	    int maxDescriptionLength = "Description".length();
+//    	    
+//    	    for (Services service : services) {
+//    	        maxServiceNameLength = Math.max(maxServiceNameLength, service.getServiceName().length());
+//    	        maxDescriptionLength = Math.max(maxDescriptionLength, service.getDescription().length());
+//    	    }
+//
+//    	    // Calculate the format strings based on max lengths
+//    	    String headerFormat = "| %-5s | %-" + maxServiceNameLength + "s | %-" + maxDescriptionLength + "s | %-10s |%n";
+//    	    String rowFormat = "| %-5d | %-" + maxServiceNameLength + "s | %-" + maxDescriptionLength + "s | %-10s |%n";
+//
+//    	    // Calculate the total width of the table for the horizontal line
+//    	    int tableWidth = 12 + maxServiceNameLength + maxDescriptionLength + 15; // 12 = 5 (No.) + 2 spaces + 2 vertical bars + 3 spaces, 15 = 10 (Status) + 5 (spaces and vertical bars)
+//    	    
+//    	    // Print the starting horizontal line
+//    	    System.out.println("-".repeat(tableWidth));
+//
+//    	    // Print table headers
+//    	    System.out.printf(headerFormat, "No.", "Service Name", "Description", "Status");
+//    	    System.out.println("-".repeat(tableWidth));  // Adjust separator line based on column widths
+//
+//    	    // Print each service with a serial number
+//    	    int serialNumber = 1;
+//    	    for (Services service : services) {
+//    	        System.out.printf(rowFormat, 
+//    	                          serialNumber++, 
+//    	                          service.getServiceName(), 
+//    	                          service.getDescription(), 
+//    	                          service.getStatus());
+//    	    }
+//
+//    	    // Print ending horizontal line
+//    	    System.out.println("-".repeat(tableWidth));
+ //   }
 
     public void updateService(String idUser) throws SQLException, ClassNotFoundException {
         Scanner scanner = new Scanner(System.in);
@@ -100,7 +147,7 @@ public class ServicesController {
 					3) Status
     				4) exit
     				""";
-    				 System.out.println(str);
+    System.out.println(str);
        System.out.println("Select that needs to be updated");
        int choice2=scanner.nextInt();
        scanner.nextLine();

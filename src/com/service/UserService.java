@@ -28,9 +28,9 @@ public class UserService {
     public User getUserByUserName(String idUser) throws SQLException, ClassNotFoundException {
     	 User user = userDAO.getUserByUsername(idUser);
          if (user != null) {
-             System.out.println("-------------------------------------------------------------");
+             System.out.println("-----------------------------------------------------");
              System.out.printf("| %-15s | %-30s |\n", "Field", "Value");
-             System.out.println("-------------------------------------------------------------");
+             System.out.println("-----------------------------------------------------");
 
              System.out.printf("| %-15s | %-30s |\n", "User Name", user.getUserName());
              System.out.printf("| %-15s | %-30s |\n", "User Role", user.getUserRole());
@@ -38,7 +38,7 @@ public class UserService {
              System.out.printf("| %-15s | %-30s |\n", "Email", user.getEmail());
              System.out.printf("| %-15s | %-30s |\n", "Address", user.getAddress());
 
-             System.out.println("-------------------------------------------------------------");
+             System.out.println("------------------------------------------------------");
          } else {
              System.out.println("User not found!");
          }
@@ -66,8 +66,31 @@ public class UserService {
          System.out.printf("+----+-----------------+------------------------------+-------------------+------------------------------+------------------------------+%n");
    return users;
     }
+    public List<User> getUsername() throws ClassNotFoundException, SQLException
+    {
+    	List<User> users = userDAO.getAllUsers();
+    	if(users==null || users.isEmpty())
+   	 {
+   		 System.out.println("users not found!");	 
+   	 }
+   	 else
+   	 {
+   	System.out.printf("| %-5s | %-20s |\n", "S.No", "Username");
+   	System.out.println("|-------|----------------------|");
 
-    public void updateUser(User user, String columnToUpdate, String newValue) throws SQLException, ClassNotFoundException {
+   	int serialNumber = 1;
+   	for (User user : users) {
+   	   System.out.printf("| %-5d | %-20s |\n", 
+   	                     serialNumber++, 
+   	                     user.getUserName()); 
+   	}
+   	System.out.println("|-------|----------------------|");
+   	 }
+    	return users;
+
+    }
+
+     public void updateUser(User user, String columnToUpdate, String newValue) throws SQLException, ClassNotFoundException {
         userDAO.updateUser(user.getIdUser(), columnToUpdate, newValue);
     }
 

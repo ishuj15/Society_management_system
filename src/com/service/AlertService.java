@@ -16,8 +16,8 @@ public class AlertService {
     public Alert getAlertById(String idAlert) throws SQLException, ClassNotFoundException {
         return alertDAO.getAlertById(idAlert);
     }
-    public List<Alert> getAlertByRole(String idAlert) throws SQLException, ClassNotFoundException {
-        return alertDAO.getAlertByRole(idAlert);
+    public List<Alert> getAlertByRole(String role) throws SQLException, ClassNotFoundException {
+        return alertDAO.getAlertByRole(role);
     }
     
     public List<Alert> getAllAlerts() throws SQLException, ClassNotFoundException {
