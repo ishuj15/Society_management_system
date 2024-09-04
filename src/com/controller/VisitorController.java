@@ -91,13 +91,18 @@ public class VisitorController {
        while(true)
        {
     	   System.out.print("Enter visit departure time: ");
-    	   time2=scanner.nextLine();
-           depTime= Time.valueOf(time2);
-           if ( Helper.isValidTime(time2)  &&arrivalDate.equals(depDate)  && depTime.after(arrival_time)) {
-               break;
-           } else if (   Helper.isValidTime(time2) && depDate2.after(arrivalDate2)) {
-               break; // Valid case, so exit the loop
-           } else {
+    	   time2=scanner.nextLine(); 
+    	   if(Helper.isValidTime(time2))
+    	   {
+    		   depTime= Time.valueOf(time2);
+    		   if (   arrivalDate.equals(depDate)  && depTime.after(arrival_time)) {
+                   break;
+    		   }
+                   else if (   depDate2.after(arrivalDate2)) {
+                       break; 
+                   	}
+    	   }
+            else {
                System.out.println("Invalid date, departure date must be after arrival date, please try again");
            }
           	  
