@@ -25,6 +25,8 @@ public class VisitorController {
     	
 
 		Date date= new Date(System.currentTimeMillis());;
+		System.out.println(date);
+
 		
 		//String apr;
 		
@@ -46,15 +48,18 @@ public class VisitorController {
         	 System.out.print("Enter visit date (yyyy-mm-dd): ");
         	 
         	 arrivalDate = scanner.nextLine();
-        	 arrivalDate2 = Date.valueOf(arrivalDate);
-        	 
-        	 if(Helper.isValidDate(arrivalDate) && (arrivalDate2.after(date)|| arrivalDate.equals(date)))
+        	 if(Helper.isValidDate(arrivalDate))
         	 {
-        		 break;
+        		 arrivalDate2 = java.sql.Date.valueOf(arrivalDate);
+        		// System.out.println(arrivalDate2);
+        		 if( (arrivalDate2.after(date)|| arrivalDate2.equals(date)))
+            	 {
+            		 break;
+            	 }
+        		 
         	 }
         	 else
-        		 System.out.println("Invalid date ,Please try again");
-
+        		 System.out.println("Invalid date ,Please try again");	
          }
         System.out.print("Enter visit purpose: ");
         String purpose = scanner.nextLine();
@@ -65,16 +70,18 @@ public class VisitorController {
         	   if(Helper.isValidTime(time))
         		   break;
         	   else
-        		   System.out.println("Incoorect time format, PLease try again");
+        		   System.out.println("Incorrect time format, PLease try again");
         }
         Time arrival_time= Time.valueOf(time) ;
         while(true)
         {
         	 System.out.print("Enter departure date (yyyy-mm-dd): ");
         	 depDate = scanner.nextLine();
-        	 depDate2=Date.valueOf(depDate);
-       	 if(  Helper.isValidDate(depDate)  && (depDate2.after(arrivalDate2) || arrivalDate.equals(depDate)))
+        	
+       	 if(  Helper.isValidDate(depDate)  )
        	 {
+       		 depDate2=Date.valueOf(depDate);
+       		 if( (depDate2.after(arrivalDate2) || arrivalDate2.equals(depDate2)))
        		 break;
        	 }
        	 else
