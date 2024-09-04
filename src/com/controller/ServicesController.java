@@ -9,6 +9,7 @@ import com.util.Helper;
 import java.math.*;
 import java.security.Provider.Service;
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -40,27 +41,30 @@ public class ServicesController {
 
     public void viewService(String idUser) throws SQLException, ClassNotFoundException {
     	
-        List<Services> service = servicesService.getServiceById(idUser);
-        if(service.isEmpty())
+        List<Services> services = servicesService.getServiceById(idUser);
+        if(services.isEmpty())
         	 System.out.println("Service not found!");
         else {
-        	 System.out.println("---------------------------------------------------------------"
-	                  + "---------------------------------------------");
-   	 System.out.printf("| %-5s | %-20s | %-30s | %-10s |%n", "No.", "Service Name", "Description", "Status");
-   	 System.out.println("---------------------------------------------------------------"
-   	                  + "---------------------------------------------");
+        	System.out.println("---------------------------------------------------------------"
+                    + "------------------------------------------------------");
+   System.out.printf("| %-5s | %-15s | %-20s | %-30s | %-10s |%n", "No.", "Username", "Service Name", "Description", "Status");
+   System.out.println("---------------------------------------------------------------"
+                    + "------------------------------------------------------");
 
-   	 // Print each service with a serial number and vertical lines
-   	 int serialNumber = 1;
-   	 for (Services services : service) {
-   	     System.out.printf("| %-5d | %-20s | %-30s | %-10s |%n", 
-   	                       serialNumber++, 
-   	                       services.getServiceName(), 
-   	                       services.getDescription(), 
-   	                       services.getStatus());
-   	 }
-   	 System.out.println("---------------------------------------------------------------"
-   	                  + "---------------------------------------------");
+   // Print each service with a serial number and vertical lines
+   int serialNumber = 1;
+   for (Services service : services) {
+       User user = UserController.userService.getUserById(service.getUserId());
+       System.out.printf("| %-5d | %-15s | %-20s | %-30s | %-10s |%n", 
+                         serialNumber++, 
+                         user.getUserName(),         // Display the username
+                         service.getServiceName(), 
+                         service.getDescription(), 
+                         service.getStatus());
+   }
+   System.out.println("---------------------------------------------------------------"
+                    + "------------------------------------------------------");
+
    	 }
     }
 
@@ -71,22 +75,25 @@ public class ServicesController {
     	 else
     	 {
     		 System.out.println("---------------------------------------------------------------"
-	                  + "---------------------------------------------");
-    	 System.out.printf("| %-5s | %-20s | %-30s | %-10s |%n", "No.", "Service Name", "Description", "Status");
-    	 System.out.println("---------------------------------------------------------------"
-    	                  + "---------------------------------------------");
+                     + "------------------------------------------------------");
+    System.out.printf("| %-5s | %-15s | %-20s | %-30s | %-10s |%n", "No.", "Username", "Service Name", "Description", "Status");
+    System.out.println("---------------------------------------------------------------"
+                     + "------------------------------------------------------");
 
-    	 // Print each service with a serial number and vertical lines
-    	 int serialNumber = 1;
-    	 for (Services service : services) {
-    	     System.out.printf("| %-5d | %-20s | %-30s | %-10s |%n", 
-    	                       serialNumber++, 
-    	                       service.getServiceName(), 
-    	                       service.getDescription(), 
-    	                       service.getStatus());
-    	 }
-    	 System.out.println("---------------------------------------------------------------"
-    	                  + "---------------------------------------------");
+    // Print each service with a serial number and vertical lines
+    int serialNumber = 1;
+    for (Services service : services) {
+        User user = UserController.userService.getUserById(service.getUserId());
+        System.out.printf("| %-5d | %-15s | %-20s | %-30s | %-10s |%n", 
+                          serialNumber++, 
+                          user.getUserName(),         // Display the username
+                          service.getServiceName(), 
+                          service.getDescription(), 
+                          service.getStatus());
+    }
+    System.out.println("---------------------------------------------------------------"
+                     + "------------------------------------------------------");
+
     	 }
     }
 //    	 int maxServiceNameLength = "Service Name".length();
@@ -130,8 +137,14 @@ public class ServicesController {
         List<Services> service = servicesService.getServiceById(idUser);
         viewService(idUser);
         System.out.println("Select service which needs to modify ");
-        int choice=scanner.nextInt();
-        scanner.nextLine();
+        int choice=0;
+        try {
+			choice= scanner.nextInt();
+			}catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine();
+                }
+        
         if (choice < 1 || choice > service.size()) {
             System.out.println("Invalid choice, please try again.");
             return;
@@ -149,9 +162,13 @@ public class ServicesController {
     				""";
     System.out.println(str);
        System.out.println("Select that needs to be updated");
-       int choice2=scanner.nextInt();
-       scanner.nextLine();
-    				
+       int choice2=0;
+       try {
+			choice2= scanner.nextInt();
+			}catch (InputMismatchException e) {
+               System.out.println("Invalid input. Please enter a number.");
+               scanner.nextLine();
+               }			
 
 		 switch(choice2)
        {
@@ -195,7 +212,13 @@ public class ServicesController {
     	
     	System.out.println("Enter service  number which you need to delete");
     	viewService(idUser);
-    	int choice= scanner.nextInt();
+    	int choice=0;
+    	try {
+			choice= scanner.nextInt();
+			}catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine();
+                }
     	if (choice < 1 || choice > service.size()) {
             System.out.println("Invalid choice, please try again.");
             return;
@@ -214,9 +237,15 @@ public class ServicesController {
     	
         List<Services> services = servicesService.getAllServices();
         listServices();
-        System.out.println("Select  notice ");
-        int choice=scanner.nextInt();
-        scanner.nextLine();
+        System.out.println("Select  service ");
+        int choice=0;
+        try {
+			choice= scanner.nextInt();
+			}catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine();
+                }
+      
         return  services.get(choice-1);
    }
 }

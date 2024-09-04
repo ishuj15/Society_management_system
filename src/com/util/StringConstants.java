@@ -14,50 +14,42 @@ public class StringConstants {
 	public static String logout="Log out";
 	
 	public static String enterChoice="Enter your choice";
+	public static String addUser="Add User";
+	public static String deleteUser="Delete User";
+	public static String viewListOfUser="View list of users";
+	public static String viewListByUserName = "View Profile by userName";
+	public static String updateUser= "Update User";
 	//StringConstants.enterChoice
-	public static String adminDisplayUser=
-			"""
-			1) Add User
-			2) Delete User
-			3) View list of users
-			4) View Profile by userName
-			5) Update User
-			""";
+	
 	public static String adminNotice=
 			"""
 			1) Add Notice
 			2) Delete Notice
 			3) View list of Notices
-			4) Update Notice
-			""";
+			4) Update Notice""";
 	public static String adminAlert=
 			"""
 			1) Add Alert
 			2) Delete Alert
 			3) View Alerts
-			4) Update Alert
-			""";
+			4) Update Alert""";
 	public static String adminVisitor=
 			"""
 			1) View list of Visitor
-			2) Delete visitor
-			""";
+			2) Delete visitor""";
 	public static String adminService=
 			"""
 			1) View Services
-			2) Delete Services
-			""";
+			2) Delete Services""";
 	public static String adminComplaint=
 			"""
 			1) Update Complaint
 			2) Delete Complaint
-			3) View list of Complaint
-			""";
+			3) View list of Complaint""";
 	public static String adminAttendance= """
 			1) View Attendance
 			2) View Attendnace by Id
 			3) Update 
-			4) Exit
-			""";
+			4) Exit""";
 
 }

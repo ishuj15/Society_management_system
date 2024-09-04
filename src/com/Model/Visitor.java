@@ -1,8 +1,5 @@
 package com.Model;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalTime;
 
 public class Visitor {
     private String idVisitor;

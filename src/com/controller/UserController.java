@@ -1,6 +1,6 @@
 package com.controller;
 import com.Model.User;
-import com.Model.Visitor;
+
 import com.service.UserService;
 import com.societyManagement.main.AdminMenu;
 import com.societyManagement.main.GuardMenu;
@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -54,9 +53,9 @@ public class UserController {
         }
         
         while(true) {
-        //System.out.print("Enter password: ");
-         //password = scanner.nextLine().trim();
-        password=Helper.maskedPassword();
+        System.out.print("Enter password: ");
+         password = scanner.nextLine().trim();
+       // password=Helper.maskedPassword();
         if (Helper.isPasswordValid(password)) {
             break;
         } else {
@@ -122,19 +121,22 @@ public class UserController {
 				  		2) Password
 				  		3) Phone Number
 				  		4) Email
-				  		5) Address
-				  		""";
+				  		5) Address""";
 				  System.out.println(str);
 				  System.out.println("6) "+StringConstants.previousmenu);
 
 				 // System.out.println(StringConstants.enterChoice);
-				  System.out.println("Select that you need to update");
+				  System.out.println("Select field that you need to update");
 
 				  String columnToUpdate = null,newValue=null;
 				 
-				  int choice= scanner.nextInt();
-				  scanner.nextLine(); 
-				 
+				  int choice=0;
+				  try {
+						choice= scanner.nextInt();
+						}catch (InputMismatchException e) {
+			                System.out.println("Invalid input. Please enter a number.");
+			                scanner.nextLine();
+			                 }
 				  switch(choice)
 			  	{
 			  	case 1:
@@ -248,9 +250,11 @@ public static  void login() throws SQLException, ClassNotFoundException{
 		Scanner scanner=new Scanner(System.in);
 		 System.out.println("Enter your login details:");
 	        System.out.print("Username: ");
+	        
 	        String userName = scanner.nextLine().trim();
-	        String password=Helper.maskedPassword();
-
+	        System.out.println("Enter your password");
+//	        String password=Helper.maskedPassword();
+	        String password=scanner.nextLine().trim();
 	        User user = UserService.login(userName, password);
 
 	        if (user == null ) {
@@ -280,7 +284,7 @@ public static  void login() throws SQLException, ClassNotFoundException{
 	            }
 	            else
 	            {
-	            	System.out.println("admin");
+	            	//System.out.println("admin");
 	            	AdminMenu adminMenuObj= new AdminMenu();
 	            	
 	            	adminMenuObj.displayMenu(user); 	
@@ -318,8 +322,15 @@ public User getUserByadmin() throws ClassNotFoundException, SQLException
 {
 	List<User> users =userService.getAllUsers();
 	
-	System.out.println("Enter user  number which you need to delete");
-	int choice= scanner.nextInt();
+	System.out.println("Select user  ");
+	int choice=0;
+	try {
+		choice= scanner.nextInt();
+		}catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.nextLine();
+             }
+	
 	if (choice < 1 || choice > users.size()) {
         System.out.println("Invalid choice, please try again.");
         return null;

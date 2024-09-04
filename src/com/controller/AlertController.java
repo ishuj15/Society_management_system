@@ -5,6 +5,7 @@ import com.util.Helper;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -49,21 +50,21 @@ public class AlertController {
         if (alerts == null || alerts.isEmpty()) {
             System.out.println("No alerts found for the specified role.");
         } else {
-        	System.out.println("---------------------------------------------------------------"
-	                 + "-----------");
-        	System.out.printf("| %-5s | %-50s | %-10s |%n", "S.No", "Message", "Date");
-        	System.out.println("---------------------------------------------------------------"
-        	                 + "-----------");
+        	System.out.printf("| %-5s | %-15s | %-50s | %-10s |%n", "S.No", "Role", "Message", "Date");
+        	System.out.println("----------------------------------------------------------------------------"
+        	                 + "-------------------------------------");
+
         	int serialNumber = 1;
         	for (Alert alert : alerts) {
-        	    System.out.printf("| %-5d | %-50s | %-10s |%n",
+        	    System.out.printf("| %-5d | %-15s | %-50s | %-10s |%n",
         	        serialNumber,
+        	        alert.getTargetRole(),  
         	        alert.getMessage(),
         	        alert.getDate().toString());
         	    serialNumber++;
         	}
-        	System.out.println("---------------------------------------------------------------"
-        	                 + "-----------");  
+        	System.out.println("----------------------------------------------------------------------------"
+        	                 + "-------------------------------------");
         	
         }
     }
@@ -74,20 +75,21 @@ public class AlertController {
         if (alerts == null || alerts.isEmpty()) {
             System.out.println("No alerts found.");
         } else {
-        	System.out.printf("| %-5s | %-50s | %-10s |%n", "S.No", "Message", "Date");
-        	System.out.println("---------------------------------------------------------------"
-        	                 + "------------------------");
+        	System.out.printf("| %-5s | %-15s | %-50s | %-10s |%n", "S.No", "Role", "Message", "Date");
+        	System.out.println("----------------------------------------------------------------------------"
+        	                 + "-------------------------------------");
+
         	int serialNumber = 1;
         	for (Alert alert : alerts) {
-        	    System.out.printf("| %-5d | %-50s | %-10s |%n",
+        	    System.out.printf("| %-5d | %-15s | %-50s | %-10s |%n",
         	        serialNumber,
+        	        alert.getTargetRole(),  
         	        alert.getMessage(),
         	        alert.getDate().toString());
         	    serialNumber++;
         	}
-        	System.out.println("---------------------------------------------------------------"
-        	                 + "------------------------"); 
-        	
+        	System.out.println("----------------------------------------------------------------------------"
+        	                 + "-------------------------------------");
         }
         	 
     }
@@ -105,12 +107,16 @@ public class AlertController {
        		1) Message
        		2) Date
        		3) TagerRole
-       		3) Exit
-       		""";
+       		4) Exit""";
        System.out.println(str);
-       System.out.println("Select that needs to be updated");
-       int choice=scanner.nextInt();
-       scanner.nextLine();
+       System.out.println("Select field that needs to be updated");
+       int choice=0;
+       try {
+			choice= scanner.nextInt();
+			}catch (InputMismatchException e) {
+               System.out.println("Invalid input. Please enter a number.");
+               scanner.nextLine();
+               }
        switch(choice)
        {
       
@@ -134,7 +140,7 @@ public class AlertController {
        case 3:
        {
     	   System.out.print("Enter target role: ");
-           String role = scanner.nextLine();
+           String role = scanner.nextLine().trim();
            alertService.updateAlert(idAlert, "targetRole", role);
            System.out.println("Alert updated successfully!");
        	   break;

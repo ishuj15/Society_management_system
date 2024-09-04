@@ -42,15 +42,21 @@ public class VisitorService {
         }
     }
     public void updateApprovalStatus(String visitorId, String approved) throws SQLException, ClassNotFoundException {
+    	
         visitorDAO.updateApprovalStatus(visitorId, approved);
     }
 
     public void requestApproval(String visitorId) throws SQLException {
-        // You can implement logic to notify the resident about the approval request
+       
         System.out.println("Approval request sent to resident.");
     }
     public List<Visitor> getAllVisitorReq(String userId, String apr ) throws SQLException, ClassNotFoundException {
         return visitorDAO.pendingRequests(userId,apr);
     }
+
+	public List<Visitor> getAllVisitorById(String id) throws ClassNotFoundException, SQLException {
+		visitorDAO.getVisitorById(id);
+		return null;
+	}
     
 }

@@ -6,6 +6,7 @@ import com.util.Helper;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,13 +19,13 @@ public class NoticesController {
         @SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
         System.out.print("Enter title: ");
-        String title = scanner.nextLine();
+        String title = scanner.nextLine().trim();
         System.out.print("Enter message: ");
-        String message = scanner.nextLine();
+        String message = scanner.nextLine().trim();
        // System.out.print("Enter notice date (yyyy-mm-dd): ");
         LocalDate currentDate = LocalDate.now();
         System.out.print("Enter target role (guard, resident, all): ");
-        String targetRole = scanner.nextLine().toLowerCase(); 
+        String targetRole = scanner.nextLine().trim().toLowerCase(); 
         String noticeId= Helper.generateUniqueId();
 
         Notices notice = new Notices();
@@ -45,22 +46,23 @@ public class NoticesController {
             System.out.println("No notices found for role: " + role);
         } else {
             
-        	System.out.printf("| %-5s | %-30s | %-50s | %-15s |%n", "S.No", "Title", "Message", "Date");
-        	System.out.println("---------------------------------------------------------------------------------------------"
-        	                 + "-----------------------------------------------");
+        	System.out.printf("| %-5s | %-15s | %-30s | %-50s | %-15s |%n", "S.No",  "Title", "Message", "Date","Role");
+        	System.out.println("--------------------------------------------------------------------------------------------------------------------"
+        	                 + "---------------------------------------------------------------");
 
         	int serialNumber = 1;
         	for (Notices notice : notices) {
-        	    System.out.printf("| %-5d | %-30s | %-50s | %-15s |%n",
+        	    System.out.printf("| %-5d | %-15s | %-30s | %-50s | %-15s |%n",
         	        serialNumber,
+        	         
         	        notice.getTitle(),
         	        notice.getMessage(),
-        	        notice.getDate().toString());
+        	        notice.getDate().toString(),
+        	        notice.getTargetRole());
         	    serialNumber++;
         	}
-        	System.out.println("---------------------------------------------------------------------------------------------"
-        	                 + "-----------------------------------------------");
-        	
+        	System.out.println("--------------------------------------------------------------------------------------------------------------------"
+        	                 + "---------------------------------------------------------------");
         }
 
     }
@@ -71,21 +73,23 @@ public class NoticesController {
         if (notices == null || notices.isEmpty()) {
             System.out.println("No notices found.");
         } else {
-        	System.out.printf("| %-5s | %-30s | %-50s | %-15s |%n", "S.No", "Title", "Message", "Date");
-        	System.out.println("---------------------------------------------------------------------------------------------"
-        	                 + "-----------------------------------------------");
+        	System.out.printf("| %-5s | %-15s | %-30s | %-50s | %-15s |%n", "S.No",  "Title", "Message", "Date","Role");
+        	System.out.println("--------------------------------------------------------------------------------------------------------------------"
+        	                 + "---------------------------------------------------------------");
 
         	int serialNumber = 1;
         	for (Notices notice : notices) {
-        	    System.out.printf("| %-5d | %-30s | %-50s | %-15s |%n",
+        	    System.out.printf("| %-5d | %-15s | %-30s | %-50s | %-15s |%n",
         	        serialNumber,
+        	         
         	        notice.getTitle(),
         	        notice.getMessage(),
-        	        notice.getDate().toString());
+        	        notice.getDate().toString(),
+        	        notice.getTargetRole());
         	    serialNumber++;
         	}
-        	System.out.println("---------------------------------------------------------------------------------------------"
-        	                 + "-----------------------------------------------");
+        	System.out.println("--------------------------------------------------------------------------------------------------------------------"
+        	                 + "---------------------------------------------------------------");	
         }
     }
 
@@ -106,8 +110,13 @@ public class NoticesController {
        		""";
        System.out.println(str);
        System.out.println("Select that needs to be updated");
-       int choice=scanner.nextInt();
-       scanner.nextLine();
+       int choice=0;
+       try {
+			choice= scanner.nextInt();
+			}catch (InputMismatchException e) {
+               System.out.println("Invalid input. Please enter a number.");
+               scanner.nextLine();
+               }
        switch(choice)
        {
        case 1:
@@ -165,8 +174,14 @@ public class NoticesController {
          List<Notices> notices = noticesService.getAllNotices();
          listNotices();
          System.out.println("Select  notice ");
-         int choice=scanner.nextInt();
-         scanner.nextLine();
+         int choice=0;
+         
+         try {
+ 			choice= scanner.nextInt();
+ 			}catch (InputMismatchException e) {
+                 System.out.println("Invalid input. Please enter a number.");
+                 scanner.nextLine();
+                  }
          return  notices.get(choice-1);
     }
     

@@ -2,7 +2,7 @@ package com.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+
 import java.util.List;
 
 import com.Model.Notices;

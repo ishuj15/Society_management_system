@@ -48,7 +48,8 @@ public class ComplaintManagementAdmin {
                 return true;
             case 5:
             {
-            	break;
+            	return false;
+            	
             }
             case 6:
             {

@@ -25,7 +25,6 @@ public class VisitorMenu {
 			System.out.println("3) "+StringConstants.previousmenu);
 			System.out.println("4) "+StringConstants.logout);
 			System.out.println("5) Exit");
-
 			System.out.println(StringConstants.enterChoice);
 
 			int choice;
@@ -41,8 +40,8 @@ public class VisitorMenu {
 			{
 				User user2=masterController.userController.getUsernameList();
 			//	System.out.println(user2.getIdUser());
-
 				masterController.visitorController.createVisitor(user2,"Pending");
+				System.out.println("Request send to resident");
 				break;
 			}
 			case 2:

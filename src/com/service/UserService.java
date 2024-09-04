@@ -14,10 +14,7 @@ public class UserService {
     private static boolean verifyPassword(String enteredPassword, String storedHashedPassword) {
   
         String hashedEnteredPassword = Helper.hashPassword(enteredPassword);
-    	//String hashedEnteredPassword = Helper.hashPassword(enteredPassword,salt);
-//        System.out.println(hashedEnteredPassword);
-//        System.out.println(storedHashedPassword);
-//        System.out.println(hashedEnteredPassword.equals(storedHashedPassword));
+    	
         return hashedEnteredPassword.equals(storedHashedPassword);
     }
     public void addUser(User user) throws SQLException, ClassNotFoundException {
@@ -111,6 +108,9 @@ public class UserService {
         
      }
    
+    public User getUserById(String userId) throws ClassNotFoundException, SQLException {
+        return userDAO.getUserById(userId);
+    }
 }
 
 ;

@@ -1,6 +1,7 @@
 package com.presentation.admin.menu;
 
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.Model.User;
@@ -19,17 +20,26 @@ public class AccontManagementAdmin {
 			
 			while(true)
 			{
-			System.out.println(StringConstants.adminDisplayUser);
+				System.out.println("Manage user\n");
+
+			System.out.println("1) "+StringConstants.addUser);
+			System.out.println("2) "+StringConstants.deleteUser);
+			System.out.println("3) "+StringConstants.viewListOfUser);
+			System.out.println("4) "+StringConstants.viewListByUserName);
+			System.out.println("5) "+StringConstants.updateUser);
 			System.out.println("6) "+StringConstants.previousmenu);
 			System.out.println("7) "+StringConstants.logout);
 			System.out.println("8) Exit");
 
-
-
 			System.out.println(StringConstants.enterChoice);
-			 int choice = scanner.nextInt();
-			 scanner.nextLine();
-	            
+			 int choice=-1;
+			 
+			 try {
+					choice= scanner.nextInt();
+					}catch (InputMismatchException e) {
+		                System.out.println("Invalid input. Please enter a number.");
+		                scanner.nextLine();
+		                continue; }
 	          switch(choice)
 	          {
 	          case 1:
