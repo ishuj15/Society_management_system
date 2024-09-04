@@ -41,7 +41,7 @@ public class VisitorMenu {
 				User user2=masterController.userController.getUsernameList();
 			//	System.out.println(user2.getIdUser());
 				masterController.visitorController.createVisitor(user2,"Pending");
-				System.out.println("Request send to resident");
+				System.out.println("Request sent to resident");
 				break;
 			}
 			case 2:

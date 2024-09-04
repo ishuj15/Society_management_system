@@ -55,18 +55,18 @@ public class VisitorDAO extends GenericDAO<Visitor> {
     public boolean updateApprovalStatus(String visitorId, String approved) throws SQLException, ClassNotFoundException {
     	
         String sqlQuery = String.format(
-            "UPDATE visitor SET approvalReq = %s WHERE idvisitor = %s",
+            "UPDATE visitor SET approvalReq = '%s' WHERE idvisitor = '%s'",
             approved, visitorId);
         return executeQuery(sqlQuery);
 }
     public boolean updateVisitor(String visitorId, String columnToUpdate, String newValue) throws SQLException, ClassNotFoundException {
-        String sqlQuery = String.format("UPDATE visitor SET %s = '%s' WHERE idvisitor = '%s'", columnToUpdate, newValue, visitorId);
+        String sqlQuery = String.format("UPDATE visitor SET '%s' = '%s' WHERE idvisitor = '%s'", columnToUpdate, newValue, visitorId);
         return executeQuery(sqlQuery);
     }
     public Visitor verifyVisitor(String visitorId) throws ClassNotFoundException, SQLException
     {
     	String sqlQuery= String.format(
-    			"SELECT * FROM visitor WHERE idvisitor=%s",visitorId
+    			"SELECT * FROM visitor WHERE idvisitor='%s'",visitorId
     			);
     	//String sql ="SELECT * FROM visitor WHERE idvisitor=\""+ visitorId+"\"";
     return executeGetQuery(sqlQuery);

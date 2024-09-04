@@ -113,7 +113,7 @@ public class VisitorController {
     }
 
     public void viewVisitor(String userId) throws SQLException, ClassNotFoundException {
-    	 List<Visitor> visitors = visitorService.getAllVisitorReq(userId,"Pending");
+    	 List<Visitor> visitors = visitorService.getAllVisitorById(userId);
     	 if(visitors==null || visitors.isEmpty())
     	 {
     		 System.out.println("Visitor not found!");	

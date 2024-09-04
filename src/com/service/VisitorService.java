@@ -35,9 +35,14 @@ public class VisitorService {
     }
     public void verifyVisitor(String visitorId) throws SQLException, ClassNotFoundException {
         Visitor visitor=visitorDAO.verifyVisitor(visitorId);
-        if (visitor.isApproved()=="Aprroved") {
+        if (visitor.isApproved().equals("Approved")) {
             System.out.println("Visitor verified.");
-        } else {
+        } else if(visitor.isApproved().equals("Pending"))
+        {
+        	System.out.println("Visitor Request Pending.");
+        }
+        else
+        {
             System.out.println("Visitor rejected.");
         }
     }
@@ -55,8 +60,8 @@ public class VisitorService {
     }
 
 	public List<Visitor> getAllVisitorById(String id) throws ClassNotFoundException, SQLException {
-		visitorDAO.getVisitorById(id);
-		return null;
+		
+		return visitorDAO.getVisitorById(id);
 	}
     
 }
