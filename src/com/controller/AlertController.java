@@ -38,7 +38,7 @@ public class AlertController {
 	public void viewAlert(String idAlert) throws SQLException, ClassNotFoundException {
 		Alert alert = alertService.getAlertById(idAlert);
 		if (alert != null) {
-			System.out.println("Alert ID: " + alert.getIdAlert());
+			System.out.println("Target role: " + alert.getTargetRole());
 			System.out.println("Message: " + alert.getMessage());
 			System.out.println("Date: " + alert.getDate());
 		} else {

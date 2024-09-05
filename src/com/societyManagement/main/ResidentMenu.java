@@ -31,8 +31,7 @@ public class ResidentMenu {
 			System.out.println("5) " + StringConstants.service);
 			System.out.println("6) " + StringConstants.complaint);
 			System.out.println("7) " + StringConstants.logout);
-			System.out.println(StringConstants.enterChoice);
-			System.out.println("8) " + StringConstants.exit);
+					System.out.println("8) " + StringConstants.exit);
 
 			int choice=0;
 			while(true)

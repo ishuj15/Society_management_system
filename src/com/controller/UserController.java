@@ -3,23 +3,17 @@ package com.controller;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 import com.Model.User;
 import com.service.UserService;
-import com.societyManagement.main.AdminMenu;
-import com.societyManagement.main.GuardMenu;
-import com.societyManagement.main.ResidentMenu;
-import com.util.FileLogging;
 import com.util.Helper;
 import com.util.StringConstants;
 
 public class UserController {
 	
 	public static UserService userService = new UserService();
-	private Scanner scanner = new Scanner(System.in);
-
-	private static Logger logger = FileLogging.getLogger(UserController.class);
+	
+	
 
 	public static void createUser() throws SQLException, ClassNotFoundException {
 		String password, userRole, phoneNo, email, userName;
@@ -106,107 +100,15 @@ public class UserController {
 	}
 
 	public void updateUser(User user) throws SQLException, ClassNotFoundException {
-		if (user != null) {
-			String str = """
-					1) UserName
-					2) Password
-					3) Phone Number
-					4) Email
-					5) Address""";
-			System.out.println(str);
-			System.out.println("6) " + StringConstants.previousmenu);
-
-			System.out.println("Select field that you need to update");
-
-			String columnToUpdate = null, newValue = null;
-
-			int choice = 0;
-			while (true) {
-				System.out.println(StringConstants.enterChoice);
-
-				choice = Helper.choiceInput();
-				if (Helper.checkLimit(5, choice))
-					break;
-				System.out.println("Invalid User, Please try again");
-
-			}
-
-			switch (choice) {
-			case 1: {
-				while (true) {
-					columnToUpdate = "userName";
-					System.out.print("Enter new user name: ");
-					newValue = scanner.nextLine();
-					if (Helper.isUsernameValid(newValue))
-						break;
-					else
-						System.out.println("incorrect userName, Please try again");
-
-				}
-				userService.updateUser(user, columnToUpdate, newValue);
-				break;
-			}
-			case 2: {
-				while (true) {
-					columnToUpdate = "password";
-					System.out.print("Enter new password: ");
-					newValue = scanner.nextLine();
-					if (Helper.isPasswordValid(newValue))
-						break;
-					else
-						System.out.println("incorrect password, Please try again");
-
-				}
-				userService.updateUser(user, columnToUpdate, newValue);
-				break;
-			}
-			case 3: {
-				while (true) {
-					columnToUpdate = "phoneNo";
-					System.out.print("Enter new phone number: ");
-					newValue = scanner.nextLine();
-					if (Helper.isPhoneNumberValid(newValue)) {
-						break;
-					}
-
-					else
-						System.out.println("incorrect phone Number, Please try again");
-
-				}
-				userService.updateUser(user, columnToUpdate, newValue);
-				break;
-			}
-			case 4: {
-				while (true) {
-
-					columnToUpdate = "email";
-					System.out.print("Enter new email: ");
-					newValue = scanner.nextLine();
-					if (Helper.isEmailValid(newValue))
-						break;
-					else
-						System.out.println("incorrect password, Please try again");
-
-				}
-				userService.updateUser(user, columnToUpdate, newValue);
-				break;
-			}
-			case 5: {
-				columnToUpdate = "address";
-				System.out.print("Enter new address: ");
-				newValue = scanner.nextLine();
-				userService.updateUser(user, columnToUpdate, newValue);
-				break;
-			}
-			case 6:
-				return;
-			default:
-				System.out.println("Invalid input");
-			}
-
+		if(user.equals(null))
+		{
+			System.out.println("No user found");
+			return;
+		}
+		else
+		{
+			userService.updateUser(user);
 			System.out.println("User updated successfully!");
-		} else {
-			System.out.println("User not found!");
 		}
 	}
 
@@ -232,39 +134,11 @@ public class UserController {
 
 			String userName = scanner.nextLine().trim();
 			System.out.println("Enter your password");
-//	        String password=Helper.maskedPassword();
+
 			String password = scanner.nextLine().trim();
-			User user = UserService.login(userName, password);
+			 UserService.login(userName, password);
 
-			if (user == null) {
-
-				System.out.println("Invalid username or password. Please try again.");
-				logger.warning("Failed login attempt for username: " + userName);
-
-			} else {
-				System.out.println("Login successful! Welcome, " + user.getUserName() + ".");
-				logger.info("User logged in: " + user.getUserName());
-				// logge.info("User Authenticated Successfully! Username: " + username););
-
-				if (user.getUserRole().toLowerCase().equals("resident")) {
-					ResidentMenu obj = new ResidentMenu();
-
-					obj.displayMenu(user);
-				} else if (user.getUserRole().toLowerCase().equals("guard")) {
-					GuardMenu guardMenu = new GuardMenu();
-					guardMenu.displayMenu(user);
-					// System.out.println("Guard");
-//	            	GuardMenu obj= new GuardMenu();
-//	            	obj.displayMenu(user);
-
-				} else {
-					// System.out.println("admin");
-					AdminMenu adminMenuObj = new AdminMenu();
-
-					adminMenuObj.displayMenu(user);
-				}
-
-			}
+			
 		} catch (SQLException e) {
 			// logger.log(Level.SEVERE, "Login failed due to a database error", e);
 		}
@@ -281,18 +155,20 @@ public class UserController {
 			choice = Helper.choiceInput();
 			if (Helper.checkLimit(users.size(), choice))
 				break;
-			System.out.println("Invalid User, Please try again");
-
+			System.out.println("Invalid Input, Please try again");
 		}
-
 		User selectedUser = users.get(choice - 1);
 		return selectedUser;
-
 	}
 
 	public User getUserByadmin() throws ClassNotFoundException, SQLException {
 		List<User> users = userService.getAllUsers();
-
+		if(users.isEmpty())
+		{
+			System.out.println("No List of users found");
+			return null;
+		}
+		else {
 		System.out.println("Select user  ");
 		int choice = 0;
 		while (true) {
@@ -301,12 +177,10 @@ public class UserController {
 			choice = Helper.choiceInput();
 			if (Helper.checkLimit(users.size(), choice))
 				break;
-			System.out.println("Invalid User, Please try again");
-
+			System.out.println("Invalid User, Please try again");	
 		}
-
 		User selectedUser = users.get(choice - 1);
 		return selectedUser;
+		}	
 	}
-
 }

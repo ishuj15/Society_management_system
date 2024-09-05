@@ -28,7 +28,7 @@ public class VisitorMenu {
 			System.out.println("5) Delete Visitor");
 			System.out.println("6) " + StringConstants.previousmenu);
 			System.out.println("7) " + StringConstants.logout);
-			System.out.println(StringConstants.enterChoice);
+			
 
 			int choice=0;
 			while(true)
@@ -38,7 +38,7 @@ public class VisitorMenu {
 				choice= Helper.choiceInput();
 				 if(Helper.checkLimit(7, choice))
 					 break;	
-				 System.out.println("Invalid User, Please try again");
+				 System.out.println("Invalid input, Please try again");
 
 			}
 
@@ -53,7 +53,7 @@ public class VisitorMenu {
 				break;
 			}
 			case 3: {
-				masterController.visitorController.pendingRequests(user.getIdUser());
+				masterController.visitorController.getAllPendingReq(user.getIdUser());
 				break;
 			}
 			case 4: {

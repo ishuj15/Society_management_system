@@ -45,7 +45,7 @@ public class VisitorManagementAdmin {
 			}
 			case 2: {
 
-				visitorController.deleteVisitor(visitorController.DeleteUserByadmin());
+				visitorController.deleteVisitorByAdmin();
 			}
 			case 3:
 				return true;

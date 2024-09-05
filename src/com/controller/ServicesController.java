@@ -129,6 +129,12 @@ public class ServicesController {
 	public void updateService(String idUser) throws SQLException, ClassNotFoundException {
 		Scanner scanner = new Scanner(System.in);
 		List<Services> service = servicesService.getServiceById(idUser);
+		if (service.equals(null))
+		{
+			System.out.println("No service found");
+			return;
+			
+		}
 		viewService(idUser);
 		System.out.println("Select service which needs to modify ");
 		int choice = 0;
@@ -200,6 +206,12 @@ public class ServicesController {
 
 	public void deleteService(String idUser) throws SQLException, ClassNotFoundException {
 		List<Services> service = servicesService.getServiceById(idUser);
+		if (service.equals(null))
+		{
+			System.out.println("No service found");
+			return;
+			
+		}
 
 		System.out.println("Enter service  number which you need to delete");
 		viewService(idUser);
@@ -229,6 +241,12 @@ public class ServicesController {
 	public Services getService() throws ClassNotFoundException, SQLException {
 
 		List<Services> services = servicesService.getAllServices();
+		if (services.equals(null))
+		{
+			System.out.println("No service found");
+			return null;
+			
+		}
 		listServices();
 		System.out.println("Select  service ");
 		int choice = 0;

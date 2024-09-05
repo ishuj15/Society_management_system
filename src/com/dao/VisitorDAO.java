@@ -68,7 +68,7 @@ public class VisitorDAO extends GenericDAO<Visitor> {
 
 	public Visitor verifyVisitor(String visitorId) throws ClassNotFoundException, SQLException {
 		String sqlQuery = String.format("SELECT * FROM visitor WHERE idvisitor='%s'", visitorId);
-		// String sql ="SELECT * FROM visitor WHERE idvisitor=\""+ visitorId+"\"";
+		
 		return executeGetQuery(sqlQuery);
 	}
 
