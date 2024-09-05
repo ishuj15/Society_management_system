@@ -1,88 +1,81 @@
 package com.controller;
 
-import com.Model.Attendance;
-import com.service.AttendanceService;
-import com.util.Helper;
-
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
+import com.Model.Attendance;
+import com.service.AttendanceService;
+import com.util.Helper;
+
 public class AttendanceController {
-    private AttendanceService attendanceService = new AttendanceService();
+	private AttendanceService attendanceService = new AttendanceService();
 
-    public void createAttendance(String userId) throws SQLException, ClassNotFoundException {
-        @SuppressWarnings("resource")
+	public void createAttendance(String userId) throws SQLException, ClassNotFoundException {
+		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
-        scanner.nextLine(); // consume newline
-        System.out.print("Enter attendance status: ");
-        String status = scanner.nextLine();
-        System.out.print("Enter attendance date (yyyy-mm-dd): ");
-        String dateStr = scanner.nextLine();
+		scanner.nextLine(); // consume newline
+		System.out.print("Enter attendance status: ");
+		String status = scanner.nextLine();
+		System.out.print("Enter attendance date (yyyy-mm-dd): ");
+		String dateStr = scanner.nextLine();
 
-        Attendance attendance = new Attendance();
-        attendance.setIdAttendance(Helper.generateUniqueId());
-        attendance.setUserId(userId);
-        attendance.setStatus(status);
-        attendance.setDate(java.sql.Date.valueOf(dateStr));
+		Attendance attendance = new Attendance();
+		attendance.setIdAttendance(Helper.generateUniqueId());
+		attendance.setUserId(userId);
+		attendance.setStatus(status);
+		attendance.setDate(java.sql.Date.valueOf(dateStr));
 
-        attendanceService.addAttendance(attendance);
-        System.out.println("Attendance created successfully!");
-    }
+		attendanceService.addAttendance(attendance);
+		System.out.println("Attendance created successfully!");
+	}
 
-    public void viewAttendance(String userID) throws SQLException, ClassNotFoundException {
-        List<Attendance> attendance = attendanceService.getAttendanceById(userID);
-       if(attendance.isEmpty()) {
-    	   System.out.println("Attendance not found!");
-    	   }
-       
-       else {
-    	   System.out.printf("%-5s | %-15s | %-15s%n", "S.No", "Status", "Date");
-           System.out.println("---------------------------------------------");
-           int serialNumber = 1;
-           for(Attendance attendances:attendance)
-           {
-        	   System.out.printf("%-5d | %-15s | %-15s%n",
-                       serialNumber,
-                       attendances.getStatus(),
-                       attendances.getDate());
+	public void viewAttendance(String userID) throws SQLException, ClassNotFoundException {
+		List<Attendance> attendance = attendanceService.getAttendanceById(userID);
+		if (attendance.isEmpty()) {
+			System.out.println("Attendance not found!");
+		}
 
-                   System.out.println("---------------------------------------------");
-        	   
-           }   
-       }
-    }
+		else {
+			System.out.printf("%-5s | %-15s | %-15s%n", "S.No", "Status", "Date");
+			System.out.println("---------------------------------------------");
+			int serialNumber = 1;
+			for (Attendance attendances : attendance) {
+				System.out.printf("%-5d | %-15s | %-15s%n", serialNumber, attendances.getStatus(),
+						attendances.getDate());
 
-    public  List<Attendance> listAttendances() throws SQLException, ClassNotFoundException {
-        List<Attendance> attendance = attendanceService.getAllAttendances();
-        
-        if(attendance.isEmpty()) {
-     	   System.out.println("Attendance not found!");
-     	   }
-        
-        else {
-     	   System.out.printf("%-5s | %-15s | %-15s%n", "S.No", "Status", "Date");
-            System.out.println("---------------------------------------------");
-            int serialNumber = 1;
-            for(Attendance attendances:attendance)
-            {
-         	   System.out.printf("%-5d | %-15s | %-15s%n",
-                        serialNumber,
-                        attendances.getStatus(),
-                        attendances.getDate());
+				System.out.println("---------------------------------------------");
 
-                    System.out.println("---------------------------------------------");
-         	   
-            }   
-        }
-        return attendance;
-    }
+			}
+		}
+	}
 
-    public void viewAdmin() throws ClassNotFoundException, SQLException
-    {
-    	List<Attendance> attendance= listAttendances();	
-    	
-    }
+	public List<Attendance> listAttendances() throws SQLException, ClassNotFoundException {
+		List<Attendance> attendance = attendanceService.getAllAttendances();
+
+		if (attendance.isEmpty()) {
+			System.out.println("Attendance not found!");
+		}
+
+		else {
+			System.out.printf("%-5s | %-15s | %-15s%n", "S.No", "Status", "Date");
+			System.out.println("---------------------------------------------");
+			int serialNumber = 1;
+			for (Attendance attendances : attendance) {
+				System.out.printf("%-5d | %-15s | %-15s%n", serialNumber, attendances.getStatus(),
+						attendances.getDate());
+
+				System.out.println("---------------------------------------------");
+
+			}
+		}
+		return attendance;
+	}
+
+	public void viewAdmin() throws ClassNotFoundException, SQLException {
+		List<Attendance> attendance = listAttendances();
+
+	}
 //    public void updateAttendance(String userId) throws SQLException, ClassNotFoundException {
 //        Scanner scanner = new Scanner(System.in);
 //        Attendance attendance = attendanceService.getAttendanceById(idAttendance);
@@ -111,4 +104,3 @@ public class AttendanceController {
 //        System.out.println("Attendance deleted successfully!");
 //    }
 }
-

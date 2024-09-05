@@ -1,72 +1,71 @@
-	package com.Model;
+package com.Model;
 
-	public class User {
-	    private String idUser;
-	    private String userName;
-	    private String userRole;
-	    private String password;
-	    private String phoneNo;
-	    private String email;
-	    private String address;
-	   // private String salt;
-	    
+public class User {
+	private String idUser;
+	private String userName;
+	private String userRole;
+	private String password;
+	private String phoneNo;
+	private String email;
+	private String address;
+	// private String salt;
 
-	    // Getters and Setters
-	    public  String getIdUser() {
-	        return idUser;
-	    }
+	// Getters and Setters
+	public String getIdUser() {
+		return idUser;
+	}
 
-	    public void setIdUser(String idUser) {
-	        this.idUser = idUser;
-	    }
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
+	}
 
-	    public String getUserName() {
-	        return userName;
-	    }
+	public String getUserName() {
+		return userName;
+	}
 
-	    public void setUserName(String userName) {
-	        this.userName = userName;
-	    }
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-	    public  String getUserRole() {
-	        return userRole;
-	    }
+	public String getUserRole() {
+		return userRole;
+	}
 
-	    public void setUserRole(String userRole) {
-	        this.userRole = userRole;
-	    }
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
+	}
 
-	    public String getPassword() {
-	        return password;
-	    }
+	public String getPassword() {
+		return password;
+	}
 
-	    public void setPassword(String password) {
-	        this.password = password;
-	    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-	    public String getPhoneNo() {
-	        return phoneNo;
-	    }
+	public String getPhoneNo() {
+		return phoneNo;
+	}
 
-	    public void setPhoneNo(String phoneNo) {
-	        this.phoneNo = phoneNo;
-	    }
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
+	}
 
-	    public String getEmail() {
-	        return email;
-	    }
+	public String getEmail() {
+		return email;
+	}
 
-	    public void setEmail(String email) {
-	        this.email = email;
-	    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-	    public String getAddress() {
-	        return address;
-	    }
+	public String getAddress() {
+		return address;
+	}
 
-	    public void setAddress(String address) {
-	        this.address = address;
-	    }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
 //		public String getSalt() {
 //			return salt;
@@ -74,6 +73,5 @@
 //
 //		public void setSalt(String salt) {
 //			this.salt = salt;
-		//}
-	}
-
+	// }
+}

@@ -1,73 +1,73 @@
 package com.Model;
 
-
 public class Visitor {
-    private String idVisitor;
-    private String userId;
-    private String name;
-    private String purpose;
-    private String arrivalTime;
-    private String departureTime;
-    private String date;
-    private String dep_date;
-    private String approved;
-    private String contactNo;
-    // Getters and Setters
-    public String getIdVisitor() {
-        return idVisitor;
-    }
+	private String idVisitor;
+	private String userId;
+	private String name;
+	private String purpose;
+	private String arrivalTime;
+	private String departureTime;
+	private String date;
+	private String dep_date;
+	private String approved;
+	private String contactNo;
 
-    public void setIdVisitor(String idVisitor) {
-        this.idVisitor = idVisitor;
-    }
+	// Getters and Setters
+	public String getIdVisitor() {
+		return idVisitor;
+	}
 
-    public String getUserId() {
-        return userId;
-    }
+	public void setIdVisitor(String idVisitor) {
+		this.idVisitor = idVisitor;
+	}
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	public String getUserId() {
+		return userId;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getPurpose() {
-        return purpose;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setPurpose(String purpose) {
-        this.purpose = purpose;
-    }
+	public String getPurpose() {
+		return purpose;
+	}
 
-    public String getDate() {
-        return date;
-    }
+	public void setPurpose(String purpose) {
+		this.purpose = purpose;
+	}
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-    
-    public String getArrivalTime() {
-        return arrivalTime;
-    }
+	public String getDate() {
+		return date;
+	}
 
-    public void setArrivalTime(String time) {
-        this.arrivalTime = time;
-    }
+	public void setDate(String date) {
+		this.date = date;
+	}
 
-    public String getDepartureTime() {
-        return departureTime;
-    }
+	public String getArrivalTime() {
+		return arrivalTime;
+	}
 
-    public void setDepartureTime(String time) {
-        this.departureTime = time;
-    }
+	public void setArrivalTime(String time) {
+		this.arrivalTime = time;
+	}
+
+	public String getDepartureTime() {
+		return departureTime;
+	}
+
+	public void setDepartureTime(String time) {
+		this.departureTime = time;
+	}
 
 	public String isApproved() {
 		return approved;
@@ -76,7 +76,6 @@ public class Visitor {
 	public void setApproved(String approved) {
 		this.approved = approved;
 	}
-	
 
 	public String getContactNo() {
 		return contactNo;
@@ -92,5 +91,5 @@ public class Visitor {
 
 	public void setDep_date(String dep_date) {
 		this.dep_date = dep_date;
-	} 
+	}
 }

@@ -1,16 +1,17 @@
 package com.presentarion.resident.menu;
 
 import java.sql.SQLException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.Model.User;
 import com.controller.MasterController;
+import com.util.Helper;
 import com.util.StringConstants;
 
 public class UserManagementMenu {
 	private final MasterController masterController;
 	private Scanner scanner;
+
 	public UserManagementMenu() {
 
 		this.masterController = new MasterController();
@@ -18,32 +19,36 @@ public class UserManagementMenu {
 	}
 
 	public boolean displayMenu(User user) throws SQLException, ClassNotFoundException {
-		//boolean loggedIn;
-		while (true ) {
+		// boolean loggedIn;
+		while (true) {
 			// System.out.println(user.getIdUser());
 
 			System.out.println("1) Delete Profile");
 			System.out.println("2) Update Profile");
 			System.out.println("3) View Profile");
-			System.out.println("4) "+StringConstants.previousmenu);
-            System.out.println("5) "+StringConstants.logout);
-            System.out.println("6) Exit");
-            System.out.println(StringConstants.enterChoice);
-           
+			System.out.println("4) " + StringConstants.previousmenu);
+			System.out.println("5) " + StringConstants.logout);
+			System.out.println("6) Exit");
+			System.out.println(StringConstants.enterChoice);
 
-			int choice;
-			try {
-				choice= scanner.nextInt();
-				}catch (InputMismatchException e) {
-	                System.out.println("Invalid input. Please enter a number.");
-	                scanner.nextLine(); // clear the invalid input
-	                continue; }
+			int choice=0;
+			while(true)
+			{
+				System.out.println(StringConstants.enterChoice);
+
+				choice= Helper.choiceInput();
+				 if(Helper.checkLimit(6, choice))
+					 break;	
+				 System.out.println("Invalid User, Please try again");
+
+			}
+
 
 			switch (choice) {
 			case 1: {
 				masterController.userController.deleteUser(user);
 				return false;
-				
+
 			}
 			case 2: {
 				masterController.userController.updateUser(user);
@@ -55,11 +60,11 @@ public class UserManagementMenu {
 			}
 			case 4:
 				return true;
-			case 5:{
-				
+			case 5: {
+
 				return false;
 			}
-			case 6:{
+			case 6: {
 				scanner.close();
 				System.exit(0);
 				return false;

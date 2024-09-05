@@ -11,45 +11,45 @@ import com.config.DbConnection;
 
 public abstract class GenericDAO<T> {
 
-    private Connection connection;
+	private Connection connection;
 
-    public GenericDAO() {
-        try {
-            this.connection = DbConnection.getConnection();
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-    }
+	public GenericDAO() {
+		try {
+			this.connection = DbConnection.getConnection();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-    protected abstract T mapResultSetToEntity(ResultSet resultSet) throws SQLException;
+	protected abstract T mapResultSetToEntity(ResultSet resultSet) throws SQLException;
 
-    public T executeGetQuery(String query) throws SQLException, ClassNotFoundException {
-        T entity = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
+	public T executeGetQuery(String query) throws SQLException, ClassNotFoundException {
+		T entity = null;
+		try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
-                entity = mapResultSetToEntity(resultSet);
-            }
-        }
-        return entity;
-    }
+			if (resultSet.next()) {
+				entity = mapResultSetToEntity(resultSet);
+			}
+		}
+		return entity;
+	}
 
-    public List<T> executeGetAllQuery(String query) throws SQLException, ClassNotFoundException {
-        List<T> entities = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
+	public List<T> executeGetAllQuery(String query) throws SQLException, ClassNotFoundException {
+		List<T> entities = new ArrayList<>();
+		try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			ResultSet resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()) {
-                entities.add(mapResultSetToEntity(resultSet));
-            }
-        }
-        return entities;
-    }
+			while (resultSet.next()) {
+				entities.add(mapResultSetToEntity(resultSet));
+			}
+		}
+		return entities;
+	}
 
-    public boolean executeQuery(String query) throws SQLException, ClassNotFoundException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            return preparedStatement.executeUpdate() > 0;
-        }
-    }
+	public boolean executeQuery(String query) throws SQLException, ClassNotFoundException {
+		try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			return preparedStatement.executeUpdate() > 0;
+		}
+	}
 }
