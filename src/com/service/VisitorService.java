@@ -194,6 +194,7 @@ public class VisitorService {
 		Visitor selectedVisitor = visitors.get(choice - 1);
 		String visitorId = selectedVisitor.getIdVisitor();
 		visitorDAO.deleteVisitor(visitorId);
+		System.out.println("Visitor deleted successfully!");
 	}
 
 	public void verifyVisitor(String userId) throws SQLException, ClassNotFoundException {

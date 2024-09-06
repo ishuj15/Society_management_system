@@ -97,7 +97,7 @@ public class VisitorController {
 		visitor.setDep_date(depDate);
 
 		visitorService.addVisitor(visitor);
-		System.out.println("Visitor created successfully!");
+		
 	}
 
 	public void viewVisitor(String userId) throws SQLException, ClassNotFoundException {
@@ -115,7 +115,7 @@ public class VisitorController {
 
 	public void deleteVisitor(String userId) throws SQLException, ClassNotFoundException {
 		visitorService.deleteVisitor(userId);
-		System.out.println("Visitor deleted successfully!");
+		
 	}
 
 	public void verifyVisitor(User user) throws SQLException, ClassNotFoundException {

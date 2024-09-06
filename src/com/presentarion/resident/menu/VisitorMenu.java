@@ -46,6 +46,7 @@ public class VisitorMenu {
 			switch (choice) {
 			case 1: {
 				masterController.visitorController.createVisitor(user, "Aprroved");
+				System.out.println("Visitor created successfully!");
 				break;
 			}
 			case 2: {
@@ -62,6 +63,7 @@ public class VisitorMenu {
 			}
 			case 5: {
 				masterController.visitorController.deleteVisitor(user.getIdUser());
+				break;
 			}
 			case 6:
 				return true;

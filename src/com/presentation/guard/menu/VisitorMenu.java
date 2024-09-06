@@ -25,7 +25,7 @@ public class VisitorMenu {
 			System.out.println("3) " + StringConstants.previousmenu);
 			System.out.println("4) " + StringConstants.logout);
 			System.out.println("5) Exit");
-			System.out.println(StringConstants.enterChoice);
+			
 
 			int choice=0;
 			while(true)

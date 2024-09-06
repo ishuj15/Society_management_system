@@ -1,5 +1,6 @@
 package com.util;
 
+import java.io.Console;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -23,6 +24,22 @@ public class Helper {
 		else
 			return false;
 	}
+	 public static String readSensitiveData() {
+	        Console console = System.console();
+	        if (console == null) {
+	            throw new IllegalStateException("No console available");
+	        }
+
+	        char[] passwordArray = console.readPassword();
+	        StringBuilder input = new StringBuilder();
+	        
+	        for (char ch : passwordArray) {
+	            input.append(ch);
+	        }
+
+	        return input.toString();
+	    }
+
 
 	public static String hashPassword(String password) {
 

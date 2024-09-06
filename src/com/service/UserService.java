@@ -210,8 +210,10 @@ public class UserService {
 
 			return ;
 		}
+		boolean result=verifyPassword(password, user.getPassword() );
+		System.out.println(result);
 
-		 if(verifyPassword(password, user.getPassword())==false)
+		 if(result==true)
 		 {
 			 System.out.println("Invalid username or password. Please try again.");
 			logger.warning("Failed login attempt for username: " + userName);

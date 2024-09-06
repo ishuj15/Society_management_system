@@ -45,7 +45,7 @@ public class UserController {
 		while (true) {
 			System.out.print("Enter password: ");
 			password = scanner.nextLine().trim();
-			
+		//	password=Helper.readSensitiveData();
 			if (Helper.isPasswordValid(password)) {
 				break;
 			} else {
@@ -147,7 +147,7 @@ public class UserController {
 
 	public User getUsernameList() throws ClassNotFoundException, SQLException {
 		List<User> users = userService.getUsername();
-		System.out.println(StringConstants.enterChoice);
+		
 		int choice = 0;
 		while (true) {
 			System.out.println(StringConstants.enterChoice);

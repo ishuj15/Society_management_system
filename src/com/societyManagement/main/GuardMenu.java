@@ -29,7 +29,7 @@ public class GuardMenu {
 			System.out.println("6) " + StringConstants.previousmenu);
 			System.out.println("7) " + StringConstants.logout);
 			System.out.println("8) Exit");
-			System.out.println(StringConstants.enterChoice);
+			
 
 			int choice=0;
 			while(true)
