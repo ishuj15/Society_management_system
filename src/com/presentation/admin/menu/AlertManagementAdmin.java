@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import com.controller.AlertController;
 import com.util.Helper;
-import com.util.StringConstants;
+import com.util.str;
 
 public class AlertManagementAdmin {
 	private Scanner scanner;
@@ -20,22 +20,16 @@ public class AlertManagementAdmin {
 		// TODO Auto-generated method stub
 
 		while (true) {
-
-			System.out.println(StringConstants.adminAlert);
-			System.out.println("5) " + StringConstants.previousmenu);
-			System.out.println("6) " + StringConstants.logout);
-			System.out.println("7) Exit");
-			System.out.println(StringConstants.enterChoice);
+			Helper.printFunction(str.adminAlert);
 			int choice=0;
 			while(true)
 			{
-				System.out.println(StringConstants.enterChoice);
-
+				Helper.printFunction(str.enterChoice);
 				choice= Helper.choiceInput();
 				 if(Helper.checkLimit(7, choice))
 					 break;	
+				 Helper.printFunction(str.invalidInput);
 				 System.out.println("Invalid User, Please try again");
-
 			}
 
 			switch (choice) {
@@ -58,7 +52,7 @@ public class AlertManagementAdmin {
 			case 5:
 				return true;
 			case 6: {
-				break;
+				return false;
 			}
 			case 7: {
 				scanner.close();
@@ -66,7 +60,7 @@ public class AlertManagementAdmin {
 				return false;
 			}
 			default:
-				System.out.println("Invalid Choice , Please try again");
+				 Helper.printFunction(str.invalidInput);
 			}
 		}
 

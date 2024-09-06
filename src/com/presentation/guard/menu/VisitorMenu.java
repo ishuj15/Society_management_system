@@ -6,7 +6,7 @@ import java.util.Scanner;
 import com.Model.User;
 import com.controller.MasterController;
 import com.util.Helper;
-import com.util.StringConstants;
+import com.util.str;
 
 public class VisitorMenu {
 	private final MasterController masterController;
@@ -20,23 +20,15 @@ public class VisitorMenu {
 
 	public boolean displayMenu(User user) throws ClassNotFoundException, SQLException {
 		while (true) {
-			System.out.println("1) Add Visitor");
-			System.out.println("2) Verify Visitor");
-			System.out.println("3) " + StringConstants.previousmenu);
-			System.out.println("4) " + StringConstants.logout);
-			System.out.println("5) Exit");
-			
-
+			Helper.printFunction(str.guardVisitorMenu);
 			int choice=0;
 			while(true)
 			{
-				System.out.println(StringConstants.enterChoice);
-
+				Helper.printFunction(str.enterChoice);
 				choice= Helper.choiceInput();
 				 if(Helper.checkLimit(5, choice))
 					 break;	
-				 System.out.println("Invalid User, Please try again");
-
+				 Helper.printFunction(str.invalidInput);
 			}
 
 			switch (choice) {
@@ -44,7 +36,8 @@ public class VisitorMenu {
 				User user2 = masterController.userController.getUsernameList();
 				
 				masterController.visitorController.createVisitor(user2, "Pending");
-				System.out.println("Request sent to resident");
+				Helper.printFunction(str.requestSent);
+			
 				break;
 			}
 			case 2: {
@@ -62,7 +55,7 @@ public class VisitorMenu {
 				return false;
 			}
 			default:
-				System.out.println("Invalid choice, please try again.");
+				Helper.printFunction(str.invalidInput);
 			}
 		}
 	}

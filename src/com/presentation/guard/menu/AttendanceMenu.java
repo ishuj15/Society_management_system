@@ -7,7 +7,7 @@ import java.util.Scanner;
 import com.Model.User;
 import com.controller.AttendanceController;
 import com.util.Helper;
-import com.util.StringConstants;
+import com.util.str;
 
 public class AttendanceMenu {
 	private Scanner scanner;
@@ -21,17 +21,17 @@ public class AttendanceMenu {
 	public void displayMenu(User user) throws ClassNotFoundException, SQLException {
 
 		while (true) {
-			String str = """
+			String str2 = """
 					1) Mark Attendance
 					2) View Attendance
 					3) Exit
 					""";
-			System.out.println(str);
-			System.out.println(StringConstants.enterChoice);
+			System.out.println(str2);
+			System.out.println(str.enterChoice);
 			int choice=0;
 			while(true)
 			{
-				System.out.println(StringConstants.enterChoice);
+				System.out.println(str.enterChoice);
 
 				choice= Helper.choiceInput();
 				 if(Helper.checkLimit(3, choice))

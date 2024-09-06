@@ -6,8 +6,7 @@ import java.util.Scanner;
 import com.Model.User;
 import com.controller.MasterController;
 import com.util.Helper;
-import com.util.StringConstants;
-
+import com.util.str;
 public class VisitorMenu {
 	private final MasterController masterController;
 	private static Scanner scanner;
@@ -20,33 +19,20 @@ public class VisitorMenu {
 
 	public boolean displayMenu(User user) throws SQLException, ClassNotFoundException {
 		while (true) {
-
-			System.out.println("1) Add Visitor");
-			System.out.println("2) View Visitor");
-			System.out.println("3) Pending Requests");
-			System.out.println("4) Update Visitor");
-			System.out.println("5) Delete Visitor");
-			System.out.println("6) " + StringConstants.previousmenu);
-			System.out.println("7) " + StringConstants.logout);
-			
-
+			Helper.printFunction(str.residentVisitorMenu);
 			int choice=0;
 			while(true)
 			{
-				System.out.println(StringConstants.enterChoice);
-
+				Helper.printFunction(str.enterChoice);
 				choice= Helper.choiceInput();
-				 if(Helper.checkLimit(7, choice))
+				 if(Helper.checkLimit(8, choice))
 					 break;	
-				 System.out.println("Invalid input, Please try again");
-
+				 Helper.printFunction(str.invalidInput);
 			}
-
-
 			switch (choice) {
 			case 1: {
 				masterController.visitorController.createVisitor(user, "Aprroved");
-				System.out.println("Visitor created successfully!");
+				Helper.printFunction(str.visitorRegistered);
 				break;
 			}
 			case 2: {
@@ -69,8 +55,14 @@ public class VisitorMenu {
 				return true;
 			case 7:
 				return false;
+			case 8:
+			{
+				scanner.close();
+				System.exit(0);
+				return false;
+			}
 			default:
-				System.out.println("Invalid choice, please try again.");
+				 Helper.printFunction(str.invalidInput);
 			}
 		}
 	}

@@ -8,8 +8,7 @@ import java.util.Scanner;
 import com.Model.Alert;
 import com.service.AlertService;
 import com.util.Helper;
-import com.util.StringConstants;
-
+import com.util.str;
 public class AlertController {
 	private AlertService alertService = new AlertService();
 	Scanner scanner = new Scanner(System.in);
@@ -17,8 +16,16 @@ public class AlertController {
 	public void createAlert() throws SQLException, ClassNotFoundException {
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
-		System.out.print("Enter alert message: ");
-		String message = scanner.nextLine();
+		String message=null;
+		while(true)
+		{
+			System.out.print("Enter alert message: ");
+			 message = scanner.nextLine();
+			if(message.equals(null))
+				System.out.println(" Can;t accept empty message, Try again");
+			else
+				break;
+		}
 		// System.out.print("Enter alert date (yyyy-mm-dd): ");
 		LocalDate dateStr = LocalDate.now();
 		System.out.print("Enter target role (guard, resident, all): ");
@@ -34,7 +41,6 @@ public class AlertController {
 		alertService.addAlert(alert);
 		System.out.println("Alert created successfully!");
 	}
-
 	public void viewAlert(String idAlert) throws SQLException, ClassNotFoundException {
 		Alert alert = alertService.getAlertById(idAlert);
 		if (alert != null) {
@@ -45,7 +51,6 @@ public class AlertController {
 			System.out.println("Alert not found!");
 		}
 	}
-
 	public void viewAlertByRole(String role) throws SQLException, ClassNotFoundException {
 		List<Alert> alerts = alertService.getAlertByRole(role);
 
@@ -64,7 +69,6 @@ public class AlertController {
 			}
 			System.out.println("----------------------------------------------------------------------------"
 					+ "-------------------------------------");
-
 		}
 	}
 
@@ -87,7 +91,6 @@ public class AlertController {
 			System.out.println("----------------------------------------------------------------------------"
 					+ "-------------------------------------");
 		}
-
 	}
 
 	public void updateAlert() throws SQLException, ClassNotFoundException {
@@ -97,16 +100,16 @@ public class AlertController {
 				System.out.println("Alert not found!");
 			} else {
 				String idAlert = alert.getIdAlert();
-				String str = """
+				String str2 = """
 						1) Message
 						2) Date
 						3) TagerRole
 						4) Exit""";
-				System.out.println(str);
+				System.out.println(str2);
 				System.out.println("Select field that needs to be updated");
 				int choice = 0;
 				while (true) {
-					System.out.println(StringConstants.enterChoice);
+					System.out.println(str.enterChoice);
 
 					choice = Helper.choiceInput();
 					if (Helper.checkLimit(4, choice))
@@ -164,7 +167,7 @@ public class AlertController {
 		while (true) {
 			int choice = 0;
 			while (true) {
-				System.out.println(StringConstants.enterChoice);
+				System.out.println(str.enterChoice);
 
 				choice = Helper.choiceInput();
 				if (Helper.checkLimit(alerts.size(), choice))

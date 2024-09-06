@@ -9,7 +9,7 @@ import com.Model.Complaint;
 import com.Model.User;
 import com.service.ComplaintService;
 import com.util.Helper;
-import com.util.StringConstants;
+import com.util.str;
 
 public class ComplaintController {
 	private ComplaintService complaintService = new ComplaintService();
@@ -87,15 +87,15 @@ public class ComplaintController {
 			System.out.println("Complaint not found!");
 		else {
 			String idComplaint = complaint.getIdComplaint();
-			String str = """
+			String str2 = """
 					1) Status
 					2) Exit
 					""";
-			System.out.println(str);
+			System.out.println(str2);
 			System.out.println("Select that needs to be updated");
 			int choice = 0;
 			while (true) {
-				System.out.println(StringConstants.enterChoice);
+				System.out.println(str.enterChoice);
 
 				choice = Helper.choiceInput();
 				if (Helper.checkLimit(2, choice))
@@ -128,7 +128,7 @@ public class ComplaintController {
 		viewComplaint(userId);
 		int choice = 0;
 		while (true) {
-			System.out.println(StringConstants.enterChoice);
+			System.out.println(str.enterChoice);
 
 			choice = Helper.choiceInput();
 			if (Helper.checkLimit(complaints.size(), choice))
@@ -150,7 +150,7 @@ public class ComplaintController {
 		System.out.println("Select Complaint ");
 		int choice = 0;
 		while (true) {
-			System.out.println(StringConstants.enterChoice);
+			System.out.println(str.enterChoice);
 
 			choice = Helper.choiceInput();
 			if (Helper.checkLimit(complaints.size(), choice))

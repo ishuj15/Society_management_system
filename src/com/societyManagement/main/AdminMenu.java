@@ -6,7 +6,7 @@ import java.util.Scanner;
 import com.Model.User;
 import com.presentation.admin.menu.AdminController;
 import com.util.Helper;
-import com.util.StringConstants;
+import com.util.str;
 
 public class AdminMenu {
 	private final AdminController adminController;
@@ -20,32 +20,16 @@ public class AdminMenu {
 	public void displayMenu(User user) throws SQLException, ClassNotFoundException {
 		boolean loggedIn = true;
 		while (true) {
-
-			System.out.println("1) " + StringConstants.user);
-			System.out.println("2) " + StringConstants.notice);
-			System.out.println("3) " + StringConstants.alert);
-			System.out.println("4) " + StringConstants.visitor);
-			System.out.println("5) " + StringConstants.service);
-			System.out.println("6) " + StringConstants.complaint);
-			// System.out.println("7) "+StringConstants.attendance);
-			System.out.println("7) " + StringConstants.previousmenu);
-			System.out.println("8) " + StringConstants.logout);
-			System.out.println("9) Exit");
-
-			System.out.println(StringConstants.enterChoice);
+			Helper.printFunction(str.adminMenu);
 			int choice=0;
 			while(true)
 			{
-				System.out.println(StringConstants.enterChoice);
-
+				Helper.printFunction(str.enterChoice);
 				choice= Helper.choiceInput();
 				 if(Helper.checkLimit(9, choice))
 					 break;	
-				 System.out.println("Invalid User, Please try again");
-
+				 Helper.printFunction(str.invalidInput);
 			}
-
-
 			switch (choice) {
 			case 1:
 
@@ -87,7 +71,7 @@ public class AdminMenu {
 				return;
 			}
 			default:
-				System.out.println("Invalid choice, please try again.");
+				 Helper.printFunction(str.invalidInput);
 			}
 			if (loggedIn == false)
 				return;

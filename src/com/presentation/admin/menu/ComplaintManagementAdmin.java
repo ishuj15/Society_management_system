@@ -6,7 +6,7 @@ import java.util.Scanner;
 import com.Model.User;
 import com.controller.ComplaintController;
 import com.util.Helper;
-import com.util.StringConstants;
+import com.util.str;
 
 public class ComplaintManagementAdmin {
 	private Scanner scanner;
@@ -19,21 +19,15 @@ public class ComplaintManagementAdmin {
 
 	public boolean displayMenu(User user) throws ClassNotFoundException, SQLException {
 		while (true) {
-			System.out.println(StringConstants.adminComplaint);
-			System.out.println("4) " + StringConstants.previousmenu);
-			System.out.println("5) " + StringConstants.logout);
-			System.out.println("6) Exit");
-			System.out.println(StringConstants.enterChoice);
+			Helper.printFunction(str.adminComplaint);
 			int choice=0;
 			while(true)
 			{
-				System.out.println(StringConstants.enterChoice);
-
+				Helper.printFunction(str.enterChoice);
 				choice= Helper.choiceInput();
 				 if(Helper.checkLimit(6, choice))
 					 break;	
-				 System.out.println("Invalid User, Please try again");
-
+				 Helper.printFunction(str.invalidInput);
 			}
 
 			switch (choice) {
@@ -61,7 +55,7 @@ public class ComplaintManagementAdmin {
 				return false;
 			}
 			default:
-				System.out.println("Invalid Choice , Please try again");
+				 Helper.printFunction(str.invalidInput);
 			}
 		}
 

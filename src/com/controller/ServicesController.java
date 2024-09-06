@@ -8,7 +8,7 @@ import com.Model.Services;
 import com.Model.User;
 import com.service.ServicesService;
 import com.util.Helper;
-import com.util.StringConstants;
+import com.util.str;
 
 public class ServicesController {
 	@SuppressWarnings("resource")
@@ -139,7 +139,7 @@ public class ServicesController {
 		System.out.println("Select service which needs to modify ");
 		int choice = 0;
 		while (true) {
-			System.out.println(StringConstants.enterChoice);
+			System.out.println(str.enterChoice);
 
 			choice = Helper.choiceInput();
 			if (Helper.checkLimit(service.size(), choice))
@@ -152,17 +152,17 @@ public class ServicesController {
 		if (selectedService.equals(null))
 			System.out.println("Service not found!");
 		else {
-			String str = """
-								1) Service Name
+			String str2 = """
+					1) Service Name
 					2) Description
 					3) Status
-								4) exit
+					4) exit
 								""";
-			System.out.println(str);
+			System.out.println(str2);
 			System.out.println("Select that needs to be updated");
 			int choice2 = 0;
 			while (true) {
-				System.out.println(StringConstants.enterChoice);
+				System.out.println(str.enterChoice);
 
 				choice = Helper.choiceInput();
 				if (Helper.checkLimit(4, choice2))
@@ -217,7 +217,7 @@ public class ServicesController {
 		viewService(idUser);
 		int choice = 0;
 		while (true) {
-			System.out.println(StringConstants.enterChoice);
+			System.out.println(str.enterChoice);
 
 			choice = Helper.choiceInput();
 			if (Helper.checkLimit(service.size(), choice))
@@ -251,7 +251,7 @@ public class ServicesController {
 		System.out.println("Select  service ");
 		int choice = 0;
 		while (true) {
-			System.out.println(StringConstants.enterChoice);
+			System.out.println(str.enterChoice);
 
 			choice = Helper.choiceInput();
 			if (Helper.checkLimit(services.size(), choice))

@@ -6,7 +6,7 @@ import java.util.Scanner;
 import com.Model.User;
 import com.controller.ServicesController;
 import com.util.Helper;
-import com.util.StringConstants;
+import com.util.str;
 
 public class ServicesManagementAdmin {
 	private Scanner scanner;
@@ -19,22 +19,16 @@ public class ServicesManagementAdmin {
 
 	public boolean displayMenu(User user) throws ClassNotFoundException, SQLException {
 		while (true) {
+			Helper.printFunction(str.adminService);
 
-			System.out.println(StringConstants.adminService);
-			System.out.println("3) " + StringConstants.previousmenu);
-			System.out.println("4) " + StringConstants.logout);
-			System.out.println("5) Exit");
-			System.out.println(StringConstants.enterChoice);
 			int choice=0;
 			while(true)
 			{
-				System.out.println(StringConstants.enterChoice);
-
+				Helper.printFunction(str.enterChoice);
 				choice= Helper.choiceInput();
 				 if(Helper.checkLimit(5, choice))
 					 break;	
-				 System.out.println("Invalid User, Please try again");
-
+				 Helper.printFunction(str.invalidInput);
 			}
 
 			switch (choice) {
@@ -57,7 +51,7 @@ public class ServicesManagementAdmin {
 				return false;
 			}
 			default:
-				System.out.println("Invalid Choice , Please try again");
+				 Helper.printFunction(str.invalidInput);
 			}
 		}
 	}

@@ -6,7 +6,7 @@ import java.util.Scanner;
 import com.Model.User;
 import com.controller.UserController;
 import com.util.Helper;
-import com.util.StringConstants;
+import com.util.str;
 
 public class AccontManagementAdmin {
 	private Scanner scanner;
@@ -20,28 +20,18 @@ public class AccontManagementAdmin {
 	public boolean displayMenu(User user) throws SQLException, ClassNotFoundException {
 
 		while (true) {
-			System.out.println("Manage user\n");
+			//System.out.println("Manage user\n");
 
-			System.out.println("1) " + StringConstants.addUser);
-			System.out.println("2) " + StringConstants.deleteUser);
-			System.out.println("3) " + StringConstants.viewListOfUser);
-			System.out.println("4) " + StringConstants.viewListByUserName);
-			System.out.println("5) " + StringConstants.updateUser);
-			System.out.println("6) " + StringConstants.previousmenu);
-			System.out.println("7) " + StringConstants.logout);
-			System.out.println("8) Exit");
-
-			System.out.println(StringConstants.enterChoice);
+			Helper.printFunction(str.accountManagementAdmin);
 			int choice=0;
 			while(true)
 			{
-				System.out.println(StringConstants.enterChoice);
-
+				Helper.printFunction(str.enterChoice);
 				choice= Helper.choiceInput();
 				 if(Helper.checkLimit(8, choice))
 					 break;	
-				 System.out.println("Invalid User, Please try again");
-
+				 Helper.printFunction(str.invalidInput);
+				
 			}
 
 			switch (choice) {
@@ -59,7 +49,7 @@ public class AccontManagementAdmin {
 				break;
 			}
 			case 4: {
-				System.out.println("Enter user name");
+				Helper.printFunction(str.enterUserName);
 				String userName = scanner.nextLine();
 				userController.viewUser(userName);
 				break;
@@ -79,12 +69,8 @@ public class AccontManagementAdmin {
 				return false;
 			}
 			default:
-				System.out.println("Invalid input, Please try again");
-
+				 Helper.printFunction(str.invalidInput);
 			}
-
 		}
-
 	}
-
 }

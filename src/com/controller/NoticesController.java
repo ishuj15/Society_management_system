@@ -8,7 +8,7 @@ import java.util.Scanner;
 import com.Model.Notices;
 import com.service.NoticesService;
 import com.util.Helper;
-import com.util.StringConstants;
+import com.util.str;
 
 public class NoticesController {
 
@@ -96,18 +96,18 @@ public class NoticesController {
 			System.out.println("Notice not found!");
 		else {
 			String idNotice = notice.getIdNotices();
-			String str = """
+			String str2 = """
 					1) Title
 					2) Message
 					3) Date
 					4) TagerRole
 					5) Exit
 					""";
-			System.out.println(str);
+			System.out.println(str2);
 			System.out.println("Select that needs to be updated");
 			int choice = 0;
 			while (true) {
-				System.out.println(StringConstants.enterChoice);
+				System.out.println(str.enterChoice);
 
 				choice = Helper.choiceInput();
 				if (Helper.checkLimit(5, choice))
@@ -169,7 +169,7 @@ public class NoticesController {
 		System.out.println("Select  notice ");
 		int choice = 0;
 		while (true) {
-			System.out.println(StringConstants.enterChoice);
+			System.out.println(str.enterChoice);
 
 			choice = Helper.choiceInput();
 			if (Helper.checkLimit(notices.size(), choice))

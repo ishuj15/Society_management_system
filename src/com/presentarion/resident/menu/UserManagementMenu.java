@@ -6,7 +6,7 @@ import java.util.Scanner;
 import com.Model.User;
 import com.controller.MasterController;
 import com.util.Helper;
-import com.util.StringConstants;
+import com.util.str;
 
 public class UserManagementMenu {
 	private final MasterController masterController;
@@ -23,24 +23,15 @@ public class UserManagementMenu {
 		while (true) {
 			// System.out.println(user.getIdUser());
 
-			System.out.println("1) Delete Profile");
-			System.out.println("2) Update Profile");
-			System.out.println("3) View Profile");
-			System.out.println("4) " + StringConstants.previousmenu);
-			System.out.println("5) " + StringConstants.logout);
-			System.out.println("6) Exit");
-			System.out.println(StringConstants.enterChoice);
-
+			Helper.printFunction(str.manageAccount);
 			int choice=0;
 			while(true)
 			{
-				System.out.println(StringConstants.enterChoice);
-
+				Helper.printFunction(str.enterChoice);
 				choice= Helper.choiceInput();
 				 if(Helper.checkLimit(6, choice))
 					 break;	
-				 System.out.println("Invalid User, Please try again");
-
+				 Helper.printFunction(str.invalidInput);
 			}
 
 
@@ -70,8 +61,7 @@ public class UserManagementMenu {
 				return false;
 			}
 			default:
-				System.out.println("Invalid choice, please try again.");
-
+				 Helper.printFunction(str.invalidInput);
 			}
 		}
 

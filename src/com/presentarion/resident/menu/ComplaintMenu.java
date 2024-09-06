@@ -7,7 +7,7 @@ import com.Model.Complaint;
 import com.Model.User;
 import com.controller.ComplaintController;
 import com.util.Helper;
-import com.util.StringConstants;
+import com.util.str;
 
 public class ComplaintMenu {
 	private final Scanner scanner;
@@ -20,23 +20,16 @@ public class ComplaintMenu {
 
 	public boolean displayMenu(User user) throws SQLException, ClassNotFoundException {
 		while (true) {
-			System.out.println("Complaint Menu");
-			System.out.println("1) Add Complaint");
-			System.out.println("2) View Complaint");
-			System.out.println("3) " + StringConstants.previousmenu);
-			System.out.println("4) " + StringConstants.logout);
-			System.out.println("5) Exit");
-
-			System.out.println(StringConstants.enterChoice);
+			//System.out.println("Complaint Menu");
+			Helper.printFunction(str.userComplaint);
+		
 			int choice = 0;
 			while (true) {
-				System.out.println(StringConstants.enterChoice);
-
+				Helper.printFunction(str.enterChoice);
 				choice = Helper.choiceInput();
 				if (Helper.checkLimit(5, choice))
 					break;
-				System.out.println("Invalid User, Please try again");
-
+				Helper.printFunction(str.invalidInput);
 			}
 
 			switch (choice) {
@@ -60,7 +53,7 @@ public class ComplaintMenu {
 				return false;
 			}
 			default:
-				System.out.println("Invalid choice, please try again.");
+				Helper.printFunction(str.invalidInput);
 			}
 		}
 	}

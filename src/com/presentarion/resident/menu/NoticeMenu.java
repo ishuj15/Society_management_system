@@ -6,7 +6,7 @@ import java.util.Scanner;
 import com.Model.User;
 import com.controller.NoticesController;
 import com.util.Helper;
-import com.util.StringConstants;
+import com.util.str;
 
 public class NoticeMenu {
 
@@ -21,22 +21,16 @@ public class NoticeMenu {
 	public boolean displayMenu(User user) throws SQLException, ClassNotFoundException {
 		while (true) {
 
-			System.out.println("1) View Notices");
-			System.out.println("2) " + StringConstants.previousmenu);
-			System.out.println("3) " + StringConstants.logout);
-			System.out.println("4) Exit");
-			System.out.println(StringConstants.enterChoice);
+			Helper.printFunction(str.userNotice);
 
 			int choice=0;
 			while(true)
 			{
-				System.out.println(StringConstants.enterChoice);
-
+				Helper.printFunction(str.enterChoice);
 				choice= Helper.choiceInput();
 				 if(Helper.checkLimit(4, choice))
-					 break;	
-				 System.out.println("Invalid User, Please try again");
-
+					 break;
+				 Helper.printFunction(str.invalidInput);
 			}
 
 			switch (choice) {
@@ -55,7 +49,7 @@ public class NoticeMenu {
 				return false;
 			}
 			default:
-				System.out.println("Invalid choice, please try again.");
+				 Helper.printFunction(str.invalidInput);
 			}
 		}
 	}

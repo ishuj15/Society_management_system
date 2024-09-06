@@ -5,7 +5,9 @@ import java.util.Scanner;
 
 import com.Model.User;
 import com.controller.AttendanceController;
-import com.util.StringConstants;
+import com.util.Helper;
+
+import com.util.str;
 
 public class AttendanceManagementAdmin {
 	private Scanner scanner;
@@ -18,8 +20,8 @@ public class AttendanceManagementAdmin {
 
 	public void displayMenu(User user) throws ClassNotFoundException, SQLException {
 		while (true) {
-			System.out.println(StringConstants.adminAttendance);
-			System.out.println(StringConstants.enterChoice);
+//			System.out.println(StringConstants.adminAttendance);
+//			System.out.println(StringConstants.enterChoice);
 			int choice = scanner.nextInt();
 			scanner.nextLine();
 			switch (choice) {
@@ -38,6 +40,7 @@ public class AttendanceManagementAdmin {
 			case 4:
 				break;
 			default:
+				 Helper.printFunction(str.invalidInput);
 				System.out.println("Invalid input, Please try again");
 			}
 		}

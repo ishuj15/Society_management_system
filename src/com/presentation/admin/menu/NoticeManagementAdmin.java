@@ -6,7 +6,7 @@ import java.util.Scanner;
 import com.Model.User;
 import com.controller.MasterController;
 import com.util.Helper;
-import com.util.StringConstants;
+import com.util.str;
 
 public class NoticeManagementAdmin {
 	private Scanner scanner;
@@ -21,21 +21,15 @@ public class NoticeManagementAdmin {
 
 		while (true) {
 
-			System.out.println(StringConstants.adminNotice);
-			System.out.println("5) " + StringConstants.previousmenu);
-			System.out.println("6) " + StringConstants.logout);
-			System.out.println("7) Exit");
-			System.out.println(StringConstants.enterChoice);
+			Helper.printFunction(str.adminNotice);
 			int choice=0;
 			while(true)
 			{
-				System.out.println(StringConstants.enterChoice);
-
+				Helper.printFunction(str.enterChoice);
 				choice= Helper.choiceInput();
 				 if(Helper.checkLimit(7, choice))
 					 break;	
-				 System.out.println("Invalid User, Please try again");
-
+				 Helper.printFunction(str.invalidInput);
 			}
 
 			switch (choice) {
@@ -66,7 +60,7 @@ public class NoticeManagementAdmin {
 				return false;
 			}
 			default:
-				System.out.println("Invalid Choice , Please try again");
+				 Helper.printFunction(str.invalidInput);
 			}
 		}
 

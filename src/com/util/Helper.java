@@ -39,8 +39,6 @@ public class Helper {
 
 	        return input.toString();
 	    }
-
-
 	public static String hashPassword(String password) {
 
 		try {
@@ -217,4 +215,9 @@ public class Helper {
 		return value;
 	}
 
+	public static void printFunction(String string) {
+		System.out.println(string);
+	}
 }
+
+

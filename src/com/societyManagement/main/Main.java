@@ -5,26 +5,23 @@ import java.util.Scanner;
 
 import com.controller.UserController;
 import com.util.Helper;
-import com.util.StringConstants;
+import com.util.str;
 
 public class Main {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		String str = """
-				1) Register new  Account
-				2) Login
-				3)  Exit""";
+	
 		try (Scanner scanner = new Scanner(System.in)) {
 			while (true) {
-				System.out.println("Welcome to the Society Management Application");
-				System.out.println(str);
+				Helper.printFunction(str.welcomeMessage);
+				Helper.printFunction(str.mainMenu);
+				
 				int choice = 0;
 				while (true) {
-					System.out.println(StringConstants.enterChoice);
-
+					Helper.printFunction(str.enterChoice);
 					choice = Helper.choiceInput();
 					if (Helper.checkLimit(3, choice))
 						break;
-					System.out.println("Invalid User, Please try again");
+					Helper.printFunction(str.invalidInput);
 				}
 				switch (choice) {
 				case 1: {
@@ -41,11 +38,12 @@ public class Main {
 					return;
 				}
 				default:
-					System.out.println("Wrong input");
+					Helper.printFunction(str.invalidInput);
 				}
 			}
 		} catch (Exception e) {
-			System.out.println("Incorrect input");
+			
+			Helper.printFunction(str.invalidInput);
 
 		}
 

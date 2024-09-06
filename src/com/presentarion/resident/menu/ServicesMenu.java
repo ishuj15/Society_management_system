@@ -6,11 +6,9 @@ import java.util.Scanner;
 import com.Model.User;
 import com.controller.ServicesController;
 import com.util.Helper;
-import com.util.StringConstants;
-
+import com.util.str;
 public class ServicesMenu {
 	private final ServicesController servicesController;
-	// private final Services service = new Services();
 	private Scanner scanner;
 
 	public ServicesMenu() {
@@ -21,25 +19,16 @@ public class ServicesMenu {
 	public boolean displayMenu(User user) throws SQLException, ClassNotFoundException {
 		while (true) {
 
-			System.out.println("1) Add Services");
-			System.out.println("2) View Your Services");
-			System.out.println("3) Update Services");
-			System.out.println("4) Delete Services");
-			System.out.println("5) List of services");
-			System.out.println("6) " + StringConstants.previousmenu);
-			System.out.println("7) " + StringConstants.logout);
-			System.out.println(StringConstants.enterChoice);
-
+			Helper.printFunction(str.residentServices);
 			int choice=0;
 			while(true)
 			{
-				System.out.println(StringConstants.enterChoice);
-
+				Helper.printFunction(str.enterChoice);
+				
 				choice= Helper.choiceInput();
 				 if(Helper.checkLimit(7, choice))
 					 break;	
-				 System.out.println("Invalid User, Please try again");
-
+				 Helper.printFunction(str.invalidInput);
 			}
 
 			switch (choice) {
@@ -68,8 +57,14 @@ public class ServicesMenu {
 				return true;
 			case 7:
 				return false;
+			case 8:
+			{
+				scanner.close();
+				System.exit(0);
+				return false;
+			}
 			default:
-				System.out.println("Invalid choice, please try again.");
+				 Helper.printFunction(str.invalidInput);
 			}
 		}
 	}

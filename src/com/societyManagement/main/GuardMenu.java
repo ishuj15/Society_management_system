@@ -6,7 +6,7 @@ import java.util.Scanner;
 import com.Model.User;
 import com.presentation.guard.menu.GuardController;
 import com.util.Helper;
-import com.util.StringConstants;
+import com.util.str;
 
 public class GuardMenu {
 	private Scanner scanner;
@@ -20,30 +20,18 @@ public class GuardMenu {
 	public void displayMenu(User user) throws SQLException, ClassNotFoundException {
 		boolean loggedIn = true;
 		while (true) {
-			// System.out.println("Guard Options:");
-			System.out.println("1) " + StringConstants.account);
-			System.out.println("2) " + StringConstants.alert);
-			System.out.println("3) " + StringConstants.notice);
-			System.out.println("4) " + StringConstants.visitor);
-			System.out.println("5) " + StringConstants.complaint);
-			System.out.println("6) " + StringConstants.previousmenu);
-			System.out.println("7) " + StringConstants.logout);
-			System.out.println("8) Exit");
 			
+			Helper.printFunction(str.guarrdMenu);
 
 			int choice=0;
 			while(true)
 			{
-				System.out.println(StringConstants.enterChoice);
-
+				Helper.printFunction(str.enterChoice);
 				choice= Helper.choiceInput();
-				 if(Helper.checkLimit(8, choice))
+				 if(Helper.checkLimit(7, choice))
 					 break;	
-				 System.out.println("Invalid User, Please try again");
-
+				 Helper.printFunction(str.invalidInput);
 			}
-
-
 			switch (choice) {
 			case 1: {
 				loggedIn = guardController.userManagementObj.displayMenu(user);
@@ -67,15 +55,14 @@ public class GuardMenu {
 			}
 			case 6:
 				return;
-			case 7:
-				return;
-			case 8: {
+			case 7: {
 				scanner.close();
 				System.exit(0);
 				return;
 			}
 			default:
-				System.out.println("Invalid choice, please try again.");
+				 Helper.printFunction(str.invalidInput);
+				
 			}
 			if (loggedIn == false)
 				return;
