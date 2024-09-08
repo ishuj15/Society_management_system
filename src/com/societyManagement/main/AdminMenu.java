@@ -17,7 +17,7 @@ public class AdminMenu {
 		this.adminController = new AdminController();
 	}
 
-	public void displayMenu(User user) throws SQLException, ClassNotFoundException {
+	public boolean displayMenu(User user) throws SQLException, ClassNotFoundException, InterruptedException {
 		boolean loggedIn = true;
 		while (true) {
 			Helper.printFunction(str.adminMenu);
@@ -48,11 +48,11 @@ public class AdminMenu {
 				break;
 			}
 			case 5: {
-				adminController.servicesManage.displayMenu(user);
+				loggedIn=adminController.servicesManage.displayMenu(user);
 				break;
 			}
 			case 6: {
-				adminController.complaintManage.displayMenu(user);
+				loggedIn=adminController.complaintManage.displayMenu(user);
 				break;
 			}
 //                case 7:
@@ -61,20 +61,28 @@ public class AdminMenu {
 //                	break;
 //                }
 			case 7:
-				return;
+				return true;
 			case 8: {
-				break;
+				System.out.println(str.loggingout);
+				Thread.sleep(1000);
+				return false;
 			}
 			case 9: {
 				scanner.close();
 				System.exit(0);
-				return;
+				return false;
 			}
 			default:
 				 Helper.printFunction(str.invalidInput);
 			}
 			if (loggedIn == false)
-				return;
+			{
+				System.out.println(str.loggingout);
+				Thread.sleep(1000);
+
+				return false;
+				
+			}
 		}
 	}
 }

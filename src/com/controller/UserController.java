@@ -20,68 +20,71 @@ public class UserController {
 	private static Scanner scanner= new Scanner(System.in);
 	public static UserService userService = new UserService();
 	public static void createUser() throws SQLException, ClassNotFoundException {
-		String password, userRole, phoneNo, email, userName;
+		String password, userRole, phoneNo, email, userName,address;
+		User user = new User();
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		while (true) {
 			Helper.printFunction(str.enterUserName);
 			userName = scanner.nextLine().trim();
-			if (Helper.isUsernameValid(userName)) {
+			if (Helper.isUsernameValid(userName)   ) {
+				if( userService.userNameTaken(userName))
 				break;
+				else
+					System.out.println(str.userNameTaken);		
 			}
-
-			else {
-				System.out.println("username already taken");
-				System.out.println("Please try again");
-			}
-
 		}
 		while (true) {
-			System.out.print("Enter user role (resident,guard): ");
+			System.out.print(str.enterRole);
 			userRole = scanner.nextLine().trim();
 			if (Helper.isUserRoleValid(userRole.toLowerCase()))
 				break;
 			else
-				System.out.println("Wrong role");
-
+				System.out.println(str.invalidInput);
 		}
-
 		while (true) {
-			System.out.print("Enter password: ");
+			System.out.print(str.enterPassword);
 			password = scanner.nextLine().trim();
 		//	password=Helper.readSensitiveData();
 			if (Helper.isPasswordValid(password)) {
 				break;
 			} else {
-				System.out.println("Password does not meet the policy requirements. Please try again.");
+				System.out.println(str.wrongPassword);
 			}
 		}
 		while (true) {
-			System.out.print("Enter phone number: ");
+			System.out.print(str.enterPhoneNo);
 			phoneNo = scanner.nextLine().trim();
 			if (Helper.isPhoneNumberValid(phoneNo))
 				break;
 			else
-				System.out.println("Wrong phone number");
+				System.out.println(str.wrongPhoneNo);
 
 		}
 		while (true) {
-			System.out.print("Enter email: ");
+			System.out.print(str.enterEmail);
 			email = scanner.nextLine().trim();
 			if (Helper.isEmailValid(email))
 				break;
 			else
-				System.out.println("Wrong email format");
+				System.out.println(str.wrongEmail);
 
 		}
+		while (true) {
+			System.out.print(str.enterAddress);
+		    address = scanner.nextLine().trim();
+		    if (Helper.notNullCheck(address)) {
+		        break;
+		    } 
+		    else
+		    	System.out.println(str.wrongAddress);
 
-		System.out.print("Enter address: ");
-		String address = scanner.nextLine().trim();
+		}
 
 		String hashedPassword = Helper.hashPassword(password);
 
 		String userId = Helper.generateUniqueId();
-		User user = new User();
+		
 		user.setIdUser(userId);
 		user.setUserName(userName);
 		user.setUserRole(userRole);
@@ -91,7 +94,7 @@ public class UserController {
 		user.setAddress(address);
 
 		userService.addUser(user);
-		System.out.println("User created successfully!");
+		System.out.println(str.userCreatedSuccessfully);
 	}
 
 	public void viewUser(String idUser) throws SQLException, ClassNotFoundException {
@@ -110,7 +113,7 @@ public class UserController {
 
 			System.out.println("------------------------------------------------------");
 		} else {
-			System.out.println("User not found!");
+			System.out.println(str.userNotFound);
 		}
 
 	}
@@ -120,7 +123,7 @@ public class UserController {
 		
 		
 		if (users == null || users.isEmpty()) {
-			System.out.println("No users found.");
+			System.out.println(str.userNotFound);
 			return ;
 		}
 		System.out.printf(
@@ -141,16 +144,9 @@ public class UserController {
 	}
 
 	public void updateUser(User user) throws SQLException, ClassNotFoundException {
-		String str2 = """
-				1) UserName
-				2) Password
-				3) Phone Number
-				4) Email
-				5) Address""";
-		System.out.println(str2);
-		System.out.println("6) " + str.previousmenu);
-
-		System.out.println("Select field that you need to update");
+		
+		System.out.println(str.userUpdateList);
+		System.out.println(str.selectUserFieldToUpdate);
 
 		String columnToUpdate = null, newValue = null;
 
@@ -161,107 +157,111 @@ public class UserController {
 			choice = Helper.choiceInput();
 			if (Helper.checkLimit(6, choice))
 				break;
-			System.out.println("Invalid Input, Please try again");
-
+			System.out.println(str.invalidInput);
 		}
-
 		switch (choice) {
 		case 1: {
 			while (true) {
-				columnToUpdate = "userName";
-				System.out.print("Enter new user name: ");
+				columnToUpdate =str.userName;
+				System.out.print(str.enterUserName);
 				newValue = scanner.nextLine();
-				if (Helper.isUsernameValid(newValue))
-					break;
-				else
-					System.out.println("incorrect userName, Please try again");
-
-			}
-			
+				if (Helper.isUsernameValid(newValue) )
+					if(userService.userNameTaken(newValue))
+						break;
+						else
+							System.out.println(str.userNameTaken);
+					
+				}
 			break;
 		}
 		case 2: {
 			while (true) {
-				columnToUpdate = "password";
-				System.out.print("Enter new password: ");
+				columnToUpdate = str.password;
+				System.out.print(str.enterPassword);
 				newValue = scanner.nextLine();
 				if (Helper.isPasswordValid(newValue))
 					break;
-				else
-					System.out.println("incorrect password, Please try again");
-
 			}
-			
 			break;
 		}
 		case 3: {
 			while (true) {
-				columnToUpdate = "phoneNo";
-				System.out.print("Enter new phone number: ");
+				columnToUpdate = str.phoneNo;
+				System.out.print(str.enterPhoneNo);
 				newValue = scanner.nextLine();
 				if (Helper.isPhoneNumberValid(newValue)) {
 					break;
 				}
-
 				else
-					System.out.println("incorrect phone Number, Please try again");
+					System.out.println(str.wrongPhoneNo);
 			}
-			
 			break;
 		}
 		case 4: {
 			while (true) {
 
-				columnToUpdate = "email";
+				columnToUpdate = str.email;
 				System.out.print("Enter new email: ");
 				newValue = scanner.nextLine();
 				if (Helper.isEmailValid(newValue))
 					break;
 				else
-					System.out.println("incorrect password, Please try again");
-
+					System.out.println(str.wrongEmail);
 			}
-			
 			break;
 		}
 		case 5: {
-			columnToUpdate = "address";
-			System.out.print("Enter new address: ");
-			newValue = scanner.nextLine();
+			columnToUpdate = str.address;
+			while (true) {
+				System.out.print(str.enterAddress);
+				newValue = scanner.nextLine().trim();
+			    if (Helper.notNullCheck(newValue)) {
+			        break;
+			    } 
+			    else
+			    	System.out.println(str.wrongAddress);
+
+			}
 			break;
 		}
 		case 6:
 			return;
+		case 7:
+		{
+			scanner.close();
+			System.exit(0);
+			return;
+		}
 		default:
-			System.out.println("Invalid input");
+			System.out.println(str.invalidInput);
 		}
 		userService.updateUser(user,columnToUpdate, newValue);
-		System.out.println("User updated successfully");
+		System.out.println(str.userUpdatedSuccessfully);
 
 	}
 
 	public void deleteUser(User user) throws SQLException, ClassNotFoundException {
-		if (user.getUserRole().toLowerCase().equals("admin")) {
-			System.out.println("You can't delete admin");
+		if (user.getUserRole().toLowerCase().equals(str.admin)) {
+			System.out.println(str.NoadminDeletion);
 			return;
 		}
 
 		else {
 			userService.deleteUser(user);
-			System.out.println("User deleted successfully!");
+			System.out.println(str.UserdeletedSuccessfully);
 		}
 	}
 
-	public static void login() throws SQLException, ClassNotFoundException {
+	public static void login() throws SQLException, ClassNotFoundException, InterruptedException {
 
 		try {
 			@SuppressWarnings("resource")
 			Scanner scanner = new Scanner(System.in);
-			System.out.println("Enter your login details:");
-			System.out.print("Username: ");
+			System.out.println(str.enterLoginDeatils);
+			System.out.print(str.enterUserName);
 
 			String userName = scanner.nextLine().trim();
-			System.out.println("Enter your password");
+			System.out.println(str.enterPassword);
 
 			String password = scanner.nextLine().trim();
 			User user= UserService.login(userName, password);
@@ -269,22 +269,22 @@ public class UserController {
 			 
 			 if (user == null ) {
 		        	
-	        	 System.out.println("Invalid username or password. Please try again.");
+	        	 System.out.println(str.invalidUserNameOrPassword);
 		            logger.warning("Failed login attempt for username: " + userName);
 	            
 	           
 	        } else {
-	        	System.out.println("Login successful! Welcome, " + user.getUserName() + ".");
+	        	System.out.println( str.loginSuccessful+ user.getUserName() + ".");
 	            logger.info("User logged in: " + user.getUserName());
 	           
 	            
-	            if(user.getUserRole().toLowerCase().equals("resident"))
+	            if(user.getUserRole().toLowerCase().equals(str.resident))
 	            {
 	            	ResidentMenu obj= new ResidentMenu();
 	            	
 	            	obj.displayMenu(user);	
 	            }
-	            else if(user.getUserRole().toLowerCase().equals("guard")) {
+	            else if(user.getUserRole().toLowerCase().equals(str.guard)) {
 	            	GuardMenu guardMenu =new GuardMenu();
 	            	guardMenu.displayMenu(user);
 	            }
@@ -301,11 +301,11 @@ public class UserController {
 
 	}
 
-	public User getUsernameList() throws ClassNotFoundException, SQLException {
+	public static  User getUsernameList() throws ClassNotFoundException, SQLException {
 		List<User> users = userService.getUsername();
 		int count=0;
 		if (users == null || users.isEmpty()) {
-			System.out.println("users not found!");
+			System.out.println(str.userNotFound);
 		} else {
 			
 			System.out.printf("| %-5s | %-20s |\n", "S.No", "Username");
@@ -329,7 +329,7 @@ public class UserController {
 			choice = Helper.choiceInput();
 			if (Helper.checkLimit(count, choice))
 				break;
-			System.out.println("Invalid Input, Please try again");
+			System.out.println(str.invalidInput);
 		}
 		User selectedUser = users.get(choice - 1);
 		return selectedUser;
@@ -339,20 +339,18 @@ public class UserController {
 		List<User> users = userService.getAllUsers();
 		if(users.isEmpty())
 		{
-			System.out.println("No List of users found");
+			System.out.println(str.noListOfUser);
 			return null;
 		}
 		else {
-		System.out.println("Select user  ");
+			listUsers();
 		int choice = 0;
 		while (true) {
-			
 			System.out.println(str.enterChoice);
-
 			choice = Helper.choiceInput();
 			if (Helper.checkLimit(users.size(), choice))
 				break;
-			System.out.println("Invalid User, Please try again");	
+			System.out.println(str.invalidInput);	
 		}
 		User selectedUser = users.get(choice - 1);
 		return selectedUser;

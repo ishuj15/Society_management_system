@@ -17,45 +17,51 @@ public class AlertController {
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		String message=null;
+		String targetRole=null;
 		while(true)
 		{
-			System.out.print("Enter alert message: ");
+			Helper.printFunction(str.alertMessage);
 			 message = scanner.nextLine();
-			if(message.equals(null))
-				System.out.println(" Can;t accept empty message, Try again");
+			if(Helper.notNullCheck(message))
+				Helper.printFunction(str.notNullMessage);
 			else
 				break;
 		}
-		// System.out.print("Enter alert date (yyyy-mm-dd): ");
+		
 		LocalDate dateStr = LocalDate.now();
-		System.out.print("Enter target role (guard, resident, all): ");
-		String targetRole = scanner.nextLine().toLowerCase();
+		while(true)
+		{
+			Helper.printFunction(str.alertTargetRole);
+			 targetRole = scanner.nextLine().toLowerCase();
+			 if(Helper.isValidTarget(targetRole.toLowerCase().trim()))
+				 break;
+			 else
+				 System.out.println(str.validTargetRole);
+		}
 		String alertId = Helper.generateUniqueId();
-
 		Alert alert = new Alert();
 		alert.setMessage(message);
 		alert.setIdAlert(alertId);
 		alert.setDate(java.sql.Date.valueOf(dateStr));
 		alert.setTargetRole(targetRole);
-
 		alertService.addAlert(alert);
-		System.out.println("Alert created successfully!");
+		Helper.printFunction(str.alertCreatedSuccessfully);
 	}
 	public void viewAlert(String idAlert) throws SQLException, ClassNotFoundException {
 		Alert alert = alertService.getAlertById(idAlert);
 		if (alert != null) {
-			System.out.println("Target role: " + alert.getTargetRole());
-			System.out.println("Message: " + alert.getMessage());
-			System.out.println("Date: " + alert.getDate());
+			Helper.printFunction(str.alertTargetRolePrint + alert.getTargetRole());
+			Helper.printFunction(str.alertMessagePrint+ alert.getMessage());
+			Helper.printFunction(str.alertDatePrint+ alert.getDate());
 		} else {
-			System.out.println("Alert not found!");
+			Helper.printFunction(str.alertNotFound);	
 		}
 	}
 	public void viewAlertByRole(String role) throws SQLException, ClassNotFoundException {
 		List<Alert> alerts = alertService.getAlertByRole(role);
 
 		if (alerts == null || alerts.isEmpty()) {
-			System.out.println("No alerts found for the specified role.");
+			System.out.println(str.alertNotFound);
 		} else {
 			System.out.printf("| %-5s | %-15s | %-50s | %-10s |%n", "S.No", "Role", "Message", "Date");
 			System.out.println("----------------------------------------------------------------------------"
@@ -76,7 +82,7 @@ public class AlertController {
 		List<Alert> alerts = alertService.getAllAlerts();
 
 		if (alerts == null || alerts.isEmpty()) {
-			System.out.println("No alerts found.");
+			System.out.println(str.alertNotFound);
 		} else {
 			System.out.printf("| %-5s | %-15s | %-50s | %-10s |%n", "S.No", "Role", "Message", "Date");
 			System.out.println("----------------------------------------------------------------------------"
@@ -97,16 +103,12 @@ public class AlertController {
 		try (Scanner scanner = new Scanner(System.in)) {
 			Alert alert = getAlert();
 			if (alert == null) {
-				System.out.println("Alert not found!");
+				System.out.println(str.alertNotFound);
 			} else {
 				String idAlert = alert.getIdAlert();
-				String str2 = """
-						1) Message
-						2) Date
-						3) TagerRole
-						4) Exit""";
-				System.out.println(str2);
-				System.out.println("Select field that needs to be updated");
+				
+				System.out.println(str.alertUpdateList);
+				System.out.println(str.alertUpdatefield);
 				int choice = 0;
 				while (true) {
 					System.out.println(str.enterChoice);
@@ -114,39 +116,52 @@ public class AlertController {
 					choice = Helper.choiceInput();
 					if (Helper.checkLimit(4, choice))
 						break;
-					System.out.println("Invalid User, Please try again");
+					System.out.println(str.invalidInput);
 
 				}
-
 				switch (choice) {
-
 				case 1: {
-					System.out.print("Enter new message: ");
-					String message = scanner.nextLine();
+					String message ;
+					while(true)
+					{
+						Helper.printFunction(str.alertMessage);
+						 message = scanner.nextLine();
+						if(Helper.notNullCheck(message))
+							Helper.printFunction(str.notNullMessage);
+						else
+							break;
+					}
 					alertService.updateAlert(idAlert, "message", message);
-					System.out.println("Alert updated successfully!");
+					System.out.println(str.alertUpdated);
 					break;
 				}
 				case 2: {
-					System.out.print("Enter new date (yyyy-mm-dd): ");
-					String dateStr = scanner.nextLine();
-					alertService.updateAlert(idAlert, "date", dateStr);
-					System.out.println("Alert updated successfully!");
-
+					String targetRole ;
+					while(true)
+					{
+						Helper.printFunction(str.alertTargetRole);
+						 targetRole = scanner.nextLine().toLowerCase().trim();
+						 if(Helper.isValidTarget(targetRole))
+							 break;
+						 else
+							 System.out.println(str.validTargetRole);
+					}
+					
+					alertService.updateAlert(idAlert, "targetRole", targetRole);
+					System.out.println(str.alertUpdated);
 					break;
 				}
 				case 3: {
-					System.out.print("Enter target role: ");
-					String role = scanner.nextLine().trim();
-					alertService.updateAlert(idAlert, "targetRole", role);
-					System.out.println("Alert updated successfully!");
-					break;
-
+					return;
 				}
 				case 4:
+				{
+					scanner.close();
+					System.exit(0);
 					return;
+				}
 				default:
-					System.out.println("Invalid Input , Please try again");
+					System.out.println(str.invalidInput);
 				}
 
 			}
@@ -156,14 +171,14 @@ public class AlertController {
 	public void deleteAlert() throws SQLException, ClassNotFoundException {
 		Alert alert = getAlert();
 		alertService.deleteAlert(alert.getIdAlert());
-		System.out.println("Alert deleted successfully!");
+		System.out.println(str.alertDeleted);
 	}
 
 	public Alert getAlert() throws ClassNotFoundException, SQLException {
 
 		List<Alert> alerts = alertService.getAllAlerts();
 		listAlerts();
-		System.out.println("Select  alert ");
+		System.out.println(str.selectAlert);
 		while (true) {
 			int choice = 0;
 			while (true) {
@@ -172,7 +187,7 @@ public class AlertController {
 				choice = Helper.choiceInput();
 				if (Helper.checkLimit(alerts.size(), choice))
 					break;
-				System.out.println("Invalid User, Please try again");
+				System.out.println(str.invalidInput);
 
 			}
 

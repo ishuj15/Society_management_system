@@ -47,7 +47,6 @@ public class ComplaintManagementAdmin {
 				return true;
 			case 5: {
 				return false;
-
 			}
 			case 6: {
 				scanner.close();

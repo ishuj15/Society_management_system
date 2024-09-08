@@ -21,37 +21,4 @@ public class MasterController {
 		this.servicesController = new ServicesController();
 		this.visitorController = new VisitorController();
 	}
-
-	// Getter methods for controllers
-//    public UserController getUserController() {
-//        return userController;
-//    }
-//
-//    public AttendanceController getAttendanceController() {
-//        return attendanceController;
-//    }
-//
-//    public AlertController getAlertController() {
-//        return alertController;
-//    }
-//
-//    public ComplaintController getComplaintController() {
-//        return complaintController;
-//    }
-//
-//    public FeedbackController getFeedbackController() {
-//        return feedbackController;
-//    }
-//
-//    public NoticesController getNoticesController() {
-//        return noticesController;
-//    }
-//
-//    public ServicesController getServicesController() {
-//        return servicesController;
-//    }
-//
-//    public VisitorController getVisitorController() {
-//        return visitorController;
-//    }
 }

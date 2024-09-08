@@ -94,7 +94,10 @@ public class Helper {
 	public static boolean isUserRoleValid(String userRole) {
 				return userRole.equals("resident") || userRole.equals("guard");
 	}
-
+	public static boolean ComplaintStatus(String status)
+	{
+		return status.equals("resolved") || status.equals("pending") || status.equals("unresolved");
+	}
 	public static boolean isEmailValid(String email) {
 	
 		if (email == null || email.trim().isEmpty()) {
@@ -115,7 +118,7 @@ public class Helper {
 
 		
 		if (localPart.isEmpty() || domainPart.isEmpty()) {
-			System.out.println("Email must contain both local and domain parts.");
+			System.out.println("Email must contain both local and domain parts(eg- @gmail.com).");
 			return false;
 		}
 
@@ -157,13 +160,10 @@ public class Helper {
 				return false;
 			}
 		}
-
-		
 		if (!Character.isLetter(username.charAt(0))) {
 			System.out.println("Username must start with a letter.");
 			return false;
 		}
-
 		return true;
 	}
 
@@ -218,6 +218,18 @@ public class Helper {
 	public static void printFunction(String string) {
 		System.out.println(string);
 	}
+	public static boolean notNullCheck(String string) {
+	    if (string == null || string.trim().isEmpty()) {
+	       
+	        return false;
+	    }
+	    return true;
+	}
+	public  static boolean isValidTarget(String target) {
+		
+		return target.equals("gaurd")|| target.equals("all") || target.equals("resident");
+	}
+	
 }
 
 

@@ -39,11 +39,12 @@ public class VisitorManagementAdmin {
 			case 2: {
 
 				visitorController.deleteVisitorByAdmin();
+				break;
 			}
 			case 3:
 				return true;
 			case 4: {
-				break;
+				return false;
 			}
 			case 5: {
 				scanner.close();

@@ -18,7 +18,7 @@ public class ResidentMenu {
 		this.scanner = new Scanner(System.in);
 	}
 
-	public void displayMenu(User user) throws SQLException, ClassNotFoundException {
+	public void displayMenu(User user) throws SQLException, ClassNotFoundException, InterruptedException {
 		boolean loggedIn = true;
 		
 		while (true) {
@@ -45,7 +45,7 @@ public class ResidentMenu {
 			}
 			case 3: {
 				loggedIn = residentController.alertMenuObj.displayMenu(user);
-
+				
 				break;
 			}
 			case 4: {
@@ -62,8 +62,11 @@ public class ResidentMenu {
 				break;
 			}
 			case 7:
+			{
+				System.out.println(str.loggingout);
+				Thread.sleep(1000);
 				return;
-				
+			}
 			case 8: {
 				scanner.close();
 				System.exit(0);
@@ -73,7 +76,12 @@ public class ResidentMenu {
 				Helper.printFunction(str.invalidInput);
 			}
 			if (loggedIn == false)
+			{
+				System.out.println(str.loggingout);
+				Thread.sleep(1000);
 				return;
+
+			}
 		}
 	}
 }

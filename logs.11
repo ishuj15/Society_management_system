@@ -1,0 +1,8 @@
+Sep 06, 2024 6:10:33 PM com.controller.UserController login
+INFO: User logged in: ishuj
+Sep 06, 2024 6:10:53 PM com.controller.UserController login
+WARNING: Failed login attempt for username: ihuj
+Sep 06, 2024 6:11:02 PM com.controller.UserController login
+INFO: User logged in: ishuj
+Sep 06, 2024 6:13:15 PM com.controller.UserController login
+INFO: User logged in: admin

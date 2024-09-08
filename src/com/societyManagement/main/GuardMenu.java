@@ -17,7 +17,7 @@ public class GuardMenu {
 		this.scanner = new Scanner(System.in);
 	}
 
-	public void displayMenu(User user) throws SQLException, ClassNotFoundException {
+	public void displayMenu(User user) throws SQLException, ClassNotFoundException, InterruptedException {
 		boolean loggedIn = true;
 		while (true) {
 			
@@ -53,8 +53,12 @@ public class GuardMenu {
 				loggedIn = guardController.complaintMenuObj.displayMenu(user);
 				break;
 			}
-			case 6:
+			case 6:				
+			{
+				System.out.println(str.loggingout);
+				Thread.sleep(1000);
 				return;
+			}
 			case 7: {
 				scanner.close();
 				System.exit(0);
@@ -65,7 +69,12 @@ public class GuardMenu {
 				
 			}
 			if (loggedIn == false)
+			{
+				System.out.println(str.loggingout);
+				Thread.sleep(1000);
 				return;
+
+			}
 		}
 	}
 }

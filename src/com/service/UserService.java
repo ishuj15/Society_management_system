@@ -61,4 +61,11 @@ public class UserService {
 	public User getUserById(String userId) throws ClassNotFoundException, SQLException {
 		return userDAO.getUserById(userId);
 	}
+	public boolean userNameTaken(String username) throws ClassNotFoundException, SQLException
+	{
+		if(userDAO.isUsernameTaken(username).equals(null))
+		return true ;
+		else
+			return false;
+	}
 }

@@ -8,9 +8,7 @@ public class User {
 	private String phoneNo;
 	private String email;
 	private String address;
-	// private String salt;
-
-	// Getters and Setters
+	
 	public String getIdUser() {
 		return idUser;
 	}
@@ -58,20 +56,10 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public String getAddress() {
 		return address;
 	}
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-//		public String getSalt() {
-//			return salt;
-//		}
-//
-//		public void setSalt(String salt) {
-//			this.salt = salt;
-	// }
 }

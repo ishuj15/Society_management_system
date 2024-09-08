@@ -12,6 +12,7 @@ public class Main {
 	
 		try (Scanner scanner = new Scanner(System.in)) {
 			while (true) {
+				
 				Helper.printFunction(str.welcomeMessage);
 				Helper.printFunction(str.mainMenu);
 				

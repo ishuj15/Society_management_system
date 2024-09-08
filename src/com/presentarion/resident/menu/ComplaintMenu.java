@@ -34,13 +34,12 @@ public class ComplaintMenu {
 
 			switch (choice) {
 			case 1: {
-				Complaint complaint = new Complaint();
-				complaint.setUserId(user.getIdUser());
-				complaintController.createComplaint(complaint);
+				
+				complaintController.createComplaint(user);
 				break;
 			}
 			case 2: {
-				complaintController.viewComplaint(user.getIdUser());
+				complaintController.viewComplaint(user);
 				break;
 			}
 			case 3:

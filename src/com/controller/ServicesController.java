@@ -18,11 +18,11 @@ public class ServicesController {
 
 	public void createService(User user) throws SQLException, ClassNotFoundException {
 
-		System.out.print("Enter service name: ");
+		System.out.println(str.enterServiceName);
 		String name = scanner.nextLine();
-		System.out.print("Enter service description: ");
+		System.out.print(str.enterServiceDescription);
 		String description = scanner.nextLine();
-		System.out.print("Enter current status ");
+		System.out.print(str.enterCurrentStatus);
 		String status = scanner.nextLine();
 
 		Services service = new Services();
@@ -32,15 +32,14 @@ public class ServicesController {
 		service.setDescription(description);
 		service.setStatus(status);
 		servicesService.addService(service);
-		System.out.println("Service created successfully!");
-
+		System.out.println(str.serviceCreatedSuccessfully);
 	}
 
 	public void viewService(String idUser) throws SQLException, ClassNotFoundException {
 
 		List<Services> services = servicesService.getServiceById(idUser);
 		if (services.isEmpty())
-			System.out.println("Service not found!");
+			System.out.println(str.serviceNotFound);
 		else {
 			System.out.println("---------------------------------------------------------------"
 					+ "------------------------------------------------------");
@@ -48,8 +47,6 @@ public class ServicesController {
 					"Description", "Status");
 			System.out.println("---------------------------------------------------------------"
 					+ "------------------------------------------------------");
-
-			// Print each service with a serial number and vertical lines
 			int serialNumber = 1;
 			for (Services service : services) {
 				User user = UserController.userService.getUserById(service.getUserId());
@@ -67,7 +64,7 @@ public class ServicesController {
 	public void listServices() throws SQLException, ClassNotFoundException {
 		List<Services> services = servicesService.getAllServices();
 		if (services.equals(null))
-			System.out.println("No service found");
+			System.out.println(str.serviceNotFound);
 		else {
 			System.out.println("---------------------------------------------------------------"
 					+ "------------------------------------------------------");
@@ -76,7 +73,6 @@ public class ServicesController {
 			System.out.println("---------------------------------------------------------------"
 					+ "------------------------------------------------------");
 
-			// Print each service with a serial number and vertical lines
 			int serialNumber = 1;
 			for (Services service : services) {
 				User user = UserController.userService.getUserById(service.getUserId());
@@ -131,12 +127,12 @@ public class ServicesController {
 		List<Services> service = servicesService.getServiceById(idUser);
 		if (service.equals(null))
 		{
-			System.out.println("No service found");
+			System.out.println(str.serviceNotFound);
 			return;
 			
 		}
 		viewService(idUser);
-		System.out.println("Select service which needs to modify ");
+		System.out.println(str.selectServiceToModify);
 		int choice = 0;
 		while (true) {
 			System.out.println(str.enterChoice);
@@ -144,61 +140,54 @@ public class ServicesController {
 			choice = Helper.choiceInput();
 			if (Helper.checkLimit(service.size(), choice))
 				break;
-			System.out.println("Invalid User, Please try again");
-
+			System.out.println(str.invalidInput);
 		}
-
 		Services selectedService = service.get(choice - 1);
 		if (selectedService.equals(null))
-			System.out.println("Service not found!");
+			System.out.println(str.serviceNotFound);
 		else {
-			String str2 = """
-					1) Service Name
-					2) Description
-					3) Status
-					4) exit
-								""";
-			System.out.println(str2);
-			System.out.println("Select that needs to be updated");
+			System.out.println(str.serviceUpdateList);
+			System.out.println(str.serviceToBeUpdated);
 			int choice2 = 0;
 			while (true) {
 				System.out.println(str.enterChoice);
-
 				choice = Helper.choiceInput();
 				if (Helper.checkLimit(4, choice2))
 					break;
-				System.out.println("Invalid User, Please try again");
-
+				System.out.println(str.invalidInput);
 			}
-
 			switch (choice2) {
 			case 1: {
-				System.out.print("Enter new service name: ");
+				System.out.print(str.enterServiceName);
 				String name = scanner.nextLine();
 				servicesService.updateService(selectedService.getIdServices(), "serviceName", name);
-				System.out.println("Service name updated successfully!");
+				System.out.println();
 				break;
 			}
 			case 2: {
-				System.out.print("Enter new description: ");
+				System.out.print(str.enterServiceDescription);
 				String description = scanner.nextLine();
 				servicesService.updateService(selectedService.getIdServices(), "description", description);
-				System.out.println("Description updated successfully!");
+				System.out.println(str.serviceUpadtedSuccessfully);
 				break;
 			}
 			case 3: {
-				System.out.print("Enter current status ");
+				System.out.print(str.enterCurrentStatus);
 				String status = scanner.nextLine();
 				servicesService.updateService(selectedService.getIdServices(), "status", status);
-				System.out.println("Status updated successfully!");
-
+				System.out.println(str.serviceUpadtedSuccessfully);
 				break;
 			}
 
 			case 4:
 				return;
+			case 5:{
+				scanner.close();
+				System.exit(0);
+				return;
+			}
 			default:
-				System.out.println("Invalid Input , Please try again");
+				System.out.println(str.invalidInput);
 			}
 
 		}
@@ -208,12 +197,12 @@ public class ServicesController {
 		List<Services> service = servicesService.getServiceById(idUser);
 		if (service.equals(null))
 		{
-			System.out.println("No service found");
+			System.out.println(str.serviceNotFound);
 			return;
 			
 		}
 
-		System.out.println("Enter service  number which you need to delete");
+		System.out.println(str.selectServiceThatNeedToBeDeleted);
 		viewService(idUser);
 		int choice = 0;
 		while (true) {
@@ -222,20 +211,20 @@ public class ServicesController {
 			choice = Helper.choiceInput();
 			if (Helper.checkLimit(service.size(), choice))
 				break;
-			System.out.println("Invalid User, Please try again");
+			System.out.println(str.invalidInput);
 
 		}
 
 		Services selectedService = service.get(choice - 1);
 
 		servicesService.deleteService(selectedService.getIdServices());
-		System.out.println("Service deleted successfully!");
+		System.out.println(str.serviceDeleted);
 	}
 
 	public void deleteServiceByAdmin() throws SQLException, ClassNotFoundException {
 		Services service = getService();
 		servicesService.deleteService(service.getIdServices());
-		System.out.println("Service deleted successfully!");
+		System.out.println(str.serviceDeleted);
 	}
 
 	public Services getService() throws ClassNotFoundException, SQLException {
@@ -243,12 +232,12 @@ public class ServicesController {
 		List<Services> services = servicesService.getAllServices();
 		if (services.equals(null))
 		{
-			System.out.println("No service found");
+			System.out.println(str.serviceNotFound);
 			return null;
 			
 		}
 		listServices();
-		System.out.println("Select  service ");
+		System.out.println(str.selectService);
 		int choice = 0;
 		while (true) {
 			System.out.println(str.enterChoice);
@@ -256,7 +245,7 @@ public class ServicesController {
 			choice = Helper.choiceInput();
 			if (Helper.checkLimit(services.size(), choice))
 				break;
-			System.out.println("Invalid User, Please try again");
+			System.out.println(str.invalidInput);
 
 		}
 

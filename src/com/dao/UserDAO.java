@@ -50,10 +50,9 @@ public class UserDAO extends GenericDAO<User> {
 		String selectSQL = "SELECT * FROM user";
 		return executeGetAllQuery(selectSQL);
 	}
-
-	public boolean isUsernameTaken(String username) throws ClassNotFoundException, SQLException {
+	public User isUsernameTaken(String username) throws ClassNotFoundException, SQLException {
 		String sql = "SELECT COUNT(*) FROM user WHERE userName = ?";
-		return executeQuery(sql);
+		return executeGetQuery(sql);
 	}
 
 	public boolean updateUser(String userId, String columnToUpdate, String newValue)

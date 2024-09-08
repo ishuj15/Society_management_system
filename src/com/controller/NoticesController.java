@@ -16,16 +16,37 @@ public class NoticesController {
 	private final NoticesService noticesService = new NoticesService();
 
 	public void createNotice() throws SQLException, ClassNotFoundException {
-		@SuppressWarnings("resource")
-		Scanner scanner = new Scanner(System.in);
-		System.out.print("Enter title: ");
-		String title = scanner.nextLine().trim();
-		System.out.print("Enter message: ");
-		String message = scanner.nextLine().trim();
-		// System.out.print("Enter notice date (yyyy-mm-dd): ");
+		String message=null,title=null;
+		String targetRole=null;
+		while(true)
+		{
+			System.out.print(str.noticeTitle);
+			title = scanner.nextLine().trim();
+			if(Helper.notNullCheck(title))
+				System.out.println(str.notNullNoticeTitle);
+			else
+				break;
+		}
+		while(true)
+		{
+			System.out.println(str.noticeMessage);
+			
+			message = scanner.nextLine().trim();
+			if(Helper.notNullCheck(message))
+				System.out.println(str.notNullMessage);
+			else
+				break;
+		}
+		
 		LocalDate currentDate = LocalDate.now();
-		System.out.print("Enter target role (guard, resident, all): ");
-		String targetRole = scanner.nextLine().trim().toLowerCase();
+		while(true)
+		{
+			System.out.print(str.alertTargetRole);
+			 targetRole = scanner.nextLine().trim().toLowerCase();
+			if(Helper.isValidTarget(targetRole))
+				break;
+		}
+		
 		String noticeId = Helper.generateUniqueId();
 
 		Notices notice = new Notices();
@@ -36,14 +57,14 @@ public class NoticesController {
 		notice.setTargetRole(targetRole);
 
 		noticesService.addNotice(notice);
-		System.out.println("Notice created successfully!");
+		System.out.println(str.noticeCreatedSuccefully);
 	}
 
 	public void viewNotice(String role) throws SQLException, ClassNotFoundException {
 		List<Notices> notices = noticesService.getNoticeByRole(role);
 
 		if (notices == null || notices.isEmpty()) {
-			System.out.println("No notices found for role: " + role);
+			System.out.println("for role: " + role);
 		} else {
 
 			System.out.printf("| %-5s | %-15s | %-30s | %-50s | %-15s |%n", "S.No", "Title", "Message", "Date", "Role");
@@ -69,7 +90,7 @@ public class NoticesController {
 		List<Notices> notices = noticesService.getAllNotices();
 
 		if (notices == null || notices.isEmpty()) {
-			System.out.println("No notices found.");
+			System.out.println(str.noticeNotFound);
 		} else {
 			System.out.printf("| %-5s | %-15s | %-30s | %-50s | %-15s |%n", "S.No", "Title", "Message", "Date", "Role");
 			System.out.println(
@@ -93,18 +114,12 @@ public class NoticesController {
 		Notices notice = getNotice();
 
 		if (notice == null)
-			System.out.println("Notice not found!");
+			System.out.println(str.noticeNotFound);
 		else {
 			String idNotice = notice.getIdNotices();
-			String str2 = """
-					1) Title
-					2) Message
-					3) Date
-					4) TagerRole
-					5) Exit
-					""";
-			System.out.println(str2);
-			System.out.println("Select that needs to be updated");
+			
+			System.out.println(str.noticeUpdateList);
+			System.out.println(str.selectUpdate);
 			int choice = 0;
 			while (true) {
 				System.out.println(str.enterChoice);
@@ -112,73 +127,87 @@ public class NoticesController {
 				choice = Helper.choiceInput();
 				if (Helper.checkLimit(5, choice))
 					break;
-				System.out.println("Invalid User, Please try again");
-
+				System.out.println(str.invalidInput);
 			}
 
 			switch (choice) {
 			case 1: {
-				System.out.print("Enter new title: ");
-				String title = scanner.nextLine();
+				String title ;
+				while(true)
+				{
+					System.out.print(str.noticeTitle);
+					title = scanner.nextLine().trim();
+					if(Helper.notNullCheck(title))
+						break;
+					else
+						System.out.println(str.notNullNoticeTitle);
+				}
 				noticesService.updateNotice(idNotice, "title", title);
-				System.out.println("Notice updated successfully!");
+				System.out.println(str.noticeUpdatedSuccessfully);
 				break;
 			}
 			case 2: {
-				System.out.print("Enter new message: ");
-				String message = scanner.nextLine();
+				String message;
+				while(true)
+				{
+					System.out.println(str.noticeMessage);
+					
+					message = scanner.nextLine().trim();
+					if(Helper.notNullCheck(message))
+						break;
+					else
+						System.out.println(str.notNullMessage);		
+				}
 				noticesService.updateNotice(idNotice, "message", message);
-				System.out.println("Notice updated successfully!");
+				System.out.println(str.noticeUpdatedSuccessfully);
 				break;
 			}
 			case 3: {
-				System.out.print("Enter new date (yyyy-mm-dd): ");
-				String dateStr = scanner.nextLine();
-				noticesService.updateNotice(idNotice, "date", dateStr);
-				System.out.println("Notice updated successfully!");
-
+				String targetRole ;
+				while(true)
+				{
+					System.out.print(str.alertTargetRole);
+					 targetRole = scanner.nextLine().trim().toLowerCase();
+					if(Helper.isValidTarget(targetRole))
+						break;
+					
+				}
+				noticesService.updateNotice(idNotice, "targetRole", targetRole);
+				System.out.println(str.noticeUpdatedSuccessfully);
 				break;
 			}
 			case 4: {
-				System.out.print("Enter target role: ");
-				String role = scanner.nextLine();
-				noticesService.updateNotice(idNotice, "targetRole", role);
-				System.out.println("Notice updated successfully!");
-				break;
-
+				return;
 			}
 			case 5:
+			{
+				scanner.close();
+				System.exit(0);
 				return;
+			}
 			default:
-				System.out.println("Invalid Input , Please try again");
+				System.out.println(str.invalidInput);
 			}
 		}
-
 	}
-
 	public void deleteNotice() throws SQLException, ClassNotFoundException {
 		Notices notice = getNotice();
 		noticesService.deleteNotice(notice.getIdNotices());
-		System.out.println("Notice deleted successfully!");
+		System.out.println(str.noticeDeleteSuccessfully);
 	}
-
 	public Notices getNotice() throws ClassNotFoundException, SQLException {
 
 		List<Notices> notices = noticesService.getAllNotices();
 		listNotices();
-		System.out.println("Select  notice ");
+		System.out.println(str.selectNotice);
 		int choice = 0;
 		while (true) {
 			System.out.println(str.enterChoice);
-
 			choice = Helper.choiceInput();
 			if (Helper.checkLimit(notices.size(), choice))
 				break;
-			System.out.println("Invalid User, Please try again");
-
+			System.out.println(str.invalidInput);
 		}
-
 		return notices.get(choice - 1);
 	}
-
 }
